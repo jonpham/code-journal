@@ -5,3 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+User.create!({:email => "me@cj.com", :password => "asdf", :password_confirmation => "asdf" })
+
+
+# Read Text from File / JSON ?
+LessonCategory.create({category_name:'Algorithms', 
+    category_description:'Lessons that help you develop your skills with Algorithms.'})
+
+## Tower of Hanoi Problem
+
+# Lesson Code 
+
+# Test Code
+
+# Lesson
+    # t.string   "name"
+    # t.text     "concept"
+    # t.text     "purpose"
+    # t.text     "description"
+    # t.text     "example"
+    # t.integer  "lesson_code_id"
+    # t.integer  "test_code_id"
+    # t.integer  "lesson_category_id"
+Lesson.create(
+  {
+    name:'Tower of Hanoi',
+    concept:'Concept',
+    purpose:'Purpose',
+    description: 'Description',
+    example: 'Example',
+    lesson_code_id: 1,
+    test_code_id: 1,
+    lesson_category_id: LessonCategory.first.id
+  }
+)
+
+
+
