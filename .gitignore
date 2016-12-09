@@ -13,5 +13,10 @@
 !/log/.keep
 !/tmp/.keep
 
+# OS Files
+.DS_Store
+
+# Backup Files
+*.bak
 # Ignore Byebug command history file.
 .byebug_history
