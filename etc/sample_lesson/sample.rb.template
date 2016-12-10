@@ -1,8 +1,18 @@
 class <| sample_lesson |>
 
-  <| module[0] |>
+  <| user_code. 
+    <|= user_code[0] |>
 
-  <| module[1] |>
+    <|= user_code[1] |>
+
+  # Runner Code
+  def module1
+    <| user_code[0].method |>
+  end
+
+  def module2(args)
+    <| user_code[1].method |><| user_code[1].args |>
+  end
 
 end
 

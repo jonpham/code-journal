@@ -1,30 +1,28 @@
 require 'rspec'
 require 'cj_code_runner'
 
+# include CodeRunner
 class SampleLesson
-include CodeRunner
-
   def initialize
   end
   # User Code
 
   def say_hello
-    puts "hello world!"
+    puts 'hello world!'
   end
 
-  def say_words(word1,word2)
+  def say_words(word1, word2)
     puts "This is me saying, #{word1} and #{word2}"
   end
 
   # Runner Code
-  def module1(data_hash)
-
+  def module1
+    say_hello
   end
 
-  def module2(data_hash)
-    
+  def module2(args)
+    say_words(args[0], args[1])
   end
-
 end
 
 RSpec.describe SampleLesson do 
