@@ -1,0 +1,20 @@
+<h2><%= @category.category_name %></h2>
+
+<h3>Description</h3>
+<div>
+  <%= @category.category_description %>
+</div>
+<div class="lesson_categories">
+<h3>Lessons</h3>
+  <ul>
+  <% @category.lessons do |lesson| %>
+    <li>
+      <b><%= link_to lesson.name, "/lesson/#{lesson.id}" %></b>
+    </li>
+  <% end %>
+  </ul>
+</div>
+<hr>
+<div>
+  <%= link_to "Return to Lessons Index", '/lesson_categories' %>
+</div>
