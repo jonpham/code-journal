@@ -10,4 +10,5 @@
 #
 
 class LessonCategory < ApplicationRecord
+  has_many :lessons
 end

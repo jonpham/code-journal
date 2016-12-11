@@ -10,4 +10,5 @@
 #
 
 class CodeSnippet < ApplicationRecord
+  belongs_to :module_session
 end

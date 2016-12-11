@@ -10,4 +10,5 @@
 #
 
 class LessonCode < ApplicationRecord
+  belongs_to :lesson
 end
