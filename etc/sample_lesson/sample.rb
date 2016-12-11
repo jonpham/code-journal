@@ -1,11 +1,33 @@
 require 'rspec'
 # require 'cj_code_runner'
 
-# include CodeRunner
-class SampleLesson
+# include CodeRunner 
+class SampleLesson # (module 0 )
   def initialize
   end
-  # User Code
+
+  # Lesson Class Runner
+  def run
+    puts say_hello
+    puts say_words('hello','world!')
+    puts say_string_array(['hello','world!'])
+    return 0
+  end
+
+  # Module Code
+  def _say_hello #(module 1)
+    # Return Appropriate String
+  end
+  
+  def _say_words(word1, word2) #(module 2)
+    # Return Appropriate String
+  end
+
+  def _say_words(input_array=[]) #(module 3)
+    # Return Appropriate String
+  end
+
+  # User Code Snippets
 
   def say_hello
     string = 'This is me saying, hello world!'
@@ -36,7 +58,16 @@ class SampleLesson
   end
 end
 
+
+# TEST CODE (Lesson)
 RSpec.describe SampleLesson do 
+  # TEST CODE (Lesson)
+  it 'should consolidate the SampleLessons for "Hello World"' do 
+    uut = SampleLesson.new
+    expect(uut.run).to eq(0)
+  end
+
+  # TEST CODE (Module)
   describe '#module1' do 
     it 'should return "This is me saying, hello world!"' do
       uut = SampleLesson.new 
@@ -44,7 +75,8 @@ RSpec.describe SampleLesson do
       expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
     end
   end
-
+  
+  # TEST CODE (Module)
   describe '#module2' do 
     it 'should return "This is me saying, hello world!"' do
       uut = SampleLesson.new 
@@ -52,7 +84,8 @@ RSpec.describe SampleLesson do
       expect(uut.module2(test_set2)).to eq('This is me saying, hello world!')
     end
   end
-
+  
+  # TEST CODE (Module)
   describe '#module3' do 
     it 'should return "This is me saying, hello world!"' do
       uut = SampleLesson.new 

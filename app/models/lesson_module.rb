@@ -1,0 +1,2 @@
+class LessonModule < ApplicationRecord
+end

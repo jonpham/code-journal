@@ -27,7 +27,7 @@ end
 
 ####**Module3**
 ```
-def say_worlds(input_array=[])
+def say_words(input_array=[])
     # Return Appropriate String
 end
 ```

@@ -10,16 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207051233) do
+ActiveRecord::Schema.define(version: 20161211212458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "code_snippets", force: :cascade do |t|
+    t.text     "user_source_code"
+    t.integer  "module_session_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "lesson_categories", force: :cascade do |t|
     t.string   "category_name"
     t.text     "category_description"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "lesson_codes", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.text     "source_code"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "lesson_modules", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lesson_sessions", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -33,6 +60,12 @@ ActiveRecord::Schema.define(version: 20161207051233) do
     t.integer  "lesson_category_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "test_codes", force: :cascade do |t|
+    t.integer  "module_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
