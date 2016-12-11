@@ -26,7 +26,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :lesson_sessions
-  has_many :module_sessions
+  has_many :module_sessions, through: :lesson_sessions
   has_many :code_snippets
-  
+
 end
