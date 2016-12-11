@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211212458) do
+ActiveRecord::Schema.define(version: 20161211215913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,22 @@ ActiveRecord::Schema.define(version: 20161211212458) do
     t.integer  "lesson_category_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "module_codes", force: :cascade do |t|
+    t.integer  "module_id"
+    t.string   "method_name"
+    t.integer  "arg_number"
+    t.string   "return_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "module_sessions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "module_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "test_codes", force: :cascade do |t|
