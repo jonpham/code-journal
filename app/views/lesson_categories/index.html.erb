@@ -1,0 +1,17 @@
+<h1>Add Stand-In Page for Lesson Category Index</h1>
+<h2>Categories</h2>
+<div>
+  For Now Use a List:<br>
+  <%= link_to "Create a New Category" , "/lesson_categories/new" %>
+</div>
+<hr>
+<div class="lesson_categories">
+  <% @categories.each do |category| %>
+    <b><%= link_to category.category_name, "/lesson_categories/#{category.id}" %></b>
+    <ul>
+      <% category.lessons.each do |lesson| %>
+        <li><%= link_to "/lessons/#{lesson.id}", lesson.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

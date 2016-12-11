@@ -1,0 +1,36 @@
+<h2>Add a New Category</h2>
+
+
+<h2><%= @page_title %></h2>
+
+<% if @new_category.errors.any? %>
+  <div class="error_explanation">
+    <h4><%= pluralize(@new_category.errors.count, "error") %> prohibited this post from being saved:</h4>
+
+    <ul>
+    <% @new_category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag '/lesson_categories', method: :post do %>
+  <div>
+    <%= label_tag :category_name, "Category Name : " %>
+    <%= text_field_tag :input_category_name %>  
+  </div>
+  
+  <div>
+    <%= label_tag :description, "Category Description : " %><br>
+    <%= text_area_tag :input_description %> 
+  </div>
+
+  <div>
+    <%= submit_tag "Submit New Category" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return to Lesson Index Page." , "/lesson_categories" %>
+</div>
