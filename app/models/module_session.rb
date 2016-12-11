@@ -1,0 +1,2 @@
+class ModuleSession < ApplicationRecord
+end
