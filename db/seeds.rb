@@ -9,12 +9,11 @@
 
 User.create!({:email => "me@cj.com", :password => "asdf", :password_confirmation => "asdf" })
 
-
 # Read Text from File / JSON ?
-LessonCategory.create({category_name:'Algorithms', 
-    category_description:'Lessons that help you develop your skills with Algorithms.'})
+LessonCategory.create({category_name:'Development', 
+    category_description:'Lessons that help to make this App.'})
 
-## Tower of Hanoi Problem
+## Sample Problem
 
 # Lesson Code 
 
