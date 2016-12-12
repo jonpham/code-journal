@@ -1,8 +1,5 @@
 <h2>Add a New Category</h2>
 
-
-<h2><%= @page_title %></h2>
-
 <% if @new_category.errors.any? %>
   <div class="error_explanation">
     <h4><%= pluralize(@new_category.errors.count, "error") %> prohibited this post from being saved:</h4>

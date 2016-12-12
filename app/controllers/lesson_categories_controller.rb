@@ -9,8 +9,8 @@ class LessonCategoriesController < ApplicationController
   end
 
   def create
-    @new_category = LessonCategory.new({category_name: params[:input_category_name], 
-      category_description: params[:input_description]})
+    @new_category = LessonCategory.new({name: params[:input_category_name], 
+      description: params[:input_description]})
     if @new_category.save
       redirect_to '/lesson_categories/' # Redirect to lesson Creation Wizard after.
     else
