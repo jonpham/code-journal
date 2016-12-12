@@ -30,14 +30,14 @@ LessonCategory.create({category_name:'Development',
     # t.integer  "lesson_category_id"
 Lesson.create(
   {
-    name:'Tower of Hanoi',
+    name:'Sample Lesson',
     concept:'Concept',
-    purpose:'Purpose',
+    purpose:'Purpose: Hello World!',
     description: 'Description',
     example: 'Example',
     lesson_code_id: 1,
     test_code_id: 1,
-    lesson_category_id: LessonCategory.first.id
+    lesson_category_id: LessonCategory.find_by(category_name:'Development').id
   }
 )
 
