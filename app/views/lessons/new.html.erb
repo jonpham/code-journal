@@ -1,0 +1,51 @@
+<h2>Add a New Lesson</h2>
+
+<% if @new_lesson.errors.any? %>
+  <div class="error_explanation">
+    <h4><%= pluralize(@new_lesson.errors.count, "error") %> prohibited this post from being saved:</h4>
+
+    <ul>
+    <% @new_lesson.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag '/lessons', method: :post do %>
+  <div>
+    <%= label_tag :category, "Category : " %>
+    <%= collection_select :lesson_category, :lesson_category_id, LessonCategory.all, :id, :name %>  
+  </div>
+  <div>
+    <%= label_tag :name, "Lesson Name : " %>
+    <%= text_field_tag :input_lesson_name %>  
+  </div>
+  
+  <div>
+    <%= label_tag :description, "Lesson Description : " %><br>
+    <%= text_area_tag :input_description %> 
+  </div>
+  <div>
+    <%= label_tag :concept, "Lesson Concept : " %><br>
+    <%= text_area_tag :input_concept %> 
+  </div>
+
+  <div>
+    <%= label_tag :purpose, "Lesson Purpose : " %><br>
+    <%= text_area_tag :input_purpose %> 
+  </div>
+
+  <div>
+    <%= label_tag :example, "Lesson Example : " %><br>
+    <%= text_area_tag :input_example %> 
+  </div>
+
+  <div>
+    <%= submit_tag "Submit New Lesson" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return to Lesson Index Page." , "/lesson_categories" %>
+</div>

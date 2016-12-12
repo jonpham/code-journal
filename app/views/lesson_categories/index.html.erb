@@ -10,7 +10,7 @@
     <b><%= link_to category.name, "/lesson_categories/#{category.id}" %></b>
     <ul>
       <% category.lessons.each do |lesson| %>
-        <li><%= link_to "/lessons/#{lesson.id}", lesson.name %></li>
+        <li><%= link_to lesson.name, "/lessons/#{lesson.id}" %></li>
       <% end %>
     </ul>
   <% end %>
