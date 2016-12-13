@@ -8,6 +8,7 @@ All sections should be converted to Markdown -> HTML Blocks
   <li> <%= link_to "Delete Lesson." , "/lessons/{@lesson.id}", method: :delete %></li>
 </ul>
 </div>
+<%= form_tag %>
 
 <h2>Description</h2>
   <p><%= @lesson.description %></p>
@@ -20,6 +21,8 @@ All sections should be converted to Markdown -> HTML Blocks
 
 <h2>Example</h2>
   <p><%= @lesson.example %></p>
+
+<% end %>
 
 
 

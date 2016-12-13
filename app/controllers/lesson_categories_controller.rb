@@ -22,4 +22,15 @@ class LessonCategoriesController < ApplicationController
   def show 
     @category = LessonCategory.find_by(id: params[:id])
   end
+
+  def update
+    @category = LessonCategory.find_by(id: params[:id])
+    @category.update_attributes({name: params[:input_category_name], 
+      description: params[:input_description]})
+  end
+
+  def destroy
+    category = LessonCategory.find_by(id: params[:id])
+    category.destroy
+  end
 end

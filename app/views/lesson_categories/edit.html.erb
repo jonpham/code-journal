@@ -1,0 +1,42 @@
+<h2>Edit Category</h2>
+
+<% if @category.errors.any? %>
+  <div class="error_explanation">
+    <h4><%= pluralize(@category.errors.count, "error") %> prohibited this post from being saved:</h4>
+
+    <ul>
+    <% @category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag '/lesson_categories', method: :patch do %>
+  <div>
+    <%= hidden_field_tag :id, @category.id %>
+    <%= label_tag :category_name, "Category Name : " %>
+    <%= text_field_tag :input_category_name, @category.name %>  
+  </div>
+  
+  <div>
+    <%= label_tag :description, "Category Description : " %><br>
+    <%= text_area_tag :input_description, @category.description %> 
+  </div>
+
+  <div>
+    <%= submit_tag "Update Category" %>
+  </div>
+<% end %>
+
+<div class="admin_actions">
+<ul>
+  <li><%= link_to "Create New Lesson", "/lessons/new?category_id=#{@category.id}" %> </li>
+  <li><%= link_to "Edit Category", "/lesson_categories/#{@category.id}/edit" %> </li>
+  <li> <%= link_to "Delete Category." , "/lesson_categories/{@category.id}", method: :delete %></li>
+</ul>
+</div>
+
+<div>
+  <%= link_to "Return to Lesson Index Page." , "/lesson_categories" %>
+</div>

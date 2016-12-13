@@ -15,6 +15,14 @@
   </ul>
 </div>
 <hr>
+
+<div class="admin_actions">
+<ul>
+  <li><%= link_to "Create New Lesson", "/lessons/new?category_id=#{@category.id}" %> </li>
+  <li><%= link_to "Edit Category", "/lesson_categories/#{@category.id}/edit" %> </li>
+  <li> <%= link_to "Delete Category." , "/lesson_categories/{@category.id}", method: :delete %></li>
+</ul>
+</div>
 <div>
   <%= link_to "Return to Lessons Index", '/lesson_categories' %>
 </div>
