@@ -17,4 +17,5 @@
 
 class Lesson < ApplicationRecord
   belongs_to :lesson_category
+  has_many :lesson_modules
 end

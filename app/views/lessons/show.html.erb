@@ -21,6 +21,13 @@ All sections should be converted to Markdown -> HTML Blocks
 <h2>Example</h2>
   <p><%= @lesson.example %></p>
 
+<h2>Modules</h2>
+<ul>
+  <% @lesson.lesson_modules.each do |lesson_module| %>
+    <li><%= link_to lesson_module.id, "/lesson_modules/#{lesson_module.id}" %></li>
+  <% end %>
+</ul>
+
 
 
 
