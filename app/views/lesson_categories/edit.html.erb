@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<%= form_tag '/lesson_categories', method: :patch do %>
+<%= form_tag "/lesson_categories/#{@category.id}", method: :patch do %>
   <div>
     <%= hidden_field_tag :id, @category.id %>
     <%= label_tag :category_name, "Category Name : " %>
@@ -32,8 +32,7 @@
 <div class="admin_actions">
 <ul>
   <li><%= link_to "Create New Lesson", "/lessons/new?category_id=#{@category.id}" %> </li>
-  <li><%= link_to "Edit Category", "/lesson_categories/#{@category.id}/edit" %> </li>
-  <li> <%= link_to "Delete Category." , "/lesson_categories/{@category.id}", method: :delete %></li>
+  <li>  <%= link_to "Delete ." , "/contacts/#{@contact.id}?fname=#{@contact.first_name}&lname=#{@contact.last_name}", method: :delete %></li>
 </ul>
 </div>
 

@@ -15,6 +15,15 @@ class LessonsController < ApplicationController
 
   def update
     @lesson = Lesson.find_by(id: params[:id])
+    @lesson.update_attributes({
+      name: params[:input_lesson_name],
+      concept: params[:input_concept],
+      purpose: params[:input_purpose],         
+      description: params[:input_description],
+      example: params[:input_example],
+      lesson_category_id: params[:lesson_category][:lesson_category_id]
+    })
+    redirect_to "/lessons/#{@lesson.id}"
   end
 
   def new
@@ -35,5 +44,8 @@ class LessonsController < ApplicationController
   end
 
   def destroy
+    @lesson = Lesson.find_by(id: params[:id])
+    @lesson.destroy
+    redirect_to '/lesson_categories'
   end
 end

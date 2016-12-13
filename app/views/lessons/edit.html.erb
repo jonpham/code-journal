@@ -1,26 +1,33 @@
-<h1><%= @lesson.name %></h1>
+<%= form_tag "/lessons/#{@lesson.id}", method: :patch do %>
+<h1><%= text_field_tag :input_name, @lesson.name %> </h1>
 
-All sections should be converted to Markdown -> HTML Blocks
+All sections should be converted to Markdown Editors
 <div class="admin_actions">
 <ul>
   <li><%= link_to "Create New Module", "/lessons/new?lesson_id=#{@lesson.id}" %> </li>
-  <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
   <li> <%= link_to "Delete Lesson." , "/lessons/{@lesson.id}", method: :delete %></li>
 </ul>
 </div>
-<%= form_tag %>
 
 <h2>Description</h2>
-  <p><%= @lesson.description %></p>
+  <%= text_area_tag :input_description, @lesson.description %> 
+
+<div>
+  <%= label_tag :category, "Category : " %>
+  <%= collection_select :lesson_category, :lesson_category_id, LessonCategory.all, :id, :name %>  
+</div>
 
 <h2>Concept</h2>
-  <p><%= @lesson.concept %></p>
+  <%= text_area_tag :input_concept, @lesson.concept %> 
+
 
 <h2>Purpose</h2>
-  <p><%= @lesson.purpose %></p>
+  <%= text_area_tag :input_purpose, @lesson.purpose %> 
 
 <h2>Example</h2>
-  <p><%= @lesson.example %></p>
+  <%= text_area_tag :input_example, @lesson.example %> 
+
+<%= submit_tag "Save" %>
 
 <% end %>
 
