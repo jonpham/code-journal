@@ -32,5 +32,6 @@ class LessonCategoriesController < ApplicationController
   def destroy
     category = LessonCategory.find_by(id: params[:id])
     category.destroy
+    redirect_to '/lesson_categories/'
   end
 end

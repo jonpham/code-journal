@@ -5,7 +5,7 @@ All sections should be converted to Markdown Editors
 <div class="admin_actions">
 <ul>
   <li><%= link_to "Create New Module", "/lessons/new?lesson_id=#{@lesson.id}" %> </li>
-  <li> <%= link_to "Delete Lesson." , "/lessons/{@lesson.id}", method: :delete %></li>
+  <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
 </ul>
 </div>
 

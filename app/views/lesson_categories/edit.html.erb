@@ -32,7 +32,7 @@
 <div class="admin_actions">
 <ul>
   <li><%= link_to "Create New Lesson", "/lessons/new?category_id=#{@category.id}" %> </li>
-  <li>  <%= link_to "Delete ." , "/contacts/#{@contact.id}?fname=#{@contact.first_name}&lname=#{@contact.last_name}", method: :delete %></li>
+  <li> <%= link_to "Delete Category." , "/lesson_categories/#{@category.id}", method: :delete %></li>
 </ul>
 </div>
 

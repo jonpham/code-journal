@@ -16,7 +16,7 @@ class LessonsController < ApplicationController
   def update
     @lesson = Lesson.find_by(id: params[:id])
     @lesson.update_attributes({
-      name: params[:input_lesson_name],
+      name: params[:input_name],
       concept: params[:input_concept],
       purpose: params[:input_purpose],         
       description: params[:input_description],
