@@ -1,0 +1,14 @@
+All sections should be converted to Markdown -> HTML Blocks
+<div class="admin_actions">
+<ul>
+  <li><%= link_to "Edit Module", "/lesson_modules/#{@module.id}/edit" %> </li>
+  <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
+</ul>
+</div>
+
+Module for <%= @module.lesson.id %>
+
+
+
+
+

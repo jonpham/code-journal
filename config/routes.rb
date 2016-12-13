@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get '/', to: 'statics#index'
 
   # Add Resources for Controllers
-  resources :lesson_categories, :lessons
+  resources :lesson_categories, :lessons, :lesson_modules
 end

@@ -3,7 +3,7 @@
 All sections should be converted to Markdown -> HTML Blocks
 <div class="admin_actions">
 <ul>
-  <li><%= link_to "Create New Module", "/lessons/new?lesson_id=#{@lesson.id}" %> </li>
+  <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
   <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
   <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
 </ul>

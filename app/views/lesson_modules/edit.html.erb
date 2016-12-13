@@ -1,0 +1,22 @@
+<%= form_tag "/lesson_modules/#{@module.id}", method: :patch do %>
+
+All Text sections should be converted to Markdown Editors
+<div class="admin_actions">
+<ul>
+  <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
+</ul>
+</div>
+
+<h2>Description</h2>
+  <%= text_area_tag :input_description%> 
+
+<h2>Code / Test </h2>
+  <%= text_area_tag :input_code %> 
+
+<%= submit_tag "Save" %>
+
+<% end %>
+
+
+
+

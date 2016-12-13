@@ -1,0 +1,28 @@
+<h2>Add a New Module to the Lesson</h2>
+
+<% if @new_module.errors.any? %>
+  <div class="error_explanation">
+    <h4><%= pluralize(@new_module.errors.count, "error") %> prohibited this post from being saved:</h4>
+
+    <ul>
+    <% @new_module.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag '/lesson_modules', method: :post do %>
+  <div>
+    <%= label_tag :lesson, "Lesson ID : " %>
+    <%= text_field_tag :lesson_id, params[:lesson_id] %>  
+  </div>
+
+  <div>
+    <%= submit_tag "Submit New Module" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return to Lesson Page." , "/lessons/#{params[:lesson_id]}" %>
+</div>
