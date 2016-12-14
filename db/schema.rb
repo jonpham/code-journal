@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212000632) do
+ActiveRecord::Schema.define(version: 20161214005132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,17 +29,12 @@ ActiveRecord::Schema.define(version: 20161212000632) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "lesson_codes", force: :cascade do |t|
-    t.integer  "lesson_id"
-    t.text     "source_code"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "lesson_modules", force: :cascade do |t|
     t.integer  "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "lesson_ordinal"
+    t.text     "description"
   end
 
   create_table "lesson_sessions", force: :cascade do |t|
@@ -55,8 +50,6 @@ ActiveRecord::Schema.define(version: 20161212000632) do
     t.text     "purpose"
     t.text     "description"
     t.text     "example"
-    t.integer  "lesson_code_id"
-    t.integer  "test_code_id"
     t.integer  "lesson_category_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -69,19 +62,20 @@ ActiveRecord::Schema.define(version: 20161212000632) do
     t.string   "return_type"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.text     "source_code"
   end
 
   create_table "module_sessions", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "lesson_module_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "lession_session_id"
   end
 
   create_table "test_codes", force: :cascade do |t|
-    t.integer  "lesson_module_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "module_code_id"
   end
 
   create_table "users", force: :cascade do |t|

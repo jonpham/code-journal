@@ -1,6 +1,6 @@
 class ShiftModuleNeedsAndRemoveUnnecessaryUserIds < ActiveRecord::Migration[5.0]
   def change
-    drop_table :lesson_code
+    drop_table :lesson_codes
     add_column :lesson_modules, :lesson_ordinal, :integer
     add_column :lesson_modules, :description, :text
     remove_column :module_sessions, :user_id
