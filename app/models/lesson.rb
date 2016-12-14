@@ -16,4 +16,15 @@
 class Lesson < ApplicationRecord
   belongs_to :lesson_category
   has_many :lesson_modules
+
+  def get_next_ordinal
+    # largest_ordinal = 0
+    # self.lesson_modules.each do | lesson_module | 
+    #   largest_ordinal = lesson_module.lesson_ordinal if lesson_module.lesson_ordinal > largest_ordinal
+    # end
+    # return largest_ordinal + 1
+
+    # Alternative
+    return self.lesson_modules.max_by(&:lesson_ordinal).lesson_ordinal + 1
+  end
 end
