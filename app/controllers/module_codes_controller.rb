@@ -16,14 +16,14 @@ class ModuleCodesController < ApplicationController
   def update
     @code = ModuleCode.find_by(id: params[:id])
     @code.update_attributes({
-      lesson_module_id: params[:module_id],
+      lesson_module_id: params[:lesson_module_id],
       module_ordinal: params[:module_ordinal],
       method_name: params[:method_name],
       arg_number: params[:arg_number].to_i,
       return_type: params[:return_type],
       source_code: params[:source_code],
     })
-    redirect_to "/lessons/#{@code.lesson_module.lesson.id}"
+    redirect_to "/lesson_modules/#{@code.lesson_module.id}"
   end
 
   def new
@@ -41,13 +41,13 @@ class ModuleCodesController < ApplicationController
       module_ordinal: lesson_module.get_next_ordinal
     })
     @new_code.save
-    redirect_to "/lessons/#{lesson_module.lesson_id}"
+    redirect_to "/lesson_modules/#{lesson_module.id}"
   end
 
   def destroy
     @code = ModuleCode.find_by(id: params[:id])
-    lesson_id = @code.lesson_module.lesson.id
+    lesson_module_id = @code.lesson_module.id
     @code.destroy
-    redirect_to "/lessons/#{lesson_id}"
+    redirect_to "/lesson_modules/#{lesson_module_id}"
   end
 end

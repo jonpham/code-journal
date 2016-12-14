@@ -8,22 +8,22 @@ All Text sections should be converted to Markdown Editors
 </div>
 
 <h2>Parent Module</h2>
-  <%= text_field_tag :lesson_module_id, @code.id %>
+  <%= text_field_tag :lesson_module_id, @code.lesson_module_id %>
 
 <h2>Module Ordinal</h2>
   <%= text_field_tag :module_ordinal, @code.module_ordinal %>
 
 <h2>Method Name</h2>
-  <%= text_area_tag :method_name%> 
+  <%= text_area_tag :method_name, @code.method_name%> 
 
 <h2>Number of Method Arguments</h2>
-  <%= text_area_tag :arg_number%> 
+  <%= text_area_tag :arg_number, @code.arg_number%> 
 
 <h2>Method Return Type</h2>
-  <%= text_area_tag :return_type%> 
+  <%= text_area_tag :return_type, @code.return_type%> 
 
 <h2>Code / Test </h2>
-  <%= text_area_tag :source_code %> 
+  <%= text_area_tag :source_code, @code.source_code %> 
 
 <%= submit_tag "Save" %>
 

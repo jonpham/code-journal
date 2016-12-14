@@ -19,10 +19,11 @@ With Lesson Ordinal == <%= @module.lesson_ordinal %>
   <div style="background-color:grey">
     def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>
     <%= "&emsp;#{code.source_code}".html_safe %><br>
-    <%= "&emsp;return #{code.source_code}".html_safe %><br>
+    <%= "&emsp;return #{code.return_type}".html_safe %><br>
     end
   </div>
   </p>
+  <%= link_to "Edit Code", edit_module_code_path(code.id) %>
 <% end %>
 
 
