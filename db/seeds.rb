@@ -17,8 +17,6 @@ ModuleCode.destroy_all
 LessonModule.destroy_all
 Lesson.destroy_all
 LessonCategory.destroy_all
-
-
 #################
 
 User.create!({:email => "me@cj.com", :password => "qwer123", :password_confirmation => "qwer123" })
@@ -45,7 +43,7 @@ sample_lesson = Lesson.new(
     purpose:'Purpose: Hello World!',
     description: 'Description',
     example: 'Example',
-    lesson_category_id: LessonCategory.find_by(category_name:'Development').id
+    lesson_category_id: LessonCategory.find_by(name:'Development').id
   }
 )
 
@@ -61,7 +59,6 @@ if sample_lesson.save
 end
 
 # Lesson Code 
-if 
 
 # Test Code
 

@@ -16,7 +16,8 @@ class LessonModulesController < ApplicationController
   def update
     @module = LessonModule.find_by(id: params[:id])
     @module.update_attributes({
-      lesson_id: params[:lesson_id]
+      lesson_id: params[:lesson_id],
+      lesson_ordinal: params[:lesson_ordinal]
     })
     redirect_to "/lesson_modules/#{@module.id}"
   end
@@ -26,8 +27,11 @@ class LessonModulesController < ApplicationController
   end
 
   def create
+    lesson = Lesson.find_by(id: params[:lesson_id])
+    next_ordinal = lesson.lesson_modules
     @new_module = LessonModule.new({
-      lesson_id: params[:lesson_id]
+      lesson_id: params[:lesson_id],
+      lesson_ordinal: next_ordinal
     })
     @new_module.save
     redirect_to "/lessons/#{params[:lesson_id]}"

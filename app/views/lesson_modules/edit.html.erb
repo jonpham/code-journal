@@ -10,6 +10,9 @@ All Text sections should be converted to Markdown Editors
 <h2>Parent Lesson</h2>
   <%= text_field_tag :lesson_id, @module.id %>
 
+<h2>Lesson Ordinal</h2>
+  <%= text_field_tag :lesson_ordinal, @module.lesson_ordinal %>
+
 <h2>Description</h2>
   <%= text_area_tag :input_description%> 
 
@@ -19,6 +22,8 @@ All Text sections should be converted to Markdown Editors
 <%= submit_tag "Save" %>
 
 <% end %>
+
+<%= link_to "Cancel" , "/lesson_modules/#{@module.id}" %>
 
 
 
