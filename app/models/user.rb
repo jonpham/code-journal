@@ -27,6 +27,6 @@ class User < ApplicationRecord
 
   has_many :lesson_sessions
   has_many :module_sessions, through: :lesson_sessions
-  has_many :code_snippets
+  has_many :code_snippets, through: :module_sessions
 
 end

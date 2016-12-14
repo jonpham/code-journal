@@ -9,5 +9,5 @@
 #
 
 class TestCode < ApplicationRecord
-  belongs_to :lesson_module
+  belongs_to :module_code
 end

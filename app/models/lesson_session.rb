@@ -12,4 +12,5 @@
 class LessonSession < ApplicationRecord
   belongs_to :user
   belongs_to :lesson
+  has_many :module_sessions
 end

@@ -11,5 +11,5 @@
 
 class ModuleSession < ApplicationRecord
   belongs_to :lesson_module
-  belongs_to :user
+  has_many :code_snippets
 end

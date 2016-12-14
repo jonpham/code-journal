@@ -12,7 +12,7 @@
 
 class LessonModule < ApplicationRecord
   belongs_to :lesson
-  has_many :test_codes
   has_many :module_sessions
   has_many :module_codes
+  has_many :test_codes, through: :module_codes
 end

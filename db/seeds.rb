@@ -6,12 +6,26 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Drop All Data #
+CodeSnippet.destroy_all
+ModuleSession.destroy_all
+LessonSession.destroy_all
+User.destroy_all
 
-User.create!({:email => "me@cj.com", :password => "asdf", :password_confirmation => "asdf" })
+TestCode.destroy_all
+ModuleCode.destroy_all
+LessonModule.destroy_all
+Lesson.destroy_all
+LessonCategory.destroy_all
+
+
+#################
+
+User.create!({:email => "me@cj.com", :password => "qwer123", :password_confirmation => "qwer123" })
 
 # Read Text from File / JSON ?
-LessonCategory.create({category_name:'Development', 
-    category_description:'Lessons that help to make this App.'})
+LessonCategory.create({name:'Development', 
+  description:'Lessons that help to make this App.'})
 
 ## Sample Problem
 
@@ -24,7 +38,7 @@ LessonCategory.create({category_name:'Development',
   # t.integer  "lesson_code_id"
   # t.integer  "test_code_id"
   # t.integer  "lesson_category_id"
-sample_lesson = Lesson.create(
+sample_lesson = Lesson.new(
   {
     name:'Sample Lesson',
     concept:'Concept',
@@ -36,14 +50,18 @@ sample_lesson = Lesson.create(
 )
 
 # Add Module 0 For Lesson.
-sample_module = LessonModule.create(
-  {
-    lesson_id: sample_lesson.id,
-    lesson_ordinal: 0,
-    description: "Lesson #{sample_lesson.name}: Module 0"
-  }
-)
+if sample_lesson.save
+  sample_module = LessonModule.create(
+    {
+      lesson_id: sample_lesson.id,
+      lesson_ordinal: 0,
+      description: "Lesson #{sample_lesson.name}: Module 0"
+    }
+  )
+end
+
 # Lesson Code 
+if 
 
 # Test Code
 
