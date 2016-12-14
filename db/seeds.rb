@@ -38,7 +38,9 @@ sample_lesson = Lesson.create(
 # Add Module 0 For Lesson.
 sample_module = LessonModule.create(
   {
-    
+    lesson_id: sample_lesson.id,
+    lesson_ordinal: 0,
+    description: "Lesson #{sample_lesson.name}: Module 0"
   }
 )
 # Lesson Code 

@@ -40,6 +40,13 @@ class LessonsController < ApplicationController
       lesson_category_id: params[:lesson_category][:lesson_category_id]
     })
     @new_lesson.save
+    
+    sample_module = LessonModule.create({
+        lesson_id: @new_lesson.id,
+        lesson_ordinal: 0,
+        description: "Lesson #{@new_lesson.name}: Module 0"
+    })
+
     redirect_to '/lesson_categories'
   end
 
