@@ -15,4 +15,9 @@ class LessonModule < ApplicationRecord
   has_many :module_sessions
   has_many :module_codes
   has_many :test_codes, through: :module_codes
+
+  def get_next_ordinal
+    return 0 if self.module_codes.count < 1
+    return self.module_codes.max_by(&:module_ordinal).module_ordinal + 1
+  end
 end

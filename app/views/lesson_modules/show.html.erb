@@ -1,6 +1,7 @@
 All sections should be converted to Markdown -> HTML Blocks
 <div class="admin_actions">
 <ul>
+  <li><%= link_to "Create New Code", "/module_codes/new?module_id=#{@module.id}" %> </li>
   <li><%= link_to "Edit Module", "/lesson_modules/#{@module.id}/edit" %> </li>
   <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
 </ul>
@@ -8,6 +9,21 @@ All sections should be converted to Markdown -> HTML Blocks
 
 Module for  <%= link_to "Lesson # #{@module.lesson.id}", "/lessons/#{@module.lesson.id}" %>
 With Lesson Ordinal == <%= @module.lesson_ordinal %>
+
+<h2>Code Index</h2>
+
+<% @module.module_codes.each do |code| %>
+  <p>
+  <%= code.lesson_module_id %><br>
+  <%= code.module_ordinal %><br>
+  <div style="background-color:grey">
+    def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>
+    <%= "&emsp;#{code.source_code}".html_safe %><br>
+    <%= "&emsp;return #{code.source_code}".html_safe %><br>
+    end
+  </div>
+  </p>
+<% end %>
 
 
 
