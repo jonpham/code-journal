@@ -8,8 +8,6 @@
 #  purpose            :text
 #  description        :text
 #  example            :text
-#  lesson_code_id     :integer
-#  test_code_id       :integer
 #  lesson_category_id :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

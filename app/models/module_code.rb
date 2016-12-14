@@ -9,6 +9,7 @@
 #  return_type      :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  source_code      :text
 #
 
 class ModuleCode < ApplicationRecord

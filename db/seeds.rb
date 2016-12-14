@@ -15,31 +15,35 @@ LessonCategory.create({category_name:'Development',
 
 ## Sample Problem
 
-# Lesson Code 
-
-# Test Code
-
 # Lesson
-    # t.string   "name"
-    # t.text     "concept"
-    # t.text     "purpose"
-    # t.text     "description"
-    # t.text     "example"
-    # t.integer  "lesson_code_id"
-    # t.integer  "test_code_id"
-    # t.integer  "lesson_category_id"
-Lesson.create(
+  # t.string   "name"
+  # t.text     "concept"
+  # t.text     "purpose"
+  # t.text     "description"
+  # t.text     "example"
+  # t.integer  "lesson_code_id"
+  # t.integer  "test_code_id"
+  # t.integer  "lesson_category_id"
+sample_lesson = Lesson.create(
   {
     name:'Sample Lesson',
     concept:'Concept',
     purpose:'Purpose: Hello World!',
     description: 'Description',
     example: 'Example',
-    lesson_code_id: 1,
-    test_code_id: 1,
     lesson_category_id: LessonCategory.find_by(category_name:'Development').id
   }
 )
+
+# Add Module 0 For Lesson.
+sample_module = LessonModule.create(
+  {
+    
+  }
+)
+# Lesson Code 
+
+# Test Code
 
 
 

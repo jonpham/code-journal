@@ -2,11 +2,12 @@
 #
 # Table name: lesson_modules
 #
-#  id         :integer          not null, primary key
-#  lesson_id  :integer
-#  lesson_ordinal :integer ## ADD ME!
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  lesson_id      :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  lesson_ordinal :integer
+#  description    :text
 #
 
 class LessonModule < ApplicationRecord
