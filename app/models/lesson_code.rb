@@ -8,7 +8,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-
+#### UNNECESSARY!!! ####
 class LessonCode < ApplicationRecord
-  belongs_to :lesson
 end

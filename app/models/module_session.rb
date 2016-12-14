@@ -3,8 +3,9 @@
 # Table name: module_sessions
 #
 #  id               :integer          not null, primary key
-#  user_id          :integer
+#  user_id          :integer          # REMOVE ME
 #  lesson_module_id :integer
+#  lesson_session_id :integer ##ADD ME
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
