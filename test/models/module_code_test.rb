@@ -10,6 +10,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  source_code      :text
+#  module_ordinal   :integer
 #
 
 require 'test_helper'
