@@ -4,6 +4,7 @@ All Text sections should be converted to Markdown Editors
 <div class="admin_actions">
 <ul>
   <li> <%= link_to "Delete Code." , "/module_codes/#{@code.id}", method: :delete %></li>
+  <li> <%= link_to "Add Test Code." , "/test_codes/new?module_code_id=#{@code.id}" %></li>
 </ul>
 </div>
 

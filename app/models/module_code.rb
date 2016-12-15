@@ -15,4 +15,5 @@
 
 class ModuleCode < ApplicationRecord
   belongs_to :lesson_module
+  has_many :test_codes
 end

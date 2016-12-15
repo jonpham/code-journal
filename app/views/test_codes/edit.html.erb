@@ -1,0 +1,21 @@
+<%= form_tag "/test_codes/#{@test_code.id}", method: :patch do %>
+
+All Text sections should be converted to Markdown Editors
+<div class="admin_actions">
+<ul>
+  <li> <%= link_to "Delete Code." , "/test_codes/#{@test_code.id}", method: :delete %></li>
+</ul>
+</div>
+
+<h2>Tests Parent Code</h2>
+  <%= text_field_tag :module_code_id, params[:module_code_id] %>
+
+<%= submit_tag "Save" %>
+
+<% end %>
+
+<%= link_to "Cancel" , "/test_codes/#{@test_code.id}" %>
+
+
+
+

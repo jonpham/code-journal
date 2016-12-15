@@ -1,0 +1,27 @@
+<h2>Add a New Module to the Lesson</h2>
+
+<% if @test_code.errors.any? %>
+  <div class="error_explanation">
+    <h4><%= pluralize(@test_code.errors.count, "error") %> prohibited this post from being saved:</h4>
+
+    <ul>
+    <% @test_code.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag '/test_codes', method: :post do %>
+
+<h2>Tests Parent Code</h2>
+  <%= text_field_tag :module_code_id, params[:module_code_id] %>
+
+  <div>
+    <%= submit_tag "Submit New Test Code for Method" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return to Module Page." , "/lesson_modules/#{params[:lesson_module_id]}" %>
+</div>
