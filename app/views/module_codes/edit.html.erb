@@ -32,6 +32,19 @@ All Text sections should be converted to Markdown Editors
 
 <%= link_to "Cancel" , "/module_codes/#{@code.id}" %>
 
+<% if @code.test_codes.count > 0 %>
+  <h1>Edit Tests</h1>
+  <ul>
+  <% @code.test_codes.each do |test_code| %>
+    <li> 
+      <span><%= "Test Code ##{test_code.id}" %></span>
+      <span><%= link_to "Edit Test Code." , "/test_codes/#{test_code.id}/edit", method: :get%></span>
+      <span><%= link_to "Delete Code." , "/test_codes/#{test_code.id}", method: :delete %></span>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+
 
 
 

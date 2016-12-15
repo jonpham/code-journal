@@ -16,7 +16,7 @@ class TestCodesController < ApplicationController
     @test_code.update_attributes({
       module_code_id: params[:module_code_id].to_i
     })
-    redirect_to "/lesson_modules/#{@test_code.module_code.lesson_module.id}"
+    redirect_to "/module_codes/#{@test_code.module_code.id}/edit"
   end
 
   def new
@@ -28,7 +28,7 @@ class TestCodesController < ApplicationController
       module_code_id: params[:module_code_id]
     })
     @test_code.save
-    redirect_to "/module_codes/#{params[:module_code_id]}"
+    redirect_to "/module_codes/#{@test_code.module_code.id}/edit"
   end
 
   def destroy
