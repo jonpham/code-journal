@@ -1,36 +1,58 @@
-<%= form_tag "/lessons/#{@lesson.id}", method: :patch do %>
-<h1><%= text_field_tag :input_name, @lesson.name %> </h1>
+<%= tinymce_assets %>
 
-All sections should be converted to Markdown Editors
-<div class="admin_actions">
-<ul>
-  <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
-  <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
-</ul>
+<div class="container">
+  <div class="row">
+      
+  <div class="col-md-8">
+    <%= form_tag "/lessons/#{@lesson.id}", method: :patch do %>
+      <h1><%= text_field_tag :input_name, @lesson.name %> </h1>
+
+      All sections should be converted to Markdown Editors
+
+      <h2>Description</h2>
+        <%= text_area_tag :input_description, @lesson.description,class: "tinymce" %> 
+
+      <div>
+        <%= label_tag :category, "Category : " %>
+        <%= collection_select :lesson_category, :lesson_category_id, LessonCategory.all, :id, :name %>  
+      </div>
+
+      <h2>Concept</h2>
+        <%= text_area_tag :input_concept, @lesson.concept,class: "tinymce" %> 
+
+
+      <h2>Purpose</h2>
+        <%= text_area_tag :input_purpose, @lesson.purpose,class: "tinymce" %> 
+
+      <h2>Example</h2>
+        <%= text_area_tag :input_example, @lesson.example,class: "tinymce" %> 
+
+      <%= submit_tag "Save" %>
+
+    <% end %>
+  </div> <!-- col -->
+  <div class="col-md-4">
+    <div class="action_menu" style="">
+      <h2>Actions</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <% if current_user && !@lesson_session %>
+          <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+          <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
+        <% else %>
+          <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% end %>
+        <li role="separator" class="divider"></li>
+        <li><strong>Administration</strong></li>
+        <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
+        <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
+      </ul>
+    </div>
+  </div> <!-- col -->
 </div>
 
-<h2>Description</h2>
-  <%= text_area_tag :input_description, @lesson.description %> 
-
-<div>
-  <%= label_tag :category, "Category : " %>
-  <%= collection_select :lesson_category, :lesson_category_id, LessonCategory.all, :id, :name %>  
-</div>
-
-<h2>Concept</h2>
-  <%= text_area_tag :input_concept, @lesson.concept %> 
 
 
-<h2>Purpose</h2>
-  <%= text_area_tag :input_purpose, @lesson.purpose %> 
-
-<h2>Example</h2>
-  <%= text_area_tag :input_example, @lesson.example %> 
-
-<%= submit_tag "Save" %>
-
-<% end %>
-
+<%= tinymce %>
 
 
 

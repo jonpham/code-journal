@@ -32,6 +32,8 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 
 # User Authentication
 gem 'devise'
+# WYSIWYG Content Editor
+gem 'tinymce-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
