@@ -1,32 +1,63 @@
-<h1><%= @lesson.name %></h1>
 
-All sections should be converted to Markdown -> HTML Blocks
-<div class="admin_actions">
-<ul>
-  <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
-  <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
-  <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
-</ul>
+
+
+
+<div class="container">
+  <div class="row">
+      
+  <div class="col-md-8">
+    <h1><%= @lesson.name %></h1>
+    All sections should be converted to Markdown -> HTML Blocks
+    <div class="lesson_nav">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Lesson</a></li>
+        <li role="presentation"><a href="#">Modules</a></li>
+        <li role="presentation"><a href="#">Code</a></li>
+        <li role="presentation"><a href="#">Notes</a></li>
+      </ul>
+    </div>
+
+    <div class="main_body">
+      <h2>Description</h2>
+        <p><%= @lesson.description %></p>
+
+      <h2>Concept</h2>
+        <p><%= @lesson.concept %></p>
+
+      <h2>Purpose</h2>
+        <p><%= @lesson.purpose %></p>
+
+      <h2>Example</h2>
+        <p><%= @lesson.example %></p>
+
+      <h2>Modules</h2>
+      <!-- Move to Modules Index Page -->
+      <ul>
+        <% @lesson.lesson_modules.each do |lesson_module| %>
+          <li><%= link_to lesson_module.id, "/lesson_modules/#{lesson_module.id}" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div> <!-- col -->
+  <div class="col-md-4">
+    <div class="action_menu" style="">
+      <h2>Actions</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <% if current_user && !@lesson_session %>
+          <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+          <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
+        <% else %>
+          <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% end %>
+        <li role="separator" class="divider"></li>
+        <li><strong>Administration</strong></li>
+        <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
+        <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
+        <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
+      </ul>
+    </div>
+  </div> <!-- col -->
 </div>
-
-<h2>Description</h2>
-  <p><%= @lesson.description %></p>
-
-<h2>Concept</h2>
-  <p><%= @lesson.concept %></p>
-
-<h2>Purpose</h2>
-  <p><%= @lesson.purpose %></p>
-
-<h2>Example</h2>
-  <p><%= @lesson.example %></p>
-
-<h2>Modules</h2>
-<ul>
-  <% @lesson.lesson_modules.each do |lesson_module| %>
-    <li><%= link_to lesson_module.id, "/lesson_modules/#{lesson_module.id}" %></li>
-  <% end %>
-</ul>
 
 
 

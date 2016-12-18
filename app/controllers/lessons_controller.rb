@@ -6,6 +6,14 @@ class LessonsController < ApplicationController
   end
 
   def show
+    if params.has_key?(:action)
+      case params[:action]
+      when "new"
+        puts "Do This" 
+      else
+        puts "Do that"
+      end
+    end
     @lesson = Lesson.find_by(id: params[:id])
   end
 
