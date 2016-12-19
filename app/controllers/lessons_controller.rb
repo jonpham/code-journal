@@ -24,12 +24,12 @@ class LessonsController < ApplicationController
   def update
     @lesson = Lesson.find_by(id: params[:id])
     @lesson.update_attributes({
-      name: params[:input_name],
-      concept: params[:input_concept],
-      purpose: params[:input_purpose],         
-      description: params[:input_description],
-      example: params[:input_example],
-      lesson_category_id: params[:lesson_category][:lesson_category_id]
+      name: params[:input_name],        
+      description: params[:input_markdown],
+      lesson_category_id: params[:lesson_category][:lesson_category_id],
+      concept: params[:input_concept], # DELETE PAST HERE?
+      purpose: params[:input_purpose], 
+      example: params[:input_example]
     })
     redirect_to "/lessons/#{@lesson.id}"
   end
