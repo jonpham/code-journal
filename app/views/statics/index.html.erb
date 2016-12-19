@@ -9,3 +9,21 @@ Currently only used for development purposes to provides links to all types of p
   <li><%= link_to 'Lesson Dashboard','/lessons' %></li>
   <li><%= link_to 'Add a New Lesson','/lessons/new' %></li>
 </ul>
+
+<div id="editor">ADD CODE HERE</div>
+<!-- Move to Ace JavaScript -->
+<script>
+var editor = ace.edit("editor");
+ace.config.set("modePath", "/ace/");
+ace.config.set("themePath", "/ace/");
+editor.getSession().setUseWorker(false);
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/ruby");
+</script>
+<!-- Move to SCSS -->
+<style type="text/css" media="screen">
+    #editor { 
+        width: 60em;
+        height: 300px;
+    }
+</style>
