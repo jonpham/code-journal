@@ -37,6 +37,9 @@ gem 'devise'
 gem 'redcarpet'
 gem 'rouge'
 
+# Markdown
+gem 'simplemde'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

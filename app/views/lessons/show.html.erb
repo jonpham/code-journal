@@ -33,14 +33,18 @@
         <% if current_user && !@lesson_session %>
           <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
           <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
-        <% else %>
+        <% elsif current_user%>
           <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% else %>
+          <li><%= link_to "Sign Up to Start Lesson.", "/users/sign_up"%></li>
         <% end %>
         <li role="separator" class="divider"></li>
-        <li><strong>Administration</strong></li>
-        <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
-        <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
-        <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
+        <% if !current_user #EDIT THIS OUT %>
+          <li><strong>Administration</strong></li>
+          <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
+          <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
+          <li> <%= link_to "Delete Lesson." , "/lessons/#{@lesson.id}", method: :delete %></li>
+        <% end %>
       </ul>
     </div>
   </div> <!-- col -->

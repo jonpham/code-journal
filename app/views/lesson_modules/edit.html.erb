@@ -17,7 +17,24 @@ All Text sections should be converted to Markdown Editors
   <%= text_area_tag :input_description%> 
 
 <h2>Code / Test </h2>
-  <%= text_area_tag :input_code %> 
+  <%= text_area_tag :input_code, script %> 
+  <div id="editor">ADD CODE HERE</div>
+  <!-- Move to Ace JavaScript -->
+  <script>
+  var editor = ace.edit("editor");
+  ace.config.set("modePath", "/ace/");
+  ace.config.set("themePath", "/ace/");
+  editor.getSession().setUseWorker(false);
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/ruby");
+  </script>
+  <!-- Move to SCSS -->
+  <style type="text/css" media="screen">
+    #editor { 
+      width: 60em;
+      height: 300px;
+    }
+  </style>
 
 <%= submit_tag "Save" %>
 
