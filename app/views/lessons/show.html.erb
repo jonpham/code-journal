@@ -26,16 +26,6 @@
       </ul>
     </div>
 
-    <%= raw to_markdown(<<-'EOF'
-    ```ruby
-    def rouge_me
-      puts "this is a #{'test'} for rouge"
-    end
-    ```
-    EOF
-    ) %>
-
-    <%= raw rouge("def rouge_me\n  puts 'hey!'\nend", "ruby") %>
   </div> <!-- col -->
   <div class="col-md-4">
     <div class="action_menu" style="">
