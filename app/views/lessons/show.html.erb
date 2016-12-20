@@ -20,8 +20,8 @@
       <h2>Modules</h2>
       <!-- Move to Modules Index Page -->
       <ul>
-        <% @lesson.lesson_modules.each do |lesson_module| %>
-          <li><%= link_to lesson_module.id, "/lesson_modules/#{lesson_module.id}" %></li>
+        <% @lesson.lesson_modules.each_with_index do |lesson_module,i| %>
+          <li><%= link_to (i).to_s, "/lesson_modules/#{lesson_module.id}" %></li>
         <% end %>
       </ul>
     </div>

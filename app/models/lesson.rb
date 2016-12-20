@@ -16,6 +16,7 @@
 class Lesson < ApplicationRecord
   belongs_to :lesson_category
   has_many :lesson_modules
+  # has_many :module_codes, through: :lesson_modules
 
   def get_next_ordinal
     # largest_ordinal = 0
