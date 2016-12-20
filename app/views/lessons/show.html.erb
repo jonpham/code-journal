@@ -15,7 +15,7 @@
     </div>
 
     <div class="main_body">
-      <p><%= to_markdown(@lesson.description) %></p>
+      <p><%= to_markdown(@lesson.description).html_safe %></p>
       <hr>
       <h2>Modules</h2>
       <!-- Move to Modules Index Page -->
@@ -25,6 +25,17 @@
         <% end %>
       </ul>
     </div>
+
+    <%= raw to_markdown(<<-'EOF'
+    ```ruby
+    def rouge_me
+      puts "this is a #{'test'} for rouge"
+    end
+    ```
+    EOF
+    ) %>
+
+    <%= raw rouge("def rouge_me\n  puts 'hey!'\nend", "ruby") %>
   </div> <!-- col -->
   <div class="col-md-4">
     <div class="action_menu" style="">

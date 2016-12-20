@@ -25,12 +25,22 @@ module ApplicationHelper
     # raise Markdown
     extensions = {
       autolink:           true,
+      fenced_code_blocks: true,
       lax_spacing:        true,
       no_intra_emphasis:  true,
       strikethrough:      true,
       superscript:        true,
-      disable_indented_code_blocks: false
+      disable_indented_code_blocks: true
     }
-    return Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
+    markdown = Redcarpet::Markdown.new(renderer, extensions);
+    return markdown.render(text)
   end
+
+  def rouge(text, language)
+    formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
+    lexer = Rouge::Lexer.find(language)
+    # raise Rouging
+    return formatter.format(lexer.lex(text))
+  end
+
 end
