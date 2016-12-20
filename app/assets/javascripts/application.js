@@ -14,6 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require ace/ace
-//= require simplemde
+// require simplemde
 //= require turbolinks
 //= require_tree .
