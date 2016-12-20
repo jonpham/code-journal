@@ -33,6 +33,10 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 # User Authentication
 gem 'devise'
 
+# Markdown Processor
+gem 'redcarpet'
+gem 'rouge'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
