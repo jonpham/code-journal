@@ -1,7 +1,4 @@
 
-
-
-
 <div class="container">
   <div class="row">
       
@@ -18,18 +15,8 @@
     </div>
 
     <div class="main_body">
-      <h2>Description</h2>
-        <p><%= markdown(@lesson.description) %></p>
-
-      <h2>Concept</h2>
-        <p><%= @lesson.concept %></p>
-
-      <h2>Purpose</h2>
-        <p><%= @lesson.purpose %></p>
-
-      <h2>Example</h2>
-        <p><%= @lesson.example %></p>
-
+      <p><%= markdown(@lesson.description) %></p>
+      <hr>
       <h2>Modules</h2>
       <!-- Move to Modules Index Page -->
       <ul>
