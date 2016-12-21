@@ -1,0 +1,47 @@
+# FROM A COLLECTION OF CODE SNIPPETS
+
+class <%= class_name %>
+  # User Code
+  <% lesson_session.lesson_module.each_with_index do | module,i | %>
+    <%= code_snippet[0] %>
+  <% end %>
+
+  # Runner Code
+  <% lesson.lesson_module.each_with_index do | module,i | %>
+    def <%= "method#{i}" %>
+    <% if module.code[0].args.length == 0 %>
+      <%= "#{module.code[0].method_name})" %>
+    <% else %>
+      <%= "#{module.code[0].method_name}(#{expand_args(args)})" %>
+    <% end %>
+    end
+  <% end %>
+
+  # Test Code
+  def run 
+  end
+
+  def benchmark
+  end
+
+end
+
+RSpec.describe <%= class_name %> do 
+  # TEST CODE (Lesson[Module0])
+  it '<%= module[0].test_description %>' do 
+    uut = SampleLesson.new
+    expect(uut.run).to eq(<%= module[0].test_exp %>)
+  end
+
+  <% lesson.lesson_module.each_with_index do | module,i | %>
+    # TEST CODE (Module 1)
+    describe '#module1' do 
+      it '<%= test_description %>' do
+        uut = <%= class_name %>.new 
+        test_set1= <% test_values.inspect %>
+        expect(uut.module1(test_set1)).to eq(<%= text_expectation %>)
+      end
+    end
+  <% end %>
+end
+
