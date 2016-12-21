@@ -1,39 +1,72 @@
-All sections should be converted to Markdown -> HTML Blocks
-<div class="admin_actions">
-<ul>
-  <li><%= link_to "Create New Code", "/module_codes/new?module_id=#{@module.id}" %> </li>
-  <li><%= link_to "Edit Module", "/lesson_modules/#{@module.id}/edit" %> </li>
-  <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
-</ul>
+
+<div class="container">
+  <div class="row">
+      
+  <div class="col-md-8">
+    <h1><%= @lesson.name %></h1>
+    All sections should be converted to Markdown -> HTML Blocks
+    <div class="lesson_nav">
+      <ul class="nav nav-tabs">
+        <li role="presentation"><a href=<%= lessons_path(@module.lesson.id) %>>Lesson</a></li>
+        <li role="presentation" class="active"><a href="#">Modules</a></li>
+        <li role="presentation"><a href="#">Code</a></li>
+        <li role="presentation"><a href="#">Notes</a></li>
+      </ul>
+    </div>
+
+    <div class="main_body">
+      Module for  <%= link_to "Lesson # #{@module.lesson.id}", "/lessons/#{@module.lesson.id}" %>
+      With Lesson Ordinal == <%= @module.lesson_ordinal %>
+
+      <h2>Code Index</h2>
+
+      <% @module.module_codes.each do |code| %>
+        <p>
+        <%= code.lesson_module_id %><br>
+        <%= code.module_ordinal %><br>
+
+        <!-- ADD CODE BLOCK ACE -->
+
+        <!-- ================== -->
+        <div style="background-color:grey">
+          def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>
+          <%= "&emsp;#{code.source_code}".html_safe %><br>
+          <%= "&emsp;return #{code.return_type}".html_safe %><br>
+          end
+        </div>
+        </p>
+        <%= link_to "Edit Code", edit_module_code_path(code.id) %>
+        <div class="module_tests">
+        <% if code.test_codes.count > 0 %>
+          <% code.test_codes.each do |test,i| %>
+            Test #<%= test.id %>: Links to Code ID : <%= test.module_code_id %><br>
+          <% end %>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+
+  </div> <!-- col -->
+  <div class="col-md-4">
+    <div class="action_menu" style="">
+      <h2>Actions</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <% if current_user && !@lesson_session %>
+          <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+          <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
+        <% elsif current_user%>
+          <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% else %>
+          <li><%= link_to "Sign Up to Start Lesson.", "/users/sign_up"%></li>
+        <% end %>
+        <li role="separator" class="divider"></li>
+        <% if !current_user #EDIT THIS OUT %>
+          <li><strong>Administration</strong></li>
+          <li><%= link_to "Create New Code", "/module_codes/new?module_id=#{@module.id}" %> </li>
+          <li><%= link_to "Edit Module", "/lesson_modules/#{@module.id}/edit" %> </li>
+          <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div> <!-- col -->
 </div>
-
-Module for  <%= link_to "Lesson # #{@module.lesson.id}", "/lessons/#{@module.lesson.id}" %>
-With Lesson Ordinal == <%= @module.lesson_ordinal %>
-
-<h2>Code Index</h2>
-
-<% @module.module_codes.each do |code| %>
-  <p>
-  <%= code.lesson_module_id %><br>
-  <%= code.module_ordinal %><br>
-  <div style="background-color:grey">
-    def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>
-    <%= "&emsp;#{code.source_code}".html_safe %><br>
-    <%= "&emsp;return #{code.return_type}".html_safe %><br>
-    end
-  </div>
-  </p>
-  <%= link_to "Edit Code", edit_module_code_path(code.id) %>
-  <div class="module_tests">
-  <% if code.test_codes.count > 0 %>
-    <% code.test_codes.each do |test,i| %>
-      Test #<%= test.id %>: Links to Code ID : <%= test.module_code_id %><br>
-    <% end %>
-  <% end %>
-  </div>
-<% end %>
-
-
-
-
-
