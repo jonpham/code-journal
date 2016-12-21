@@ -21,6 +21,7 @@
           <div class="jumbotron"> 
             <!-- Dump Module Description & Code Block as Markdown -->
             <div>Dump Module Description and Code Block as Markdown</div>
+            <% raise Debug %>
             <%= lesson_module.description %>
             <%= link_to "Start Section." , lesson_module_path(lesson_module.id) %>
           </div>

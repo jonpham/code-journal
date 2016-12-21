@@ -18,11 +18,12 @@ class LessonModulesController < ApplicationController
 
   def update
     @module = LessonModule.find_by(id: params[:id])
-    @module.update_attributes({
+    @module.assign_attributes({
       lesson_id: params[:lesson_id],
       lesson_ordinal: params[:lesson_ordinal],
       description: params[:input_description]
     })
+    @module.save
     redirect_to "/lesson_modules/#{@module.id}"
   end
 

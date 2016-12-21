@@ -24,13 +24,13 @@
       </div>
 
       <h2>Parent Lesson</h2>
-        <%= text_field_tag :lesson_id, @module.id %>
+        <%= text_field_tag :lesson_id, @module.lesson_id %>
 
       <h2>Lesson Ordinal</h2>
         <%= text_field_tag :lesson_ordinal, @module.lesson_ordinal %>
 
       <h2>Description</h2>
-        <%= text_area_tag :input_description%> 
+        <%= text_area_tag :input_description, @module.description %> 
 
       <h2>Code / Test </h2>
         <div id="editor"><%= text_area_tag :input_code, "script" %></div>
