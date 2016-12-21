@@ -33,7 +33,8 @@ class LessonModulesController < ApplicationController
     lesson = Lesson.find_by(id: params[:lesson_id])
     @new_module = LessonModule.new({
       lesson_id: params[:lesson_id],
-      lesson_ordinal: lesson.get_next_ordinal
+      lesson_ordinal: lesson.get_next_ordinal,
+      description: params[:input_description]
     })
     @new_module.save
     redirect_to "/lessons/#{params[:lesson_id]}"

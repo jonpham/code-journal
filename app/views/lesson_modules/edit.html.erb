@@ -1,10 +1,3 @@
-<style type="text/css" media="screen">
-  #editor { 
-    width: 60em;
-    height: 300px;
-  }
-</style>
-
 <div class="container">
   <div class="row">
       
@@ -74,15 +67,8 @@
 </div>
 
 
-<script>
-var editor = ace.edit("editor");
-editor.getSession().setUseWorker(false);
-editor.setTheme("ace/theme/monokai");
-editor.getSession().setMode("ace/mode/ruby");
-</script>
-<script>
-  var simplemde = new SimpleMDE();
-</script>
+<script>initializeCodeEditor()</script>
+<script>initializeMdEditor()</script>
 
 
 

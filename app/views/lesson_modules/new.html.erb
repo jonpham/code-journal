@@ -18,6 +18,9 @@
     <%= text_field_tag :lesson_id, params[:lesson_id] %>  
   </div>
 
+  <h2>Description</h2>
+    <%= text_area_tag :input_description%> 
+
   <div>
     <%= submit_tag "Submit New Module" %>
   </div>
@@ -26,3 +29,5 @@
 <div>
   <%= link_to "Return to Lesson Page." , "/lessons/#{params[:lesson_id]}" %>
 </div>
+
+<script>initializeMdEditor()</script>
