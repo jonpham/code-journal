@@ -7,7 +7,7 @@
     <div class="lesson_nav">
       <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">Lesson</a></li>
-        <li role="presentation"><a href=<%= lesson_module_path(@lesson.lesson_modules.find_by(lesson_ordinal: 0).id) %>>Modules</a></li>
+        <li role="presentation"><a href=<%= "#{lesson_modules_path}?lid=#{@lesson.id}" %>>Modules</a></li>
         <li role="presentation"><a href="#">Code</a></li>
         <li role="presentation"><a href="#">Notes</a></li>
       </ul>

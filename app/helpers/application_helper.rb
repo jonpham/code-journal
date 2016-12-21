@@ -13,6 +13,7 @@ module ApplicationHelper
   end
 
   def to_markdown(text)
+    return "" unless text
     render_options = {
       filter_html:     true,
       hard_wrap:       true,

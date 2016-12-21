@@ -1,2 +1,49 @@
-<h1>Lesson's Run Report / Compiled Code in Codeblock Summary</h1>
-Potentially do this. 
+<div class="container">
+  <div class="row">
+      
+  <div class="col-md-8">
+    <h1><%= @lesson.name %></h1>
+    <div class="lesson_nav">
+      <ul class="nav nav-tabs">
+        <li role="presentation"><a href=<%= lesson_path(@lesson.id) %>>Lesson</a></li>
+        <li role="presentation" class="active"><a href="#">Modules</a></li>
+        <li role="presentation"><a href="#">Code</a></li>
+        <li role="presentation"><a href="#">Notes</a></li>
+      </ul>
+    </div>
+
+    <div class="main_body">
+      <!-- For Each Module in Lesson -->
+      <div>For Each Module in Lesson </div>
+      <% @lesson.lesson_modules.each do |lesson_module| %>
+        
+        <% if lesson_module.lesson_ordinal.to_i != 0 %>
+          <div class="jumbotron"> 
+            <!-- Dump Module Description & Code Block as Markdown -->
+            <div>Dump Module Description and Code Block as Markdown</div>
+            <%= lesson_module.description %>
+            <%= link_to "Start Section." , lesson_module_path(lesson_module.id) %>
+          </div>
+        <% end %>
+        
+      <% end %>
+    </div>
+
+  </div> <!-- col -->
+  <div class="col-md-4">
+    <div class="action_menu" style="">
+      <h2>Actions</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <% if current_user && !@lesson_session %>
+          <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+          <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
+        <% elsif current_user%>
+          <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% else %>
+          <li><%= link_to "Sign Up to Start Lesson.", "/users/sign_up"%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div> <!-- col -->
+</div>
+

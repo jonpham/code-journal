@@ -3,6 +3,7 @@ class LessonModulesController < ApplicationController
   def index
   # User LessonModule Dashboard
   # @user_sessions = current_user.lesson_sessions
+    @lesson = Lesson.find_by(id: params[:lid])
   end
 
   def show
