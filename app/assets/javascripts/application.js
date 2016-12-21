@@ -13,7 +13,9 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require ace/ace
+//= require ace-rails-ap
+//= require ace/theme-monokai
+//= require ace/mode-ruby
 //= require simplemde
 //= require turbolinks
 //= require_tree .

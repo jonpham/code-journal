@@ -40,6 +40,9 @@ gem 'rouge'
 # Markdown
 gem 'simplemde'
 
+# Ace
+gem 'ace-rails-ap'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
