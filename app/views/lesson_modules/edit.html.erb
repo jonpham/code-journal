@@ -1,46 +1,92 @@
-<%= form_tag "/lesson_modules/#{@module.id}", method: :patch do %>
 
-All Text sections should be converted to Markdown Editors
-<div class="admin_actions">
-<ul>
-  <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
-</ul>
+<div class="container">
+  <div class="row">
+      
+  <div class="col-md-8">
+    <h1><%= @lesson.name %></h1>
+    All sections should be converted to Markdown -> HTML Blocks
+    <div class="lesson_nav">
+      <ul class="nav nav-tabs">
+        <li role="presentation"><a href=<%= lessons_path(@lesson.id) %>>Lesson</a></li>
+        <li role="presentation" class="active"><a href="#">Modules</a></li>
+        <li role="presentation"><a href="#">Code</a></li>
+        <li role="presentation"><a href="#">Notes</a></li>
+      </ul>
+    </div>
+
+    <div class="main_body">
+      <%= form_tag "/lesson_modules/#{@module.id}", method: :patch do %>
+
+      All Text sections should be converted to Markdown Editors
+      <div class="admin_actions">
+      <ul>
+        <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
+      </ul>
+      </div>
+
+      <h2>Parent Lesson</h2>
+        <%= text_field_tag :lesson_id, @module.id %>
+
+      <h2>Lesson Ordinal</h2>
+        <%= text_field_tag :lesson_ordinal, @module.lesson_ordinal %>
+
+      <h2>Description</h2>
+        <%= text_area_tag :input_description%> 
+
+      <h2>Code / Test </h2>
+        <div id="editor"><%= text_area_tag :input_code, "script" %></div>
+        <!-- Move to Ace JavaScript -->
+        <script>
+        var editor = ace.edit("editor");
+        ace.config.set("modePath", "/ace/");
+        ace.config.set("themePath", "/ace/");
+        editor.getSession().setUseWorker(false);
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/ruby");
+        </script>
+        <!-- Move to SCSS -->
+        <style type="text/css" media="screen">
+          #editor { 
+            width: 60em;
+            height: 300px;
+          }
+        </style>
+
+      <%= submit_tag "Save" %>
+
+      <% end %>
+
+      <%= link_to "Cancel" , "/lesson_modules/#{@module.id}" %>
+    </div>
+
+  </div> <!-- col -->
+  <div class="col-md-4">
+    <div class="action_menu" style="">
+      <h2>Actions</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <% if current_user && !@lesson_session %>
+          <li><%= link_to "Start Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+          <li><%= link_to "Add to Lesson Plan Button", "/lessons/#{@lesson.id}"%></li>
+        <% elsif current_user%>
+          <li><%= link_to "Resume Lesson Button!" , "/lessons/#{@lesson.id}?new_session"%></li>
+        <% else %>
+          <li><%= link_to "Sign Up to Start Lesson.", "/users/sign_up"%></li>
+        <% end %>
+        <li role="separator" class="divider"></li>
+        <% if !current_user #EDIT THIS OUT %>
+          <li><strong>Administration</strong></li>
+          <li><%= link_to "Create New Code", "/module_codes/new?module_id=#{@module.id}" %> </li>
+          <li><%= link_to "Edit Module", "/lesson_modules/#{@module.id}/edit" %> </li>
+          <li> <%= link_to "Delete Module." , "/lesson_modules/#{@module.id}", method: :delete %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div> <!-- col -->
 </div>
 
-<h2>Parent Lesson</h2>
-  <%= text_field_tag :lesson_id, @module.id %>
 
-<h2>Lesson Ordinal</h2>
-  <%= text_field_tag :lesson_ordinal, @module.lesson_ordinal %>
 
-<h2>Description</h2>
-  <%= text_area_tag :input_description%> 
 
-<h2>Code / Test </h2>
-  <%= text_area_tag :input_code, script %> 
-  <div id="editor">ADD CODE HERE</div>
-  <!-- Move to Ace JavaScript -->
-  <script>
-  var editor = ace.edit("editor");
-  ace.config.set("modePath", "/ace/");
-  ace.config.set("themePath", "/ace/");
-  editor.getSession().setUseWorker(false);
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/ruby");
-  </script>
-  <!-- Move to SCSS -->
-  <style type="text/css" media="screen">
-    #editor { 
-      width: 60em;
-      height: 300px;
-    }
-  </style>
-
-<%= submit_tag "Save" %>
-
-<% end %>
-
-<%= link_to "Cancel" , "/lesson_modules/#{@module.id}" %>
 
 
 

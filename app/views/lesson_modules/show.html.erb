@@ -18,6 +18,8 @@
       Module for  <%= link_to "Lesson # #{@module.lesson.id}", "/lessons/#{@module.lesson.id}" %>
       With Lesson Ordinal == <%= @module.lesson_ordinal %>
 
+      <p><%= to_markdown(@module.description).html_safe %></p>
+
       <h2>Code Index</h2>
 
       <% @module.module_codes.each do |code| %>
@@ -26,23 +28,26 @@
         <%= code.module_ordinal %><br>
 
         <!-- ADD CODE BLOCK ACE -->
-        <div id="editor">ADD CODE HERE</div>
-        <!-- Move to Ace JavaScript -->
-        <script>
-        var editor = ace.edit("editor");
-        ace.config.set("modePath", "/ace/");
-        ace.config.set("themePath", "/ace/");
-        editor.getSession().setUseWorker(true);
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/ruby");
-        </script>
-        <!-- Move to SCSS -->
-        <style type="text/css" media="screen">
+        <%= form_tag "/module_codes/#{@module.id}", method: :patch do %>
+          <div id="editor"><%= text_area_tag :input_code, "script" %></div>
+          <!-- Move to Ace JavaScript -->
+          <script>
+            var editor = ace.edit("editor");
+            ace.config.set("modePath", "/ace/");
+            ace.config.set("themePath", "/ace/");
+            editor.getSession().setUseWorker(false);
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/ruby");
+          </script>
+          <!-- Move to SCSS -->
+          <style type="text/css" media="screen">
             #editor { 
-                width: 60em;
-                height: 300px;
+              width: 60em;
+              height: 300px;
             }
-        </style>
+          </style>
+        <% end %>
+        <hr>
         <!-- ================== -->
         <div style="background-color:grey">
           def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>

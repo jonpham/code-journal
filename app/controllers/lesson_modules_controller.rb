@@ -12,13 +12,15 @@ class LessonModulesController < ApplicationController
 
   def edit
     @module = LessonModule.find_by(id: params[:id])
+    @lesson = @module.lesson
   end
 
   def update
     @module = LessonModule.find_by(id: params[:id])
     @module.update_attributes({
       lesson_id: params[:lesson_id],
-      lesson_ordinal: params[:lesson_ordinal]
+      lesson_ordinal: params[:lesson_ordinal],
+      description: params[:input_description]
     })
     redirect_to "/lesson_modules/#{@module.id}"
   end

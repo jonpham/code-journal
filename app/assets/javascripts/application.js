@@ -13,7 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require ace
+//= require ace/ace
 //= require simplemde
 //= require turbolinks
 //= require_tree .
