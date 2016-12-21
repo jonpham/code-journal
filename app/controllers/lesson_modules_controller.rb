@@ -7,6 +7,7 @@ class LessonModulesController < ApplicationController
 
   def show
     @module = LessonModule.find_by(id: params[:id])
+    @lesson = @module.lesson
   end
 
   def edit

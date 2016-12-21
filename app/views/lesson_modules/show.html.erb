@@ -7,7 +7,7 @@
     All sections should be converted to Markdown -> HTML Blocks
     <div class="lesson_nav">
       <ul class="nav nav-tabs">
-        <li role="presentation"><a href=<%= lessons_path(@module.lesson.id) %>>Lesson</a></li>
+        <li role="presentation"><a href=<%= lessons_path(@lesson.id) %>>Lesson</a></li>
         <li role="presentation" class="active"><a href="#">Modules</a></li>
         <li role="presentation"><a href="#">Code</a></li>
         <li role="presentation"><a href="#">Notes</a></li>
@@ -26,7 +26,23 @@
         <%= code.module_ordinal %><br>
 
         <!-- ADD CODE BLOCK ACE -->
-
+        <div id="editor">ADD CODE HERE</div>
+        <!-- Move to Ace JavaScript -->
+        <script>
+        var editor = ace.edit("editor");
+        ace.config.set("modePath", "/ace/");
+        ace.config.set("themePath", "/ace/");
+        editor.getSession().setUseWorker(true);
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/ruby");
+        </script>
+        <!-- Move to SCSS -->
+        <style type="text/css" media="screen">
+            #editor { 
+                width: 60em;
+                height: 300px;
+            }
+        </style>
         <!-- ================== -->
         <div style="background-color:grey">
           def <%= code.method_name %> ( <% code.arg_number.times do |i|%> <%="arg#{i+1} "%><%end%>)<br>
