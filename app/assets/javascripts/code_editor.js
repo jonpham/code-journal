@@ -4,3 +4,5 @@ function initializeCodeEditor() {
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/ruby");
 }
+
+initializeCodeEditor();
