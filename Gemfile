@@ -37,7 +37,7 @@ gem 'devise'
 gem 'redcarpet'
 gem 'rouge'
 
-# Markdown
+# Markdown Editor
 gem 'simplemde'
 
 # Ace
