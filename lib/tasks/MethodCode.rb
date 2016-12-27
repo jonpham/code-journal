@@ -1,6 +1,6 @@
 require 'active_support'
 
-class MethodCode
+class MethodCodeBuilder
   # include MardownConverter
   # include SourceBuilder
   
@@ -56,7 +56,7 @@ class MethodCode
 end
 
 # Test Code
-RSpec.describe MethodCode do 
+RSpec.describe MethodCodeBuilder do 
   # EXPECTED DATA
   data_method_no_args = {
     method_name: "hellow",
@@ -80,7 +80,7 @@ RSpec.describe MethodCode do
   # TEST CODE (Lesson)
   it 'should consolidate "module_arguemnts" passed in to create single module code snippet & file @ /tmp/module_name_time.rb.' do 
     # Setup Expected Data
-    uut = MethodCode.new(data_method_no_args_multiline)
+    uut = MethodCodeBuilder.new(data_method_no_args_multiline)
     expect(uut.run).to eq(0)
   end
 
@@ -94,7 +94,7 @@ RSpec.describe MethodCode do
           puts text
         end
       code
-      uut = MethodCode.new(data_method_no_args_multiline)
+      uut = MethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_code).to eq(exp_method_no_args_multiline.rstrip)
     end
   end
@@ -112,7 +112,7 @@ RSpec.describe MethodCode do
         ```
       code
 
-      uut = MethodCode.new(data_method_no_args_multiline)
+      uut = MethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_markup).to eq(exp_md_no_args_multiline.rstrip)
     end
   end
