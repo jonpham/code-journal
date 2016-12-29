@@ -43,6 +43,8 @@ gem 'simplemde'
 # Ace
 gem 'ace-rails-ap'
 
+gem 'os'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
