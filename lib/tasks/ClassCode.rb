@@ -1,6 +1,13 @@
 class ClassCode
+  attr_accessor :method_set
+
   def initialize
+    @module_set = []
   end
+
+  def add_method
+  end
+
 end
 
 # Test Code
@@ -13,7 +20,7 @@ RSpec.describe ClassCode do
 
   # TEST CODE (Module)
   describe '#build_code' do 
-    it 'should return "This is me saying, hello world!"' do
+    it "should loop through each method in the 'method_set' and build its code into text string, to be used to write to a file."  do
       uut = SampleLesson.new 
       test_set1=[]
       expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
@@ -21,7 +28,7 @@ RSpec.describe ClassCode do
   end
 
   describe '#build_test' do 
-    it 'should return "This is me saying, hello world!"' do
+    it "should loop through each method in the 'method_set' and build its test code." do
       uut = SampleLesson.new 
       test_set1=[]
       expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
@@ -36,7 +43,7 @@ RSpec.describe ClassCode do
     end
   end
 
-    # TEST CODE (Module)
+  # TEST CODE (Module)
   describe '#build_markup' do 
     it 'should return "This is me saying, hello world!"' do
       uut = SampleLesson.new 

@@ -9,6 +9,16 @@ end
 # TestDescription
 # Method Expectation
 
+### SHOULD CREATE ###
+# describe '#module1' do 
+#   it 'should return "This is me saying, hello world!"' do
+#     uut = SampleLesson.new 
+#     test_set1=[]
+#     expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
+#   end
+# end
+#####################
+
 # Test Code
 RSpec.describe TestCode do 
   # TEST CODE (Lesson)
