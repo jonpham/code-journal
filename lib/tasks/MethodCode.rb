@@ -1,6 +1,6 @@
-require 'active_support'
+require './CodeBuilder.rb'
 
-class MethodCodeBuilder
+class MethodCodeBuilder < CodeBuilder
   # include MardownConverter
   # include SourceBuilder
   
@@ -10,6 +10,7 @@ class MethodCodeBuilder
     @return_type = input_args[:return_type]
     @source_code = input_args[:source_code]
     @code_id = input_args[:module_code_id]
+    @test_code = Array.new
   end
 
   def build_code(method_name=@method_name,num_args=@num_args,code=@source_code)
@@ -28,25 +29,8 @@ class MethodCodeBuilder
     return method_string.rstrip
   end
 
-  def indent_each_line(text_block, num_indents=1)
-    # For Each Line
-    # Add \t*num_indents to front.
-    indented_text_block =''
-    text_block.each_line do |s| 
-      indented_text_block += s.prepend('  '*num_indents)
-    end
-    return indented_text_block
-  end
-
-  def build_markup(code=build_code)
-    return to_markdown(code).rstrip
-  end
-
-  def to_markdown(text)
-    # raise Debug
-    puts text
-    markdown_text = "```ruby\n#{text}\n```"
-    return markdown_text.rstrip
+  def add_test(test_code_object)
+    @test_code.push(test_code_object)
   end
 
   def run

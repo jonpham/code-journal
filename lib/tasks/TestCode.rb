@@ -1,5 +1,25 @@
-class TestCodeBuilder
-  def initialize
+require './CodeBuilder.rb'
+
+class TestCodeBuilder < CodeBuilder
+  def initialize(test_code_input)
+    @test_code_id = test_code_input[:id]
+    @expected_test_arguments = test_code_input[:input]
+    @expected_return_result = test_code_output[:output]
+    @test_description = test_code_input[:description]
+  end
+
+  def build_test(method_name,class_name="UnitUnderTest",args)
+    test_code += "uut = #{class_name}.new\n"
+    test_code += "#{args[:data]}"
+    test_code += "expect(uut.#{method_name}(#{args[:string]})).to eq(@expected_return_result)\n"
+    # Instantiate ClassName/ UUT
+    test_code = indent_each_line(test_code,1)
+    test_code.prepend("it '#{@test_description}' do\n")
+    test_code << "end\n"
+    test_code = indent_each_line(test_code,1)
+    test_code.prepend("describe '##{method_name}' do\n")
+    test_code << "end"
+    return test_code
   end
 end
 
@@ -10,7 +30,7 @@ end
 # Method Expectation
 
 ### SHOULD CREATE ###
-# describe '#module1' do 
+# describe '#method_name' do 
 #   it 'should return "This is me saying, hello world!"' do
 #     uut = SampleLesson.new 
 #     test_set1=[]
