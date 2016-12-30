@@ -1,11 +1,36 @@
-class ClassCode
+require './CodeBuilder.rb'
+
+class ClassCodeBuilder < CodeBuilder
   attr_accessor :method_set
 
-  def initialize
-    @module_set = []
+  def initialize(test_code,variables=[],lesson_name="LessonClass",)
+    @class_name = lesson_name
+    @class_variables = variables
+    @method_set = Array.new
+    @class_test = test_code
   end
 
-  def add_method
+  def add_method(method_code)
+    @method_set.push(method_code)
+  end
+
+  def build_class_code
+
+  end
+
+  def build_tests
+  end
+
+  def create_uut_initializer
+  end
+
+  def create_class_runner
+  end
+
+  def build_spec
+  end
+
+  def build_markup
   end
 
 end
@@ -19,15 +44,15 @@ RSpec.describe ClassCode do
   end
 
   # TEST CODE (Module)
-  describe '#build_code' do 
-    it "should loop through each method in the 'method_set' and build its code into text string, to be used to write to a file."  do
+  describe '#build_class_code' do 
+    it "should loop through each method in the 'method_set' and build its Class code into text string, to be used to write to a file."  do
       uut = SampleLesson.new 
       test_set1=[]
       expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
     end
   end
 
-  describe '#build_test' do 
+  describe '#build_tests' do 
     it "should loop through each method in the 'method_set' and build its test code." do
       uut = SampleLesson.new 
       test_set1=[]
