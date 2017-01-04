@@ -3,7 +3,7 @@ require './CodeBuilder.rb'
 class ClassCodeBuilder < CodeBuilder
   attr_accessor :method_set
 
-  def initialize(test_code,variables=[],lesson_name="LessonClass",)
+  def initialize(test_code,variables=[],lesson_name="LessonClass")
     @class_name = lesson_name
     @class_variables = variables
     @method_set = Array.new
@@ -15,7 +15,6 @@ class ClassCodeBuilder < CodeBuilder
   end
 
   def build_class_code
-
   end
 
   def build_tests
@@ -32,7 +31,6 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_markup
   end
-
 end
 
 # Test Code

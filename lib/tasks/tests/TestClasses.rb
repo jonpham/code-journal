@@ -1,0 +1,109 @@
+require 'JSON'
+
+module Testing
+  class Lesson
+    attr_accessor :lesson_modules
+
+    def initialize
+      @lesson_modules = Array.new
+    end
+
+    def add_module(lesson_module)
+      @lesson_modules.push(lesson_module)
+    end
+
+    def get_module_by_ordinal(desired_ordinal)
+      @lesson_modules.each do | lesson_module |
+        return lesson_module if (lesson_module.lesson_ordinal == desired_ordinal)
+      end
+      return nil
+    end
+
+    def get_method_modules
+      method_modules = Array.new;
+      @lesson_modules.each do | lesson_module |
+        method_modules.push(lesson_module) if (lesson_module.lesson_ordinal != 0)
+      end
+      return method_modules;
+    end
+  end
+
+  class LessonModule
+    attr_accessor :module_codes, :lesson_ordinal
+    
+    def initialize(lesson_ordinal)
+      @method_code = Array.new
+      @lesson_ordinal=lesson_ordinal
+    end
+
+    def add_method_code(method_code)
+      @module_codes.push(method_code)
+    end
+
+    def get_module_code(desired_ordinal)
+      @module_codes.each do | module_code |
+        return module_code if (module_code.module_ordinal == desired_ordinal)
+      end
+      return nil
+    end
+  end
+
+  class MethodCode
+    attr_accessor :lesson_module_id, :method_name, :arg_number, :return_type, :source_code, :module_ordinal,
+      :test_codes, :solution_code
+
+    def initialize(input_data)
+      @method_name = input_data[:method_name]
+      @arg_number = input_data[:arg_number]
+      @return_type = input_data[:return_type]
+      @source_code = input_data[:source_code]
+      @module_ordinal = input_data[:module_ordinal]
+      @test_codes = Array.new
+    end
+
+    def add_test_code(test_code)
+      @test_codes.push(test_code)
+    end
+
+    def add_solution(solution_code)
+      @solution_code = solution_code
+    end
+  end
+
+#  USE CASE :     :string 
+#  Assertion_type: 
+#  Expected_Return 
+#  module_code_id :integer
+  class TestCode
+    attr_accessor :assertion_type, :expected_return, :expected_test_data, :test_description
+    
+    def initialize(input_data)
+      @assertion_type = input_data[:assertion_type]
+      @expected_return = input_data[:expected_return]
+      @expected_test_data = input_data[:expected_test_data]
+      @test_description = input_data[:test_description]
+    end
+  end
+
+  class CodeSnippet
+    attr_accessor :source_code
+
+    def initialize(input_code)
+      @source_code = input_code
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
