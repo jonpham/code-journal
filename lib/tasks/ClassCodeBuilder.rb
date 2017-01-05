@@ -25,7 +25,10 @@ class ClassCodeBuilder < CodeBuilder
     @code_snippets.push(code_snippet)
   end
 
-  def set_uut
+  def set_uut(uut_code)
+    # Create a uut initializer method that will allow tests to call 'build_uut' 
+    # to get an instance of a preloaded UUT for testing.
+    puts uut_code
   end
 
   def set_ctor
