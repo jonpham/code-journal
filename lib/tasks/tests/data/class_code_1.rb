@@ -1,3 +1,3 @@
-class LessonClass 
+class LessonClass
   attr_accessor :test
 end
