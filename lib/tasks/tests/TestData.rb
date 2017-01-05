@@ -1,5 +1,5 @@
 require 'JSON'
-require './TestClasses.rb'
+require_relative 'TestClasses.rb'
 
 ##### CREATE TEST DATA! #####
 #Create Lesson

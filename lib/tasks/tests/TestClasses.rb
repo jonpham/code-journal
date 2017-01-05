@@ -1,6 +1,7 @@
 require 'JSON'
 
 module Testing
+
   class Lesson
     attr_accessor :lesson_modules
 
@@ -32,7 +33,7 @@ module Testing
     attr_accessor :module_codes, :lesson_ordinal
     
     def initialize(lesson_ordinal)
-      @method_code = Array.new
+      @module_codes = Array.new
       @lesson_ordinal=lesson_ordinal
     end
 
@@ -49,12 +50,12 @@ module Testing
   end
 
   class MethodCode
-    attr_accessor :lesson_module_id, :method_name, :arg_number, :return_type, :source_code, :module_ordinal,
+    attr_accessor :lesson_module_id, :method_name, :arguments, :return_type, :source_code, :module_ordinal,
       :test_codes, :solution_code
 
     def initialize(input_data)
       @method_name = input_data[:method_name]
-      @arg_number = input_data[:arg_number]
+      @arguments = input_data[:arguments]
       @return_type = input_data[:return_type]
       @source_code = input_data[:source_code]
       @module_ordinal = input_data[:module_ordinal]
@@ -70,10 +71,6 @@ module Testing
     end
   end
 
-#  USE CASE :     :string 
-#  Assertion_type: 
-#  Expected_Return 
-#  module_code_id :integer
   class TestCode
     attr_accessor :assertion_type, :expected_return, :expected_test_data, :test_description
     
@@ -90,6 +87,39 @@ module Testing
 
     def initialize(input_code)
       @source_code = input_code
+    end
+  end
+
+  class TestDataHandler
+    def self.read_file_to_s(file_path)
+      return File.read(file_path) if (File::readable?(file_path) && File::file?(file_path))
+    end
+
+    def self.compare_to_file(string,file_path)
+      test_string = read_file_to_s(file_path)
+      return (string == test_string)
+    end
+
+    def self.write_to_json(data_object,file_path)
+      File.open(file_path, "w") do |file|
+        file.puts JSON.pretty_generate(data_object)
+      end
+    end
+
+    def self.read_json_file(file_path)
+      file = File.read(file_path)
+      return JSON.parse(file)
+    end
+
+    def self.write_to_yaml(data_object,file_path)
+      File.open(file_path, "w") do |file|
+        file.puts YAML.dump(data_object)
+      end
+    end
+
+    def self.read_yaml_file(file_path)
+      file = File.read(file_path)
+      return YAML.load(file)
     end
   end
 end

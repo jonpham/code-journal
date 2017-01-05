@@ -24,7 +24,7 @@ class_methods = test_lesson.get_module_by_ordinal(0).method_code
 class_methods.delete_if { |x| x.module_ordinal == 0 }
 
 # Pass in Class Module Code (ClassName, attribute_accessors) as well as additional Method Module Codes for (run/initialize)
-lesson_class_builder = ClassCodeBuilder.new(class_name,variables)
+lesson_class_builder = ClassCodeBuilder.new(class_module_code.method_name,class_module_code.arguments)
 lesson_class_builder.set_run_method(run_code);
 lesson_class_builder.set_ctor(ctor_code);
 lesson_class_builder.set_uut(uut_code);
