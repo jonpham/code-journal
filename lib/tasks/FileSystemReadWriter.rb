@@ -1,8 +1,10 @@
 module FileSystemReadWriter
   attr_accessor :file
+
   def open_file(file_path)
     if File.exist?(file_path)
       @file = File.open()
+    end
   end
 
   def close_file(file_path)
@@ -15,7 +17,8 @@ module FileSystemReadWriter
   end
 
   def read_from_file(file_path)
-    throw Exception
+    puts file_path
+    raise Exception
   end
 
   def get_line_from_file(line_number,file_path)

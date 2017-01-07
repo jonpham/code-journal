@@ -1,4 +1,4 @@
-require './CodeBuilder.rb'
+require './MethodCodeBuilder.rb'
 require './tests/TestData.rb'
 require 'rspec'
 

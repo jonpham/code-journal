@@ -1,4 +1,4 @@
-require './CodeBuilder.rb'
+require './TestCodeBuilder.rb'
 
 class MethodCodeBuilder < CodeBuilder
   attr_accessor :method_name, :source_code
