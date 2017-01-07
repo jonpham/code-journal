@@ -1,25 +1,27 @@
 require './CodeBuilder.rb'
 
 class MethodCodeBuilder < CodeBuilder
+  attr_accessor :method_name, :source_code
   # include MardownConverter
   # include SourceBuilder
   
   def initialize(input_args)
     @method_name = input_args[:method_name]
-    @num_args = input_args[:num_args]
+    @arguments = input_args[:arguments] if input_args[:arguments].class == Array # Assumes Array
     @return_type = input_args[:return_type]
     @source_code = input_args[:source_code]
+    @solution_code = ""
     @code_id = input_args[:module_code_id]
     @test_code = Array.new
   end
 
-  def build_code(method_name=@method_name,num_args=@num_args,code=@source_code)
+  def build_code(method_name=@method_name,args=@arguments,code=@source_code)
     method_string = "def #{method_name}"
-    if num_args > 0 
+    if args.length > 0 
       method_string += "( "
-      (1..num_args).each do |i|
+      (1..args.length).each do |i|
         method_string += "arg#{i}"
-        method_string += ', ' unless (i == num_args)
+        method_string += ', ' unless (i == args.length)
       end
       method_string += ")"
     end
@@ -27,6 +29,10 @@ class MethodCodeBuilder < CodeBuilder
     method_string += indent_each_line(code)
     method_string += "end"
     return method_string.rstrip
+  end
+
+  def build_solution(method_name=@method_name,args=@arguments,code=@solution_code)
+    return build_code(method_name,args,code)
   end
 
   def add_test(test_code_object)
@@ -44,7 +50,7 @@ RSpec.describe MethodCodeBuilder do
   # EXPECTED DATA
   data_method_no_args = {
     method_name: "hellow",
-    num_args:  0,
+    arguments:  [],
     return_type: 'num',
     source_code: %Q(puts "Hello World!")
   }
@@ -56,7 +62,7 @@ RSpec.describe MethodCodeBuilder do
 
   data_method_no_args_multiline = {
     method_name: "hellow",
-    num_args:  0,
+    arguments:  [],
     return_type: 'num',
     source_code: source1
   }

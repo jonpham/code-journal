@@ -50,7 +50,8 @@ module Testing
   end
 
   class MethodCode
-    attr_accessor :lesson_module_id, :method_name, :arguments, :return_type, :source_code, :module_ordinal,
+    attr_accessor :lesson_module_id, :method_name, :arguments, 
+      :return_type, :source_code, :module_ordinal,
       :test_codes, :solution_code
 
     def initialize(input_data)

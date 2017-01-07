@@ -2,5 +2,16 @@
   "name": "LessonClass",
   "arguments": [
     "test"
+  ],
+  "class_methods": [
+    {
+      "method_name" : "initialize"
+    },
+    {
+      "method_name" : "run"
+    },
+    {
+      "method_name" : "build_uut"
+    }
   ]
 }

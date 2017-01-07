@@ -29,7 +29,7 @@ run_def_method = Testing::MethodCode.new({
   method_name: "run",
   arguments: nil,
   return_type: 'int',
-  source_code: '###INSERT_HERE###',
+  source_code: 'puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])',
   module_ordinal: 2
 })
 
@@ -41,10 +41,19 @@ run_def_test = Testing::TestCode.new({
 })
 run_def_method.add_test_code(run_def_test);
 
+uut_def_method = Testing::MethodCode.new({
+  method_name: "build_uut",
+  arguments: nil,
+  return_type: 'object',
+  source_code: 'return SampleLesson.new',
+  module_ordinal: 2
+})
+
 # Insert Default Class Methods
 class_module.add_method_code(class_def_method);
 class_module.add_method_code(initialize_def_method);
 class_module.add_method_code(run_def_method);
+class_module.add_method_code(uut_def_method);
 
 # Insert Class Module to Lesson
 test_lesson.add_module(class_module);
@@ -58,7 +67,7 @@ say_hello_method = Testing::MethodCode.new({
   method_name: 'say_hello',
   arguments: nil,
   return_type: 'string',
-  source_code: '###INSERT_HERE###',
+  source_code: '# Return Appropriate String',
   module_ordinal: 0
 })
 
@@ -85,7 +94,7 @@ say_words_method = Testing::MethodCode.new({
   method_name: 'say_words',
   arguments: ['word1','word2'],
   return_type: 'string',
-  source_code: '###INSERT_HERE###',
+  source_code: '# Return Appropriate String',
   module_ordinal: 0
 })
 
@@ -111,7 +120,7 @@ say_array_method = Testing::MethodCode.new({
   method_name: 'say_string_array',
   arguments: ['input_array'],
   return_type: 'string',
-  source_code: '###INSERT_HERE###',
+  source_code: '# Return Appropriate String',
   module_ordinal: 0
 })
 
