@@ -3,7 +3,7 @@ require_relative './tests/TestClasses.rb'
 require 'rspec'
 
 class ClassCodeBuilder < CodeBuilder
-  attr_accessor :method_set, :user_code_snippets, :class_tests, :solution_snippets
+  attr_accessor :method_set, :user_code_snippets, :class_tests, :solution_snippets, :class_methods
 
   def initialize(lesson_name,variables)
     @class_name = lesson_name
@@ -60,7 +60,7 @@ class ClassCodeBuilder < CodeBuilder
   def build_class_methods
     # FOR EACH CLASS METHOD in @class_methods
     class_method_string = ""
-    @class_methods.each do |class_method|
+    @class_methods.each_value do |class_method|
       class_method_string += class_method[:string]
       class_method_string += "\n"
     end
@@ -109,23 +109,21 @@ class ClassCodeBuilder < CodeBuilder
     accessor_string = ""
 
     # Build Class Accessor List
-    if !@class_variables.empty?
+    if ((@class_variables !=nil ) && (!@class_variables.empty?))
       accessor_string += "attr_accessor"
       (1..@class_variables.length).each do |i|
         accessor_string += " :#{@class_variables[i-1]}"
         accessor_string += ', ' unless (i == @class_variables.length)
       end
-      accessor_string += "\n"
+      accessor_string += "\n\n"
     end
     # Build Class
     class_string = "class #{@class_name}\n"
     class_string += indent_each_line(accessor_string) if !accessor_string.empty?
 
     # Build Class Methods
-    if !@class_methods.empty?
+    if ((@class_variables !=nil ) && (!@class_methods.empty?))
       class_string += indent_each_line(self.build_class_methods())
-    else
-      raise NoClassMethods
     end
     # Build Module Methods
     if !@method_set.empty?
@@ -175,12 +173,22 @@ RSpec.describe ClassCodeBuilder do
   #   expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))
   # end
 
+  def build_uut 
+    uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+
+    # 'add_method(ctor)' 
+    ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]
+    uut.add_method(ctor_method_builder)
+
+
+    return uut
+  end
+
   # TEST CODE (Module)
   describe '#build_class_code' do 
     it 'should be able to create a basic class just after initialization' do
-      expect(lesson_data["arguments"].class).to eq(Array)
-      uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
-      expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))  
+      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_empty.rb'))  
     end
   end
 
@@ -188,14 +196,27 @@ RSpec.describe ClassCodeBuilder do
     it 'should be able to provide the "init" class method in its working form.' do 
       # Initalize ClassCodeBuilder
       expect(lesson_data[:class_methods]["initialize"][:builder].arguments.class).to eq(Array)
-      uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
+      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       # Create MethodCodeBuilder for 'ctor'
-      ctor_method_builder = MethodCodeBuilder.new()
+      ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]
       # 'add_method(ctor)' 
+      uut.add_method(ctor_method_builder)
+      
       # Create Expectation for Class Methods
+      expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_init.rb')) 
     end
 
     it 'should be able to provide the "run" class method in its working form.' do 
+      # Initalize ClassCodeBuilder
+      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      # Create MethodCodeBuilder for 'ctor'
+      run_method_builder = lesson_data[:class_methods]["run"][:builder]
+      # binding.pry
+      # 'add_method(ctor)' 
+      uut.add_method(run_method_builder)
+      
+      # Create Expectation for Class Methods
+      expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_run.rb')) 
     end
 
     it 'should be able to provide the "build_uut" class method in its working form.' do 

@@ -1,8 +1,21 @@
 ---
 :name: SampleLesson
-:arguments: 
+:variables:
+- test
 :class_methods:
   initialize:
+    :initial_hash:
+      :method_name: initialize
+      :arguments: 
+      :return_type: void
+      :source_code: "@test = Array.new"
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: initialize
+        arguments: 
+        return_type: void
+        source_code: "@test = Array.new"
+        module_ordinal: 1
+        test_codes: []
     :builder: !ruby/object:MethodCodeBuilder
       method_name: initialize
       arguments: []
@@ -12,11 +25,40 @@
       solution_code: 
       test_code: []
   run:
+    :initial_hash:
+      :method_name: run
+      :arguments: 
+      :return_type: int
+      :source_code: |
+        puts say_hello
+        puts say_words("hello","world!")
+        puts say_string_array(["hello","world!"])
+        return 0
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: run
+        arguments: 
+        return_type: int
+        source_code: |
+          puts say_hello
+          puts say_words("hello","world!")
+          puts say_string_array(["hello","world!"])
+          return 0
+        module_ordinal: 2
+        test_codes:
+        - !ruby/object:Testing::TestCode
+          assertion_type: eq
+          expected_return: 0
+          expected_test_data: 'null'
+          test_description: should consolidate the SampleLessons for "Hello World"
     :builder: !ruby/object:MethodCodeBuilder
       method_name: run
       arguments: []
       return_type: int
-      source_code: puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])
+      source_code: |
+        puts say_hello
+        puts say_words("hello","world!")
+        puts say_string_array(["hello","world!"])
+        return 0
       code_id: 
       solution_code: 
       test_code:
@@ -27,6 +69,18 @@
         test_description: should consolidate the SampleLessons for "Hello World"
         assertion_type: eq
   build_uut:
+    :initial_hash:
+      :method_name: build_uut
+      :arguments: 
+      :return_type: object
+      :source_code: return SampleLesson.new
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: build_uut
+        arguments: 
+        return_type: object
+        source_code: return SampleLesson.new
+        module_ordinal: 2
+        test_codes: []
     :builder: !ruby/object:MethodCodeBuilder
       method_name: build_uut
       arguments: []
@@ -37,6 +91,24 @@
       test_code: []
 :module_methods:
   say_hello:
+    :initial_hash:
+      :method_name: say_hello
+      :arguments: 
+      :return_type: string
+      :source_code: "# Return Appropriate String"
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: say_hello
+        arguments: 
+        return_type: string
+        source_code: "# Return Appropriate String"
+        module_ordinal: 0
+        test_codes:
+        - !ruby/object:Testing::TestCode
+          assertion_type: eq
+          expected_return: This is me saying, hello world!
+          expected_test_data: 'null'
+          test_description: should return "This is me saying, hello world!"
+        solution_code: string = "This is me saying, hello world!"\nreturn string
     :builder: !ruby/object:MethodCodeBuilder
       method_name: say_hello
       arguments: []
@@ -52,11 +124,29 @@
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
   say_words:
-    :builder: !ruby/object:MethodCodeBuilder
-      method_name: say_words
-      arguments:
+    :initial_hash:
+      :method_name: say_words
+      :arguments: &1
       - word1
       - word2
+      :return_type: string
+      :source_code: "# Return Appropriate String"
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: say_words
+        arguments: *1
+        return_type: string
+        source_code: "# Return Appropriate String"
+        module_ordinal: 0
+        test_codes:
+        - !ruby/object:Testing::TestCode
+          assertion_type: eq
+          expected_return: This is me saying, hello world!
+          expected_test_data: '["hello","world!"]'
+          test_description: should return "This is me saying, hello world!"
+        solution_code: 'string = "This is me saying, #{word1} #{word2}"\nreturn string'
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: say_words
+      arguments: *1
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
@@ -69,10 +159,29 @@
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
   say_string_array:
+    :initial_hash:
+      :method_name: say_string_array
+      :arguments: &2
+      - input_array
+      :return_type: string
+      :source_code: "# Return Appropriate String"
+      :code_id: !ruby/object:Testing::MethodCode
+        method_name: say_string_array
+        arguments: *2
+        return_type: string
+        source_code: "# Return Appropriate String"
+        module_ordinal: 0
+        test_codes:
+        - !ruby/object:Testing::TestCode
+          assertion_type: eq
+          expected_return: This is me saying, hello world!
+          expected_test_data: '["hello","world!"]'
+          test_description: should return "This is me saying, hello world!"
+        solution_code: 'string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn
+          string'
     :builder: !ruby/object:MethodCodeBuilder
       method_name: say_string_array
-      arguments:
-      - input_array
+      arguments: *2
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 

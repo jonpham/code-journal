@@ -12,7 +12,7 @@ class_module = Testing::LessonModule.new(0)
 #Create Standard Class Methods.
 class_def_method = Testing::MethodCode.new({
   method_name: "SampleLesson",
-  arguments: nil,
+  arguments: ['test'],
   return_type: 'void',
   source_code: 'attr_accessor :test',
   module_ordinal: 0
@@ -38,7 +38,7 @@ run_def_method = Testing::MethodCode.new({
   method_name: "run",
   arguments: nil,
   return_type: 'int',
-  source_code: 'puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])',
+  source_code: "puts say_hello\nputs say_words(\"hello\",\"world!\")\nputs say_string_array([\"hello\",\"world!\"])\nreturn 0\n",
   module_ordinal: 2
 })
 
@@ -140,16 +140,16 @@ say_array_method.add_test_code(say_array_test);
 method_module_three.add_method_code(say_array_method);
 test_lesson.add_module(method_module_three);
 
-
 ### // FINISHED CREATING 'test_lesson' // ###
 
 # HELPER METHODS
 def extract_method_to_code_builder(module_code)
+
   t_method_hash = {
     method_name: module_code.method_name,
     arguments: module_code.arguments,
     return_type: module_code.return_type,
-    source_code: module_code.source_code,
+    source_code: module_code.source_code.gsub(/\\n/,"\n"),
     code_id: module_code
   }
   t_method_code_builder = MethodCodeBuilder.new(t_method_hash)
@@ -168,7 +168,7 @@ def extract_method_to_code_builder(module_code)
     t_method_code_builder.add_test(t_test_code_builder)
   end
 
-  return t_method_code_builder
+  return {initial_hash: t_method_hash, builder: t_method_code_builder}
 end
 
 # Create Lesson Data Hash
@@ -181,7 +181,7 @@ class_module = test_lesson.get_module_by_ordinal(0)
 
 class_description = class_module.get_module_code(0)
 lesson_data[:name] = class_description.method_name
-lesson_data[:arguments] = class_description.arguments
+lesson_data[:variables] = class_description.arguments
 
 # for each method in class_module
 lesson_data[:class_methods] = Hash.new
@@ -189,8 +189,7 @@ lesson_data[:class_methods] = Hash.new
 class_module.module_codes.each do |module_code|
   # create MethodCodeBuilder
   if (module_code.module_ordinal != 0)
-    t_code_builder = extract_method_to_code_builder(module_code)
-    lesson_data[:class_methods][module_code.method_name] = {builder: t_code_builder}
+    lesson_data[:class_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
   end
 end
 
@@ -204,18 +203,18 @@ lesson_data[:module_methods] = Hash.new
 class_method_modules.each do |methods_module|
   methods_module.module_codes.each do |module_code|
     # create MethodCodeBuilder
-    t_code_builder = extract_method_to_code_builder(module_code)
-    lesson_data[:module_methods][module_code.method_name] = {builder: t_code_builder}
+    lesson_data[:module_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
   end
 end
 
 # // UNCOMMENT TO WRITE OUT YML Data File.
-# Testing::TestDataHandler.write_to_yaml(lesson_data,'./data/class_code_builder.yml')
-# puts "'./data/class_code_builder.yml' WRITTEN OUT!"
+Testing::TestDataHandler.write_to_yaml(lesson_data,'./data/class_code_builder.yml')
+puts "'./data/class_code_builder.yml' WRITTEN OUT!"
 
 
 # // Write Sample File to JSON.
-# class_data = Testing::TestDataHandler.read_json_file('./class_code_builder.json')
+# load './TestData.rb'
+# class_data = Testing::TestDataHandler.read_json_file('./data/class_code_builder.json')
 # method_string = Testing::TestDataHandler.read_file_to_s('sandbox.rb')
 # class_data["class_methods"][1].store("method_string",method_string)
 

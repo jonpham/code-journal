@@ -1,6 +1,7 @@
-require 'rspec'
-
 require_relative './TestCodeBuilder.rb'
+
+require_relative './tests/TestClasses.rb'
+require 'rspec'
 
 
 class MethodCodeBuilder < CodeBuilder
@@ -56,6 +57,8 @@ end
 # Test Code
 RSpec.describe MethodCodeBuilder do 
   # EXPECTED DATA
+  lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
+
   data_method_no_args = {
     method_name: "hellow",
     arguments:  [],
@@ -94,6 +97,13 @@ RSpec.describe MethodCodeBuilder do
       code
       uut = MethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_code).to eq(exp_method_no_args_multiline.rstrip)
+    end
+
+    it 'should be able to provide the "run" class method in its working form.' do 
+      # Initalize ClassCodeBuilder
+      uut = MethodCodeBuilder.new(lesson_data[:class_methods]["run"][:initial_hash])
+      # Create MethodCodeBuilder for 'ctor'
+      expect(uut.build_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/method_code_run.rb'));
     end
   end
 

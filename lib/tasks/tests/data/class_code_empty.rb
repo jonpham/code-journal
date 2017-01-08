@@ -1,3 +1,4 @@
-class LessonClass
+class SampleLesson
   attr_accessor :test
+  
 end

@@ -9,8 +9,8 @@ class SampleLesson # (module 0 )
   # Lesson Class Runner
   def run
     puts say_hello
-    puts say_words('hello','world!')
-    puts say_string_array(['hello','world!'])
+    puts say_words("hello","world!")
+    puts say_string_array(["hello","world!"])
     return 0
   end
 
@@ -30,7 +30,7 @@ class SampleLesson # (module 0 )
   # Solution Code
 
   def s_say_hello
-    string = 'This is me saying, hello world!'
+    string = "This is me saying, hello world!"
     return string
   end
 
@@ -49,7 +49,7 @@ class SampleLesson # (module 0 )
   # User Code Snippets
   #```
   def say_hello
-    string = 'This is me saying, hello world!'
+    string = "This is me saying, hello world!"
     return string
   end
   #```
