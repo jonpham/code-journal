@@ -62,7 +62,7 @@ class ClassCodeBuilder < CodeBuilder
     class_method_string = ""
     @class_methods.each_value do |class_method|
       class_method_string += class_method[:string]
-      class_method_string += "\n"
+      class_method_string += "\n\n"
     end
     return class_method_string
   end
@@ -211,7 +211,6 @@ RSpec.describe ClassCodeBuilder do
       uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       # Create MethodCodeBuilder for 'ctor'
       run_method_builder = lesson_data[:class_methods]["run"][:builder]
-      # binding.pry
       # 'add_method(ctor)' 
       uut.add_method(run_method_builder)
       
@@ -223,6 +222,30 @@ RSpec.describe ClassCodeBuilder do
     end
 
     it 'should identify methods that have been generated specially for Class Execution, and generate code string' do
+      # Initalize ClassCodeBuilder
+      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+
+      # Create MethodCodeBuilder for 'ctor'
+      ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]
+      # 'add_method(ctor)' 
+      uut.add_method(ctor_method_builder)
+
+      # Create MethodCodeBuilder for 'run'
+      run_method_builder = lesson_data[:class_methods]["run"][:builder]
+      # 'add_method(run)' 
+
+      uut.add_method(run_method_builder)   
+
+      # Create MethodCodeBuilder for 'build_uut'
+      uut_method_builder = lesson_data[:class_methods]["build_uut"][:builder]
+      # 'add_method(run)' 
+      uut.add_method(uut_method_builder)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/base_class_code.rb')
+      generated_string = uut.build_class_code
+
+      Testing::TestDataHandler.write_string_to_file(uut.build_class_code,'./delete_test_build_class_code.rb')
+      # Create Expectation for Class Methods
+      expect(generated_string).to eq(expected_string) 
     end
   end
 

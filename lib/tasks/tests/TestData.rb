@@ -38,7 +38,7 @@ run_def_method = Testing::MethodCode.new({
   method_name: "run",
   arguments: nil,
   return_type: 'int',
-  source_code: "puts say_hello\nputs say_words(\"hello\",\"world!\")\nputs say_string_array([\"hello\",\"world!\"])\nreturn 0\n",
+  source_code: 'puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])\nreturn 0\n',
   module_ordinal: 2
 })
 

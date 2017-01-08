@@ -38,11 +38,8 @@
         method_name: run
         arguments: 
         return_type: int
-        source_code: |
-          puts say_hello
-          puts say_words("hello","world!")
-          puts say_string_array(["hello","world!"])
-          return 0
+        source_code: puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])\nreturn
+          0\n
         module_ordinal: 2
         test_codes:
         - !ruby/object:Testing::TestCode

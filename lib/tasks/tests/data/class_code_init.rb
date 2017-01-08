@@ -4,4 +4,5 @@ class SampleLesson
   def initialize
     @test = Array.new
   end
+  
 end

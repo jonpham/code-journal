@@ -36,7 +36,7 @@ class MethodCodeBuilder < CodeBuilder
     end
     method_string += "\n"
     method_string += indent_each_line(code)
-    method_string += "end"
+    method_string += "end\n"
     return method_string.rstrip
   end
 

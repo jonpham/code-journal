@@ -127,6 +127,12 @@ module Testing
       file = File.read(file_path)
       return YAML.load(file)
     end
+
+    def self.write_string_to_file(string,file_path)
+      File.open(file_path, "w") do |file|
+        file.puts string
+      end
+    end
   end
 end
 
