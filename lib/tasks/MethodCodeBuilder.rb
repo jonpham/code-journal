@@ -4,13 +4,14 @@ require_relative './TestCodeBuilder.rb'
 
 
 class MethodCodeBuilder < CodeBuilder
-  attr_reader :method_name, :source_code, :solution_code
+  attr_reader :method_name, :source_code, :solution_code, :arguments
   # include MardownConverter
   # include SourceBuilder
   
   def initialize(input_args)
     @method_name = input_args[:method_name]
-    @arguments = input_args[:arguments] if input_args[:arguments].class == Array # Assumes Array
+    @arguments = input_args[:arguments] if input_args[:arguments].class == Array # Assumes Array 
+    @arguments = Array.new if @arguments == nil
     @return_type = input_args[:return_type]
     @source_code = input_args[:source_code]
     @code_id = input_args[:module_code_id]
@@ -24,7 +25,7 @@ class MethodCodeBuilder < CodeBuilder
 
   def build_code(method_name=@method_name,args=@arguments,code=@source_code)
     method_string = "def #{method_name}"
-    if args.length > 0 
+    if ( args != nil && args.length > 0 )
       method_string += "( "
       (1..args.length).each do |i|
         method_string += "arg#{i}"

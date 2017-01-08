@@ -209,12 +209,14 @@ class_method_modules.each do |methods_module|
   end
 end
 
+# // UNCOMMENT TO WRITE OUT YML Data File.
+# Testing::TestDataHandler.write_to_yaml(lesson_data,'./data/class_code_builder.yml')
+
+
+# // Write Sample File to JSON.
 # class_data = Testing::TestDataHandler.read_json_file('./class_code_builder.json')
 # method_string = Testing::TestDataHandler.read_file_to_s('sandbox.rb')
 # class_data["class_methods"][1].store("method_string",method_string)
-Testing::TestDataHandler.write_to_yaml(lesson_data,'./data/class_code_builder.yml')
-
-
 
 
 
