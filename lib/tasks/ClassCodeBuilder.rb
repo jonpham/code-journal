@@ -54,7 +54,7 @@ class ClassCodeBuilder < CodeBuilder
   end
 
   def set_run_method(run_code)
-    @class_methods[:run]={string: run_code.build_code, builder: run_code}
+    @class_methods[:run]={string: run_code.build_code("run"), builder: run_code}
   end
 
   def build_class_methods
@@ -80,10 +80,10 @@ class ClassCodeBuilder < CodeBuilder
     @method_set.each do |module_method|
       module_method_string += module_method.build_solution() if with_solutions
       module_method_string += module_method.build_code() unless with_solutions
-      module_method_string += "\n"
+      module_method_string += "\n\n"
     end
     # RETURN STRING
-    return module_method_string
+    return module_method_string.strip + "\n"
   end
 
   def build_snippet_methods
@@ -92,7 +92,7 @@ class ClassCodeBuilder < CodeBuilder
     # For Each Code Snippet in @user_code_snippets
     @user_code_snippets.each do |code_snippet|
       code_snippet_string += code_snippet.code
-      code_snippet_string += "\n"
+      code_snippet_string += "\n\n"
     end
   end
 
@@ -173,13 +173,26 @@ RSpec.describe ClassCodeBuilder do
   #   expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))
   # end
 
-  def build_uut 
-    uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+  def build_uut_base(data)
+    # Initalize ClassCodeBuilder
 
+    uut = ClassCodeBuilder.new(data[:name],data[:variables])
+
+    # Create MethodCodeBuilder for 'ctor'
+    ctor_method_builder = data[:class_methods]["initialize"][:builder]
     # 'add_method(ctor)' 
-    ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]
     uut.add_method(ctor_method_builder)
 
+    # Create MethodCodeBuilder for 'run'
+    run_method_builder = data[:class_methods]["run"][:builder]
+    # 'add_method(run)' 
+
+    uut.add_method(run_method_builder)   
+
+    # Create MethodCodeBuilder for 'build_uut'
+    uut_method_builder = data[:class_methods]["build_uut"][:builder]
+    # 'add_method(run)' 
+    uut.add_method(uut_method_builder)
 
     return uut
   end
@@ -242,8 +255,8 @@ RSpec.describe ClassCodeBuilder do
       uut.add_method(uut_method_builder)
       expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/base_class_code.rb')
       generated_string = uut.build_class_code
-
       Testing::TestDataHandler.write_string_to_file(uut.build_class_code,'./delete_test_build_class_code.rb')
+
       # Create Expectation for Class Methods
       expect(generated_string).to eq(expected_string) 
     end
@@ -251,6 +264,16 @@ RSpec.describe ClassCodeBuilder do
 
   describe '#build_module_methods' do 
     it 'should be able to provide the "lesson" form of a module class method.' do 
+      uut = build_uut_base(lesson_data)
+      lesson_data[:module_methods].each_value do |module_method| 
+        uut.add_method(module_method[:builder])
+      end
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_methods_base.rb')
+      generated_string = uut.build_module_methods
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_module_methods,'./delete_test_build_module_method_code.rb')
+      # TEST
+      expect(generated_string).to eq(expected_string) 
     end
 
     it 'should be able to provide the "solution" form of a module class method.' do

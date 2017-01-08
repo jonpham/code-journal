@@ -12,7 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+delete*.rb
 # OS Files
 .DS_Store
 

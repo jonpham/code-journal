@@ -24,19 +24,23 @@ class MethodCodeBuilder < CodeBuilder
     @solution_code = code
   end
 
-  def build_code(method_name=@method_name,args=@arguments,code=@source_code)
+  def build_code(method_name="_#{@method_name}",args=@arguments,code=@source_code)
     method_string = "def #{method_name}"
     if ( args != nil && args.length > 0 )
-      method_string += "( "
+      arg_string = "("
       (1..args.length).each do |i|
-        method_string += "arg#{i}"
-        method_string += ', ' unless (i == args.length)
+        arg_string += "#{@arguments[i-1]}"
+        arg_string += ', ' unless (i == args.length)
       end
-      method_string += ")"
+      arg_string += ")"
+      method_string += arg_string.strip
     end
     method_string += "\n"
     method_string += indent_each_line(code)
-    method_string += "end\n"
+    # binding.pry
+    # Add New Line if @source_code does not end with \n
+    method_string += "\n" unless code.end_with?("\n")
+    method_string += "end"
     return method_string.rstrip
   end
 
@@ -90,7 +94,7 @@ RSpec.describe MethodCodeBuilder do
     it 'create a proper string of the method that could be written to file or converted to markdown' do
       # Setup Expected Data
       exp_method_no_args_multiline = <<~code
-        def hellow
+        def _hellow
           text = "Hello World!"
           puts text
         end
@@ -103,7 +107,7 @@ RSpec.describe MethodCodeBuilder do
       # Initalize ClassCodeBuilder
       uut = MethodCodeBuilder.new(lesson_data[:class_methods]["run"][:initial_hash])
       # Create MethodCodeBuilder for 'ctor'
-      expect(uut.build_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/method_code_run.rb'));
+      expect(uut.build_code('run')).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/method_code_run.rb'));
     end
   end
 
@@ -113,7 +117,7 @@ RSpec.describe MethodCodeBuilder do
       # Setup Expected Data
       exp_md_no_args_multiline = <<~code
         ```ruby
-        def hellow
+        def _hellow
           text = "Hello World!"
           puts text
         end
