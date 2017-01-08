@@ -1,4 +1,4 @@
-load '../TestData.rb'
+require '../TestData.rb'
 
 # HELPER METHODS
 def extract_method_to_code_builder(module_code)

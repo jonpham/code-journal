@@ -1,4 +1,83 @@
 ---
-name: LessonClass
-arguments:
-- test
+:name: SampleLesson
+:arguments: 
+:class_methods:
+  initialize:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: initialize
+      return_type: void
+      source_code: "@test = Array.new"
+      code_id: 
+      solution_code: 
+      test_code: []
+  run:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: run
+      return_type: int
+      source_code: puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])
+      code_id: 
+      solution_code: 
+      test_code:
+      - !ruby/object:TestCodeBuilder
+        test_code_id: 0
+        expected_test_arguments: 'null'
+        expected_return_result: 0
+        test_description: should consolidate the SampleLessons for "Hello World"
+        assertion_type: eq
+  build_uut:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: build_uut
+      return_type: object
+      source_code: return SampleLesson.new
+      code_id: 
+      solution_code: 
+      test_code: []
+:module_methods:
+  say_hello:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: say_hello
+      return_type: string
+      source_code: "# Return Appropriate String"
+      code_id: 
+      solution_code: string = "This is me saying, hello world!"\nreturn string
+      test_code:
+      - !ruby/object:TestCodeBuilder
+        test_code_id: 0
+        expected_test_arguments: 'null'
+        expected_return_result: This is me saying, hello world!
+        test_description: should return "This is me saying, hello world!"
+        assertion_type: eq
+  say_words:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: say_words
+      return_type: string
+      source_code: "# Return Appropriate String"
+      code_id: 
+      solution_code: 'string = "This is me saying, #{word1} #{word2}"\nreturn string'
+      test_code:
+      - !ruby/object:TestCodeBuilder
+        test_code_id: 0
+        expected_test_arguments: '["hello","world!"]'
+        expected_return_result: This is me saying, hello world!
+        test_description: should return "This is me saying, hello world!"
+        assertion_type: eq
+      arguments:
+      - word1
+      - word2
+  say_string_array:
+    :builder: !ruby/object:MethodCodeBuilder
+      method_name: say_string_array
+      return_type: string
+      source_code: "# Return Appropriate String"
+      code_id: 
+      solution_code: 'string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn
+        string'
+      test_code:
+      - !ruby/object:TestCodeBuilder
+        test_code_id: 0
+        expected_test_arguments: '["hello","world!"]'
+        expected_return_result: This is me saying, hello world!
+        test_description: should return "This is me saying, hello world!"
+        assertion_type: eq
+      arguments:
+      - input_array

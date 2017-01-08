@@ -5,7 +5,7 @@ class TestCodeBuilder < CodeBuilder
   def initialize(test_code_input)
     @test_code_id = test_code_input[:id]
     @expected_test_arguments = test_code_input[:input]
-    @expected_return_result = test_code_output[:output]
+    @expected_return_result = test_code_input[:output]
     @test_description = test_code_input[:description]
     @assertion_type = test_code_input[:assertion_type] || 'eq'
   end
