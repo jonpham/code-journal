@@ -98,6 +98,7 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_method_runners
     # Add ModuleX methods to wrap intended methods that shall run User Code Snippet Methods
+    return ""
   end
 
   def build_solution_runners
@@ -128,9 +129,9 @@ class ClassCodeBuilder < CodeBuilder
     # Build Module Methods
     if !@method_set.empty?
       class_string += indent_each_line(self.build_module_methods())
-      class_string += indent_each_line(self.build_module_methods(true))
-      class_string += indent_each_line(self.build_method_runners())
-      class_string += indent_each_line(self.build_solution_runners()) if !@solution_snippets.empty?
+      # class_string += indent_each_line(self.build_module_methods(true))
+      # class_string += indent_each_line(self.build_method_runners())
+      # class_string += indent_each_line(self.build_solution_runners()) if !@solution_snippets.empty?
     end
     # Add Code Snippets
     class_string += indent_each_line(self.build_snippet_methods())if !@user_code_snippets.empty?
@@ -164,7 +165,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe ClassCodeBuilder do 
-
+  DEBUG = false
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
@@ -255,9 +256,22 @@ RSpec.describe ClassCodeBuilder do
       uut.add_method(uut_method_builder)
       expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/base_class_code.rb')
       generated_string = uut.build_class_code
-      Testing::TestDataHandler.write_string_to_file(uut.build_class_code,'./delete_test_build_class_code.rb')
+      Testing::TestDataHandler.write_string_to_file(uut.build_class_code,'./delete_test_build_class_code.rb') if DEBUG
 
       # Create Expectation for Class Methods
+      expect(generated_string).to eq(expected_string) 
+    end
+
+    it 'should be able to build the initial base class plus module methods in base form.' do 
+      uut = build_uut_base(lesson_data)
+      lesson_data[:module_methods].each_value do |module_method| 
+        uut.add_method(module_method[:builder])
+      end
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_class_code.rb')
+      generated_string = uut.build_class_code
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_class_code,'./delete_test_class_module_method_code.rb') if DEBUG
+      # TEST
       expect(generated_string).to eq(expected_string) 
     end
   end
@@ -271,7 +285,7 @@ RSpec.describe ClassCodeBuilder do
       expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_methods_base.rb')
       generated_string = uut.build_module_methods
       # DEBUG
-      Testing::TestDataHandler.write_string_to_file(uut.build_module_methods,'./delete_test_build_module_method_code.rb')
+      Testing::TestDataHandler.write_string_to_file(uut.build_module_methods,'./delete_test_build_module_method_code.rb') if DEBUG
       # TEST
       expect(generated_string).to eq(expected_string) 
     end
