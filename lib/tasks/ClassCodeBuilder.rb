@@ -1,5 +1,5 @@
-require './MethodCodeBuilder.rb'
-require './tests/TestData.rb'
+require_relative './MethodCodeBuilder.rb'
+require_relative './tests/TestData.rb'
 require 'rspec'
 
 class ClassCodeBuilder < CodeBuilder
@@ -167,7 +167,7 @@ end
 
 RSpec.describe ClassCodeBuilder do 
 
-  class_data = Testing::TestDataHandler.read_json_file('tests/data/class_code_builder.json');
+  class_data = Testing::TestDataHandler.read_json_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.json');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
   #   expect(class_data["arguments"].class).to eq(Array)
@@ -175,7 +175,7 @@ RSpec.describe ClassCodeBuilder do
   #   expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))
   # end
 
-  # # TEST CODE (Module)
+  # TEST CODE (Module)
   describe '#build_class_code' do 
     it 'should be able to create a basic class just after initialization' do
       expect(class_data["arguments"].class).to eq(Array)
@@ -185,19 +185,56 @@ RSpec.describe ClassCodeBuilder do
   end
 
   describe '#build_class_methods' do 
+    it 'should be able to provide the "init" class method in its working form.' do 
+      # Initalize ClassCodeBuilder
+      expect(class_data["arguments"].class).to eq(Array)
+      uut = ClassCodeBuilder.new(class_data["name"],class_data["arguments"])
+      # Create MethodCodeBuilder for 'ctor'
+      ctor_method_builder = MethodCodeBuilder.new()
+      # 'add_method(ctor)' 
+      # Create Expectation for Class Methods
+    end
+
+    it 'should be able to provide the "run" class method in its working form.' do 
+    end
+
+    it 'should be able to provide the "build_uut" class method in its working form.' do 
+    end
+
     it 'should identify methods that have been generated specially for Class Execution, and generate code string' do
     end
   end
 
+  describe '#build_module_methods' do 
+    it 'should be able to provide the "lesson" form of a module class method.' do 
+    end
 
-  # describe '#build_tests' do 
-  #   it "should loop through each method in the 'method_set' and build its test code." do
-  #   end
-  # end
+    it 'should be able to provide the "solution" form of a module class method.' do
+    end
+  end
 
-  # describe '#build_spec' do
-  # end
+  describe '#build_snippet_methods' do
+    it 'should be able to provide a consolidated listing of associated lesson session code snippets for module code' do 
+    end
 
-  # describe '#build_markup' do 
-  # end
+    it 'should be able to compare snippet methods to determine some semblance of workability as a method.' do 
+    end
+  end
+
+  describe '#build_method_runners' do
+  end
+
+  describe '#build_solution_runners' do
+  end
+
+  describe '#build_tests' do 
+    it "should loop through each method in the 'method_set' and build its test code." do
+    end
+  end
+
+  describe '#build_spec' do
+  end
+
+  describe '#build_markup' do 
+  end
 end

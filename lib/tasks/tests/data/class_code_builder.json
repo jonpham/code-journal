@@ -5,13 +5,16 @@
   ],
   "class_methods": [
     {
-      "method_name" : "initialize"
+      "method_name": "initialize",
+      "method_string": "def initialize\n  @test = Array.new\nend"
     },
     {
-      "method_name" : "run"
+      "method_name": "run",
+      "method_string": "def run\n  puts say_hello\n  puts say_words('hello','world!')\n  puts say_string_array(['hello','world!'])\n  return 0\nend"
     },
     {
-      "method_name" : "build_uut"
+      "method_name": "build_uut",
+      "method_string": "def self.build_uut\n  return SampleLesson.new\nend"
     }
   ]
 }

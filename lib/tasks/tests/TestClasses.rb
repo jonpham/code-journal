@@ -108,8 +108,12 @@ module Testing
     end
 
     def self.read_json_file(file_path)
-      file = File.read(file_path)
-      return JSON.parse(file)
+      if (File.exists?(file_path)) 
+        file = File.read(file_path)
+        return JSON.parse(file)
+      else
+        puts "File Does not exist at #{file_path}"
+      end
     end
 
     def self.write_to_yaml(data_object,file_path)

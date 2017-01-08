@@ -26,6 +26,14 @@ initialize_def_method = Testing::MethodCode.new({
   module_ordinal: 1
 })
 
+uut_def_method = Testing::MethodCode.new({
+  method_name: "build_uut",
+  arguments: nil,
+  return_type: 'object',
+  source_code: 'return SampleLesson.new',
+  module_ordinal: 2
+})
+
 run_def_method = Testing::MethodCode.new({
   method_name: "run",
   arguments: nil,
@@ -41,14 +49,6 @@ run_def_test = Testing::TestCode.new({
   test_description: 'should consolidate the SampleLessons for "Hello World"'
 })
 run_def_method.add_test_code(run_def_test);
-
-uut_def_method = Testing::MethodCode.new({
-  method_name: "build_uut",
-  arguments: nil,
-  return_type: 'object',
-  source_code: 'return SampleLesson.new',
-  module_ordinal: 2
-})
 
 # Insert Default Class Methods
 class_module.add_method_code(class_def_method);
@@ -139,6 +139,10 @@ say_array_test = Testing::TestCode.new({
 say_array_method.add_test_code(say_array_test);
 method_module_three.add_method_code(say_array_method);
 test_lesson.add_module(method_module_three);
+
+
+### // FINISHED CREATING 'test_lesson' // ###
+
 
 
 

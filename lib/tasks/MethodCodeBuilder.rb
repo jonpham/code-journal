@@ -1,7 +1,10 @@
-require './TestCodeBuilder.rb'
+require 'rspec'
+
+require_relative './TestCodeBuilder.rb'
+
 
 class MethodCodeBuilder < CodeBuilder
-  attr_accessor :method_name, :source_code
+  attr_reader :method_name, :source_code, :solution_code
   # include MardownConverter
   # include SourceBuilder
   
@@ -10,9 +13,13 @@ class MethodCodeBuilder < CodeBuilder
     @arguments = input_args[:arguments] if input_args[:arguments].class == Array # Assumes Array
     @return_type = input_args[:return_type]
     @source_code = input_args[:source_code]
-    @solution_code = ""
     @code_id = input_args[:module_code_id]
+    @solution_code = ""
     @test_code = Array.new
+  end
+
+  def set_solution(code)
+    @solution_code = code
   end
 
   def build_code(method_name=@method_name,args=@arguments,code=@source_code)
