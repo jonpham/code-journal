@@ -1,5 +1,5 @@
 require_relative './MethodCodeBuilder.rb'
-require_relative './tests/TestData.rb'
+require_relative './tests/TestClasses.rb'
 require 'rspec'
 
 class ClassCodeBuilder < CodeBuilder
@@ -167,19 +167,19 @@ end
 
 RSpec.describe ClassCodeBuilder do 
 
-  class_data = Testing::TestDataHandler.read_json_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.json');
+  lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
-  #   expect(class_data["arguments"].class).to eq(Array)
-  #   uut = ClassCodeBuilder.new(class_data["name"],class_data["arguments"])
+  #   expect(lesson_data["arguments"].class).to eq(Array)
+  #   uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
   #   expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))
   # end
 
   # TEST CODE (Module)
   describe '#build_class_code' do 
     it 'should be able to create a basic class just after initialization' do
-      expect(class_data["arguments"].class).to eq(Array)
-      uut = ClassCodeBuilder.new(class_data["name"],class_data["arguments"])
+      expect(lesson_data["arguments"].class).to eq(Array)
+      uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
       expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))  
     end
   end
@@ -187,8 +187,8 @@ RSpec.describe ClassCodeBuilder do
   describe '#build_class_methods' do 
     it 'should be able to provide the "init" class method in its working form.' do 
       # Initalize ClassCodeBuilder
-      expect(class_data["arguments"].class).to eq(Array)
-      uut = ClassCodeBuilder.new(class_data["name"],class_data["arguments"])
+      expect(lesson_data[:class_methods]["initialize"][:builder].arguments.class).to eq(Array)
+      uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
       # Create MethodCodeBuilder for 'ctor'
       ctor_method_builder = MethodCodeBuilder.new()
       # 'add_method(ctor)' 

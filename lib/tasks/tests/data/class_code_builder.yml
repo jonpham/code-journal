@@ -5,6 +5,7 @@
   initialize:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: initialize
+      arguments: []
       return_type: void
       source_code: "@test = Array.new"
       code_id: 
@@ -13,6 +14,7 @@
   run:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: run
+      arguments: []
       return_type: int
       source_code: puts say_hello\nputs say_words("hello","world!")\nputs say_string_array(["hello","world!"])
       code_id: 
@@ -27,6 +29,7 @@
   build_uut:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: build_uut
+      arguments: []
       return_type: object
       source_code: return SampleLesson.new
       code_id: 
@@ -36,6 +39,7 @@
   say_hello:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: say_hello
+      arguments: []
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
@@ -50,6 +54,9 @@
   say_words:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: say_words
+      arguments:
+      - word1
+      - word2
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
@@ -61,12 +68,11 @@
         expected_return_result: This is me saying, hello world!
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
-      arguments:
-      - word1
-      - word2
   say_string_array:
     :builder: !ruby/object:MethodCodeBuilder
       method_name: say_string_array
+      arguments:
+      - input_array
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
@@ -79,5 +85,3 @@
         expected_return_result: This is me saying, hello world!
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
-      arguments:
-      - input_array
