@@ -74,6 +74,8 @@ say_hello_method = Testing::MethodCode.new({
 
 solution_one = Testing::CodeSnippet.new('string = "This is me saying, hello world!"\nreturn string')
 say_hello_method.add_solution(solution_one.source_code)
+user_code_one = Testing::CodeSnippet.new("def say_hello\n  string = \"This is me saying, hello world!\"\n  return string\nend")
+say_hello_method.add_user_code(user_code_one)
 
 say_hello_test = Testing::TestCode.new({
   assertion_type: 'eq', 
@@ -101,6 +103,8 @@ say_words_method = Testing::MethodCode.new({
 
 solution_two = Testing::CodeSnippet.new('string = "This is me saying, #{word1} #{word2}"\nreturn string')
 say_words_method.add_solution(solution_two.source_code)
+user_code_two = Testing::CodeSnippet.new("def say_words(word1, word2)\n  string = \"This is me saying, \#{word1} \#{word2}\"\n  return string\nend")
+say_words_method.add_user_code(user_code_two)
 
 say_words_test = Testing::TestCode.new({
   assertion_type: 'eq', 
@@ -127,6 +131,8 @@ say_array_method = Testing::MethodCode.new({
 
 solution_three = Testing::CodeSnippet.new('string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn string')
 say_array_method.add_solution(solution_three.source_code)
+user_code_three = Testing::CodeSnippet.new("def say_string_array(input_array)\n  string = \"This is me saying, \#{input_array[0]} \#{input_array[1]}\"\n  return string\nend")
+say_array_method.add_user_code(user_code_three)
 
 say_array_test = Testing::TestCode.new({
   assertion_type: 'eq', 
@@ -154,6 +160,7 @@ def extract_method_to_code_builder(module_code)
   }
   t_method_code_builder = MethodCodeBuilder.new(t_method_hash)
   t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
+  t_method_code_builder.set_user_code(module_code.code_snippet.gsub(/\\n/,"\n")) if module_code.code_snippet != nil
 
   # Add Tests. 
   module_code.test_codes.each do |test_code|

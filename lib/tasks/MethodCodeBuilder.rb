@@ -5,7 +5,7 @@ require 'rspec'
 
 
 class MethodCodeBuilder < CodeBuilder
-  attr_reader :method_name, :source_code, :solution_code, :arguments
+  attr_reader :method_name, :source_code, :solution_code, :arguments, :user_code
   # include MardownConverter
   # include SourceBuilder
   
@@ -18,10 +18,15 @@ class MethodCodeBuilder < CodeBuilder
     @code_id = input_args[:module_code_id]
     @solution_code = ""
     @test_code = Array.new
+    @user_code = ""
   end
 
   def set_solution(code)
     @solution_code = code
+  end
+
+  def set_user_code(code)
+    @user_code = code
   end
 
   def build_code(method_name="_#{@method_name}",args=@arguments,code=@source_code)
