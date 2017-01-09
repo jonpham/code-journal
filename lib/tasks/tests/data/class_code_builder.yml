@@ -22,7 +22,7 @@
       return_type: void
       source_code: "@test = Array.new"
       code_id: 
-      solution_code: 
+      solution_code: ''
       test_code: []
   run:
     :initial_hash:
@@ -57,7 +57,7 @@
         puts say_string_array(["hello","world!"])
         return 0
       code_id: 
-      solution_code: 
+      solution_code: ''
       test_code:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
@@ -84,7 +84,7 @@
       return_type: object
       source_code: return SampleLesson.new
       code_id: 
-      solution_code: 
+      solution_code: ''
       test_code: []
 :module_methods:
   say_hello:
@@ -112,7 +112,9 @@
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
-      solution_code: string = "This is me saying, hello world!"\nreturn string
+      solution_code: |-
+        string = "This is me saying, hello world!"
+        return string
       test_code:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
@@ -147,7 +149,9 @@
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
-      solution_code: 'string = "This is me saying, #{word1} #{word2}"\nreturn string'
+      solution_code: |-
+        string = "This is me saying, #{word1} #{word2}"
+        return string
       test_code:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
@@ -182,8 +186,9 @@
       return_type: string
       source_code: "# Return Appropriate String"
       code_id: 
-      solution_code: 'string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn
-        string'
+      solution_code: |-
+        string = "This is me saying, #{input_array[0]} #{input_array[1]}"
+        return string
       test_code:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0

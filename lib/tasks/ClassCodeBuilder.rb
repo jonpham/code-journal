@@ -165,7 +165,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe ClassCodeBuilder do 
-  DEBUG = false
+  DEBUG = true
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
@@ -291,6 +291,16 @@ RSpec.describe ClassCodeBuilder do
     end
 
     it 'should be able to provide the "solution" form of a module class method.' do
+      uut = build_uut_base(lesson_data)
+      lesson_data[:module_methods].each_value do |module_method| 
+        uut.add_method(module_method[:builder])
+      end
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_methods_solution.rb')
+      generated_string = uut.build_module_methods(true)
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_module_methods(true),'./delete_test_build_module_method_s_code.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string) 
     end
   end
 

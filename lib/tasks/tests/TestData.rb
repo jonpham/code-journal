@@ -153,7 +153,7 @@ def extract_method_to_code_builder(module_code)
     code_id: module_code
   }
   t_method_code_builder = MethodCodeBuilder.new(t_method_hash)
-  t_method_code_builder.set_solution(module_code.solution_code)
+  t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
 
   # Add Tests. 
   module_code.test_codes.each do |test_code|

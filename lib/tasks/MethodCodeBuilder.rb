@@ -37,14 +37,13 @@ class MethodCodeBuilder < CodeBuilder
     end
     method_string += "\n"
     method_string += indent_each_line(code)
-    # binding.pry
     # Add New Line if @source_code does not end with \n
     method_string += "\n" unless code.end_with?("\n")
     method_string += "end"
     return method_string.rstrip
   end
 
-  def build_solution(method_name=@method_name,args=@arguments,code=@solution_code)
+  def build_solution(method_name="s_#{@method_name}",args=@arguments,code=@solution_code)
     return build_code(method_name,args,code)
   end
 
