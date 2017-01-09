@@ -83,7 +83,7 @@ class ClassCodeBuilder < CodeBuilder
       module_method_string += "\n\n"
     end
     # RETURN STRING
-    return module_method_string.strip + "\n"
+    return module_method_string.strip + "\n\n"
   end
 
   def build_snippet_methods
@@ -129,7 +129,7 @@ class ClassCodeBuilder < CodeBuilder
     # Build Module Methods
     if !@method_set.empty?
       class_string += indent_each_line(self.build_module_methods())
-      # class_string += indent_each_line(self.build_module_methods(true))
+      class_string += indent_each_line(self.build_module_methods(true))
       # class_string += indent_each_line(self.build_method_runners())
       # class_string += indent_each_line(self.build_solution_runners()) if !@solution_snippets.empty?
     end
@@ -165,7 +165,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe ClassCodeBuilder do 
-  DEBUG = true
+  DEBUG = false
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
