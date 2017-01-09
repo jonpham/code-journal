@@ -90,9 +90,20 @@ class ClassCodeBuilder < CodeBuilder
     # Generate Code String for User / Solution Code Methods
     code_snippet_string = ""
     # For Each Code Snippet in @user_code_snippets
+    self.compile_code_snippets();
     @user_code_snippets.each do |code_snippet|
-      code_snippet_string += code_snippet.code
-      code_snippet_string += "\n\n"
+      code_snippet_string += code_snippet
+      while (!code_snippet_string.end_with?("\n\n")) do
+        code_snippet_string += "\n" 
+      end
+    end
+    return code_snippet_string
+  end
+
+  def compile_code_snippets
+    @user_code_snippets.clear
+    @method_set.each do | method_builder | 
+      @user_code_snippets.push(method_builder.user_code)
     end
   end
 
@@ -165,7 +176,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe ClassCodeBuilder do 
-  DEBUG = false
+  DEBUG = true
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
@@ -195,6 +206,14 @@ RSpec.describe ClassCodeBuilder do
     # 'add_method(run)' 
     uut.add_method(uut_method_builder)
 
+    return uut
+  end
+
+  def build_uut_w_methods(data)
+    uut = build_uut_base(data)
+    data[:module_methods].each_value do |module_method| 
+      uut.add_method(module_method[:builder])
+    end
     return uut
   end
 
@@ -306,10 +325,18 @@ RSpec.describe ClassCodeBuilder do
 
   describe '#build_snippet_methods' do
     it 'should be able to provide a consolidated listing of associated lesson session code snippets for module code' do 
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/user_method_snippets.rb')
+      generated_string = uut.build_snippet_methods
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(generated_string,'./delete_test_build_user_code.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string) 
     end
 
-    it 'should be able to compare snippet methods to determine some semblance of workability as a method.' do 
-    end
+    # // TODO!
+    # it 'should be able to compare snippet methods to determine some semblance of workability as a method.' do 
+    # end
   end
 
   describe '#build_method_runners' do
