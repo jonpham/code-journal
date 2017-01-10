@@ -52,6 +52,41 @@ class MethodCodeBuilder < CodeBuilder
     return build_code(method_name,args,code)
   end
 
+  def build_method_runner(method_number=0,solution_form=false)
+    #Expand Method_number to Two Digits
+    adjusted_method_number = method_number.to_s.rjust(2, padstr='0')
+    method_prefix = ''
+    method_name = 'method'
+    
+    if (solution_form)
+      method_prefix = 's_'
+      method_name = 'solution_method'
+    end
+    # Build Method Signature
+    method_string = "def #{method_name + adjusted_method_number}(_args)"
+    method_string += "\n"
+    # Build Method Runner String
+    method_runner = "return #{method_prefix + @method_name}"
+    if ( @arguments != nil && @arguments.length > 0 )
+      arg_string = "("
+      (1..@arguments.length).each do |i|
+        arg_string += "_args[#{i-1}]"
+        arg_string += ', ' unless (i == @arguments.length)
+      end
+      arg_string += ")"
+      method_runner += arg_string.strip
+    end
+    method_string += indent_each_line(method_runner)
+    # Add New Line if @source_code does not end with \n
+    method_string += "\n" unless method_string.end_with?("\n")
+    method_string += "end"
+    return method_string.rstrip
+  end
+
+  def build_solution_runner(method_number=0)
+    build_method_runner(method_number,true)
+  end
+
   def add_test(test_code_object)
     @test_code.push(test_code_object)
   end
@@ -86,6 +121,17 @@ RSpec.describe MethodCodeBuilder do
     source_code: source1
   }
 
+  def build_say_words_uut(data)
+    uut = MethodCodeBuilder.new(data[:module_methods]["say_words"][:initial_hash])
+      # Create MethodCodeBuilder for 'say_words'
+
+    solution_two = Testing::CodeSnippet.new('string = "This is me saying, #{word1} #{word2}"\nreturn string')
+    uut.set_solution(solution_two.source_code.gsub(/\\n/,"\n"))
+    user_code_two = Testing::CodeSnippet.new("def say_words(word1, word2)\n  string = \"This is me saying, \#{word1} \#{word2}\"\n  return string\nend")
+    uut.set_user_code(user_code_two.source_code.gsub(/\\n/,"\n"))
+    return uut
+  end
+
   # TEST CODE (Lesson)
   it 'should consolidate "module_arguemnts" passed in to create single module code snippet & file @ /tmp/module_name_time.rb.' do 
     # Setup Expected Data
@@ -115,7 +161,34 @@ RSpec.describe MethodCodeBuilder do
     end
   end
 
-  # TEST CODE (Module)  
+  describe '#build_solution' do
+    it 'should be able to provide the "say_words" class method in its solution form.' do 
+      # Initalize ClassCodeBuilder
+      uut = build_say_words_uut(lesson_data)
+      # Create MethodCodeBuilder for 'say_words'
+      expect(uut.build_solution()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_say_words_s.rb'));
+    end
+  end
+
+  describe '#build_method_runner' do 
+    it 'should be able to provide the "say_words" class method in its solution form.' do 
+      # Initalize ClassCodeBuilder
+      uut = build_say_words_uut(lesson_data)
+      # Create MethodCodeBuilder for 'ctor'
+      expect(uut.build_method_runner()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_runner_say_words.rb'));
+    end
+  end
+
+  describe '#build_solution_runner' do 
+    it 'should be able to provide the "say_words" class method in its solution form.' do 
+      # Initalize ClassCodeBuilder
+      uut = build_say_words_uut(lesson_data)
+      # Create MethodCodeBuilder for 'ctor'
+      expect(uut.build_solution_runner(2)).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_srunner_say_words.rb'));
+    end
+  end
+
+  # TEST CODE (Markdown)  
   describe '#build_markup' do 
     it 'should be able to return string that will be recognized as MarkDown' do
       # Setup Expected Data
