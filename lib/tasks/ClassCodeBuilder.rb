@@ -145,6 +145,7 @@ class ClassCodeBuilder < CodeBuilder
       # class_string += indent_each_line(self.build_solution_runners()) if !@solution_snippets.empty?
     end
     # Add Code Snippets
+    compile_code_snippets()
     class_string += indent_each_line(self.build_snippet_methods())if !@user_code_snippets.empty?
     class_string += "end"
     return class_string.rstrip
