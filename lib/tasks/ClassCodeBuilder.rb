@@ -109,11 +109,32 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_method_runners
     # Add ModuleX methods to wrap intended methods that shall run User Code Snippet Methods
-    return ""
+    module_method_runner_string = ""
+    # For each Module Method in @method_set
+      # Build Either 
+      # A) Solution Method
+      # B) Readable Method 
+    @method_set.each_with_index do |module_method,i|
+      module_method_runner_string += module_method.build_method_runner(i+1)
+      module_method_runner_string += "\n\n"
+    end
+    # RETURN STRING
+    return module_method_runner_string.strip + "\n\n"
   end
 
   def build_solution_runners
     # Add ModuleX methods to wrap intended methods that shall run Solution Methods
+    module_method_srunner_string = ""
+    # For each Module Method in @method_set
+      # Build Either 
+      # A) Solution Method
+      # B) Readable Method 
+    @method_set.each_with_index do |module_method,i|
+      module_method_srunner_string += module_method.build_solution_runner(i+1)
+      module_method_srunner_string += "\n\n"
+    end
+    # RETURN STRING
+    return module_method_srunner_string.strip + "\n\n"
   end
 
   def build_class_code
@@ -339,7 +360,7 @@ RSpec.describe ClassCodeBuilder do
       # DEBUG
       Testing::TestDataHandler.write_string_to_file(uut.build_module_methods(true),'./delete_test_build_module_method_s_code.rb') if DEBUG
       # TEST
-      expect(generated_string).to eq(expected_string) 
+      expect(generated_string).to eq(expected_string)
     end
   end
 
@@ -361,6 +382,13 @@ RSpec.describe ClassCodeBuilder do
 
   describe '#build_method_runners' do
     it 'should, knowing the number of methods, create runners for each of a class\'s module methods' do
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_method_runners.rb')
+      generated_string = uut.build_method_runners
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_method_runners(),'./delete_test_class_method_runners.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string)
     end
   end
 
