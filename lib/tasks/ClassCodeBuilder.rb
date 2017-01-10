@@ -393,6 +393,15 @@ RSpec.describe ClassCodeBuilder do
   end
 
   describe '#build_solution_runners' do
+    it 'should, knowing the number of methods, create solution runners for each of a class\'s module methods' do
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_method_srunners.rb')
+      generated_string = uut.build_solution_runners
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_solution_runners(),'./delete_test_class_method_srunners.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string)
+    end
   end
 
   describe '#build_tests' do 
