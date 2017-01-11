@@ -137,6 +137,14 @@ module Testing
         file.puts string
       end
     end
+
+    def self.delete_tmp_files(directory)
+      Dir.foreach(directory) do |file|
+        # binding.pry
+        # puts file.class if (file.match?(/delete.+\.rb$/))
+        # File.delete(file)
+      end
+    end
   end
 end
 

@@ -17,7 +17,7 @@ class MethodCodeBuilder < CodeBuilder
     @source_code = input_args[:source_code]
     @code_id = input_args[:module_code_id]
     @solution_code = ""
-    @test_code = Array.new
+    @test_codes = Array.new
     @user_code = ""
   end
 
@@ -88,7 +88,22 @@ class MethodCodeBuilder < CodeBuilder
   end
 
   def add_test(test_code_object)
-    @test_code.push(test_code_object)
+    @test_codes.push(test_code_object)
+  end
+
+  def build_tests(module_id="00")
+    use_case_string = "describe '#module#{module_id}' do\n"
+    test_case_strings = ""
+    @test_codes.each_with_index do |test_code,i|
+      test_case_strings += test_code.build_test(module_id)
+      test_case_strings += "\n" unless ((i+1) == @test_codes.length)
+    end
+    use_case_string += indent_each_line(test_case_strings)
+    use_case_string += "end\n\n"
+    return use_case_string
+  end
+
+  def build_spec
   end
 
   def run
@@ -99,6 +114,7 @@ end
 
 # Test Code
 RSpec.describe MethodCodeBuilder do 
+  DEBUG = true
   # EXPECTED DATA
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
 
@@ -129,6 +145,17 @@ RSpec.describe MethodCodeBuilder do
     uut.set_solution(solution_two.source_code.gsub(/\\n/,"\n"))
     user_code_two = Testing::CodeSnippet.new("def say_words(word1, word2)\n  string = \"This is me saying, \#{word1} \#{word2}\"\n  return string\nend")
     uut.set_user_code(user_code_two.source_code.gsub(/\\n/,"\n"))
+    data[:module_methods]["say_words"][:initial_hash][:code_id].test_codes.each do |test_code|
+      t_test_hash = {
+        id: 0,
+        input: test_code.expected_test_data,
+        output: test_code.expected_return,
+        description: test_code.test_description,
+        assertion_type: test_code.assertion_type
+      } 
+      t_test_code_builder = TestCodeBuilder.new(t_test_hash)
+      uut.add_test(t_test_code_builder)
+    end
     return uut
   end
 
@@ -203,6 +230,22 @@ RSpec.describe MethodCodeBuilder do
 
       uut = MethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_markup).to eq(exp_md_no_args_multiline.rstrip)
+    end
+  end
+
+  describe '#build_tests' do
+    it 'should go through its @test_code Array variable and generate appropriate test code.' do
+      uut = build_say_words_uut(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_method_t_say_words.rb')
+      generated_string = uut.build_tests
+      Testing::TestDataHandler.write_string_to_file(uut.build_tests,'./delete_test_method_t_say_words.rb') if DEBUG
+      # Create Expectation for MethodBuilder Methods
+      expect(generated_string).to eq(expected_string) 
+    end
+  end
+
+  describe '#build_spec' do 
+    it 'should ' do 
     end
   end
 end

@@ -91,7 +91,7 @@ class SampleLesson # (module 0 )
   end
 
   def solution_module03(_args)
-    return s_say_string_array(_args)
+    return s_say_string_array(_args[0])
   end
 
   def self.build_uut
@@ -130,7 +130,7 @@ RSpec.describe SampleLesson do
   describe '#module03' do 
     it 'should return "This is me saying, hello world!"' do
       uut = SampleLesson.new 
-      test_set3=["hello","world!"]
+      test_set3=[["hello","world!"]]
       expect(uut.module03(test_set3)).to eq('This is me saying, hello world!')
     end
   end
