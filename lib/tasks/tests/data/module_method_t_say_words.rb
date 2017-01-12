@@ -5,4 +5,3 @@ describe '#module00' do
     expect(uut.module00(args)).to eq(JSON.parse("This is me saying, hello world!"))
   end
 end
-

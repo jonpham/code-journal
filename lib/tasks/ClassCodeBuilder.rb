@@ -29,7 +29,7 @@ class ClassCodeBuilder < CodeBuilder
   end
 
   def add_test(test_builder)
-    @class_tets.push(test_builder)
+    @class_tests.push(test_builder)
   end
 
   def add_code_snippet(code_snippet)
@@ -62,9 +62,9 @@ class ClassCodeBuilder < CodeBuilder
     class_method_string = ""
     @class_methods.each_value do |class_method|
       class_method_string += class_method[:string]
-      class_method_string += "\n\n"
+      class_method_string = set_block_newlines(class_method_string)
     end
-    return class_method_string
+    return set_block_newlines(class_method_string.strip)
   end
 
   def build_module_methods(with_solutions=false)
@@ -80,10 +80,10 @@ class ClassCodeBuilder < CodeBuilder
     @method_set.each do |module_method|
       module_method_string += module_method.build_solution() if with_solutions
       module_method_string += module_method.build_code() unless with_solutions
-      module_method_string += "\n\n"
+      module_method_string = set_block_newlines(module_method_string)
     end
     # RETURN STRING
-    return module_method_string.strip + "\n\n"
+    return set_block_newlines(module_method_string.strip)
   end
 
   def build_snippet_methods
@@ -93,9 +93,7 @@ class ClassCodeBuilder < CodeBuilder
     self.compile_code_snippets();
     @user_code_snippets.each do |code_snippet|
       code_snippet_string += code_snippet
-      while (!code_snippet_string.end_with?("\n\n")) do
-        code_snippet_string += "\n" 
-      end
+      code_snippet_string = set_block_newlines(code_snippet_string)
     end
     return code_snippet_string
   end
@@ -111,30 +109,26 @@ class ClassCodeBuilder < CodeBuilder
     # Add ModuleX methods to wrap intended methods that shall run User Code Snippet Methods
     module_method_runner_string = ""
     # For each Module Method in @method_set
-      # Build Either 
-      # A) Solution Method
-      # B) Readable Method 
+    # Build Readable Method 
     @method_set.each_with_index do |module_method,i|
       module_method_runner_string += module_method.build_method_runner(i+1)
-      module_method_runner_string += "\n\n"
+      module_method_runner_string = set_block_newlines(module_method_runner_string)
     end
     # RETURN STRING
-    return module_method_runner_string.strip + "\n\n"
+    return set_block_newlines(module_method_runner_string.strip)
   end
 
   def build_solution_runners
     # Add ModuleX methods to wrap intended methods that shall run Solution Methods
     module_method_srunner_string = ""
     # For each Module Method in @method_set
-      # Build Either 
-      # A) Solution Method
-      # B) Readable Method 
+    # Build Solution Method
     @method_set.each_with_index do |module_method,i|
       module_method_srunner_string += module_method.build_solution_runner(i+1)
-      module_method_srunner_string += "\n\n"
+      module_method_srunner_string = set_block_newlines(module_method_srunner_string)
     end
     # RETURN STRING
-    return module_method_srunner_string.strip + "\n\n"
+    return set_block_newlines(module_method_srunner_string.strip)
   end
 
   def build_class_code
@@ -174,6 +168,16 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_tests
     # Generate Code String for Class & Module Method Tests
+    return "No Tests" if @method_set.empty?
+    test_method_strings = ""
+    # For each Module Method in @method_set
+    # Build Solution Method
+    @method_set.each_with_index do |module_method,i|
+      test_method_strings += module_method.build_tests(i+1)
+      test_method_strings = set_block_newlines(test_method_strings)
+    end
+    # RETURN STRING
+    return set_block_newlines(test_method_strings.strip,0)
   end
 
   def build_spec
@@ -198,7 +202,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe ClassCodeBuilder do 
-  DEBUG = true
+  DEBUG = true if DEBUG==nil
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
@@ -406,6 +410,13 @@ RSpec.describe ClassCodeBuilder do
 
   describe '#build_tests' do 
     it "should loop through each method in the 'method_set' and build its test code." do
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_method_tests.rb')
+      generated_string = uut.build_tests
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_tests(),'./delete_class_method_tests.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string)
     end
   end
 

@@ -23,8 +23,8 @@
       source_code: "@test = Array.new"
       code_id: 
       solution_code: ''
-      test_code: []
       user_code: ''
+      test_codes: []
   run:
     :initial_hash:
       :method_name: run
@@ -59,14 +59,14 @@
         return 0
       code_id: 
       solution_code: ''
-      test_code:
+      user_code: ''
+      test_codes:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
         expected_return_result: 0
         test_description: should consolidate the SampleLessons for "Hello World"
         assertion_type: eq
-      user_code: ''
   build_uut:
     :initial_hash:
       :method_name: build_uut
@@ -87,8 +87,8 @@
       source_code: return SampleLesson.new
       code_id: 
       solution_code: ''
-      test_code: []
       user_code: ''
+      test_codes: []
 :module_methods:
   say_hello:
     :initial_hash:
@@ -124,18 +124,18 @@
       solution_code: |-
         string = "This is me saying, hello world!"
         return string
-      test_code:
+      user_code: |-
+        def say_hello
+          string = "This is me saying, hello world!"
+          return string
+        end
+      test_codes:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
         expected_return_result: This is me saying, hello world!
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
-      user_code: |-
-        def say_hello
-          string = "This is me saying, hello world!"
-          return string
-        end
   say_words:
     :initial_hash:
       :method_name: say_words
@@ -172,18 +172,18 @@
       solution_code: |-
         string = "This is me saying, #{word1} #{word2}"
         return string
-      test_code:
+      user_code: |-
+        def say_words(word1, word2)
+          string = "This is me saying, #{word1} #{word2}"
+          return string
+        end
+      test_codes:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '["hello","world!"]'
         expected_return_result: This is me saying, hello world!
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
-      user_code: |-
-        def say_words(word1, word2)
-          string = "This is me saying, #{word1} #{word2}"
-          return string
-        end
   say_string_array:
     :initial_hash:
       :method_name: say_string_array
@@ -220,15 +220,15 @@
       solution_code: |-
         string = "This is me saying, #{input_array[0]} #{input_array[1]}"
         return string
-      test_code:
+      user_code: |-
+        def say_string_array(input_array)
+          string = "This is me saying, #{input_array[0]} #{input_array[1]}"
+          return string
+        end
+      test_codes:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '["hello","world!"]'
         expected_return_result: This is me saying, hello world!
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
-      user_code: |-
-        def say_string_array(input_array)
-          string = "This is me saying, #{input_array[0]} #{input_array[1]}"
-          return string
-        end

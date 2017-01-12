@@ -92,15 +92,18 @@ class MethodCodeBuilder < CodeBuilder
   end
 
   def build_tests(module_id="00")
-    use_case_string = "describe '#module#{module_id}' do\n"
+    module_num_string = module_id
+    module_num_string = sprintf '%02d', module_id if module_id.class == Fixnum
+    return "No Tests" if (@test_codes.empty?)
+    use_case_string = "describe '#module#{module_num_string}' do\n" 
     test_case_strings = ""
     @test_codes.each_with_index do |test_code,i|
       test_case_strings += test_code.build_test(module_id)
-      test_case_strings += "\n" unless ((i+1) == @test_codes.length)
+      test_case_strings = set_block_newlines(test_case_strings)
     end
-    use_case_string += indent_each_line(test_case_strings)
-    use_case_string += "end\n\n"
-    return use_case_string
+    use_case_string += indent_each_line(test_case_strings).rstrip
+    use_case_string += "\nend"
+    return set_block_newlines(use_case_string.strip,0)
   end
 
   def build_spec
@@ -238,6 +241,7 @@ RSpec.describe MethodCodeBuilder do
       uut = build_say_words_uut(lesson_data)
       expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_method_t_say_words.rb')
       generated_string = uut.build_tests
+      # DEBUG
       Testing::TestDataHandler.write_string_to_file(uut.build_tests,'./delete_test_method_t_say_words.rb') if DEBUG
       # Create Expectation for MethodBuilder Methods
       expect(generated_string).to eq(expected_string) 
