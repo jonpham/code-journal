@@ -107,6 +107,13 @@ class MethodCodeBuilder < CodeBuilder
   end
 
   def build_spec
+    spec_string="class TestMethod\n\n  def self.build_uut\n    return TestMethod.new()\n  end\n\n"
+    spec_string+=set_block_newlines(indent_each_line(@user_code))
+    spec_string+=set_block_newlines(indent_each_line(self.build_method_runner()))
+    spec_string+="end\n\nRSpec.describe TestMethod do\n"
+    spec_string+=indent_each_line(self.build_tests(),1)
+    spec_string+="end"
+    return spec_string
   end
 
   def run
@@ -249,7 +256,14 @@ RSpec.describe MethodCodeBuilder do
   end
 
   describe '#build_spec' do 
-    it 'should ' do 
+    it 'should be able to ' do 
+      uut = build_say_words_uut(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_spec_t_say_words.rb')
+      generated_string = uut.build_spec
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_spec,'./delete_module_spec_t_say_words.rb') if DEBUG
+      # Create Expectation for MethodBuilder Methods
+      expect(generated_string).to eq(expected_string) 
     end
   end
 end
