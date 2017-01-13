@@ -1,3 +1,6 @@
+require 'rspec'
+require 'JSON'
+
 class SampleLesson
   attr_accessor :test
   
@@ -58,32 +61,59 @@ class SampleLesson
     return string
   end
   
+  def method01(_args)
+    return say_hello
+  end
+  
+  def method02(_args)
+    return say_words(_args[0], _args[1])
+  end
+  
+  def method03(_args)
+    return say_string_array(_args[0])
+  end
+  
+  def solution_method01(_args)
+    return s_say_hello
+  end
+  
+  def solution_method02(_args)
+    return s_say_words(_args[0], _args[1])
+  end
+  
+  def solution_method03(_args)
+    return s_say_string_array(_args[0])
+  end
+  
+end
+
+def build_uut
+  return SampleLesson.new()
 end
 
 RSpec.describe SampleLesson do
-  describe '#module01' do
+  describe '#method01' do
     it 'should return "This is me saying, hello world!"' do
       uut = build_uut()
       args = JSON.parse("null")
-      expect(uut.module1(args)).to eq(JSON.parse("This is me saying, hello world!"))
+      expect(uut.method01(args)).to eq(JSON.parse("\"This is me saying, hello world!\""))
     end
   end
 
-  describe '#module02' do
+  describe '#method02' do
     it 'should return "This is me saying, hello world!"' do
       uut = build_uut()
       args = JSON.parse("[\"hello\",\"world!\"]")
-      expect(uut.module2(args)).to eq(JSON.parse("This is me saying, hello world!"))
+      expect(uut.method02(args)).to eq(JSON.parse("\"This is me saying, hello world!\""))
     end
   end
 
-  describe '#module03' do
+  describe '#method03' do
     it 'should return "This is me saying, hello world!"' do
       uut = build_uut()
-      args = JSON.parse("[\"hello\",\"world!\"]")
-      expect(uut.module3(args)).to eq(JSON.parse("This is me saying, hello world!"))
+      args = JSON.parse("[[\"hello\",\"world!\"]]")
+      binding.pry
+      expect(uut.method03(args)).to eq(JSON.parse("\"This is me saying, hello world!\""))
     end
   end
 end
-
-
