@@ -107,10 +107,10 @@ class MethodCodeBuilder < CodeBuilder
   end
 
   def build_spec
-    spec_string="class TestMethod\n\n  def self.build_uut\n    return TestMethod.new()\n  end\n\n"
+    spec_string="require 'rspec'\nrequire 'JSON'\n\nclass TestMethod\n\n"
     spec_string+=set_block_newlines(indent_each_line(@user_code))
     spec_string+=set_block_newlines(indent_each_line(self.build_method_runner()))
-    spec_string+="end\n\nRSpec.describe TestMethod do\n"
+    spec_string+="end\n\ndef build_uut\n  return TestMethod.new()\nend\n\nRSpec.describe TestMethod do\n"
     spec_string+=indent_each_line(self.build_tests(),1)
     spec_string+="end"
     return spec_string

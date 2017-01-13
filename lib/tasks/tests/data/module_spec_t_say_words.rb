@@ -1,8 +1,7 @@
-class TestMethod
+require 'rspec'
+require 'JSON'
 
-  def self.build_uut
-    return TestMethod.new()
-  end
+class TestMethod
 
   def say_words(word1, word2)
     string = "This is me saying, #{word1} #{word2}"
@@ -15,12 +14,16 @@ class TestMethod
 
 end
 
+def build_uut
+  return TestMethod.new()
+end
+
 RSpec.describe TestMethod do
   describe '#module00' do
     it 'should return "This is me saying, hello world!"' do
       uut = build_uut()
       args = JSON.parse("[\"hello\",\"world!\"]")
-      expect(uut.module00(args)).to eq(JSON.parse("This is me saying, hello world!"))
+      expect(uut.method00(args)).to eq(JSON.parse("This is me saying, hello world!"))
     end
   end
 end

@@ -421,6 +421,15 @@ RSpec.describe ClassCodeBuilder do
   end
 
   describe '#build_spec' do
+    it "should compile all class methods to create a Runnable Class RSpec." do
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_spec_code.rb')
+      generated_string = uut.build_spec
+      # DEBUG
+      Testing::TestDataHandler.write_string_to_file(uut.build_spec(),'./delete_class_spec_code.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string)
+    end
   end
 
   describe '#build_markup' do 

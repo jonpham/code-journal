@@ -14,7 +14,7 @@ class TestCodeBuilder < CodeBuilder
   def build_test(method_number="00",args=@expected_test_arguments,expectation=@expected_return_result)
     test_code_string = "uut = build_uut()\n"
     test_code_string += "args = JSON.parse(#{JSON.dump(args)})\n"
-    test_code_string += "expect(uut.module#{method_number}(args)).to #{@assertion_type}(JSON.parse(#{JSON.dump(expectation)}))\n"
+    test_code_string += "expect(uut.method#{method_number}(args)).to #{@assertion_type}(JSON.parse(#{JSON.dump(expectation)}))\n"
     
     # Instantiate ClassName/ UUT
     test_case_string = "it '#{@test_description}' do\n"
