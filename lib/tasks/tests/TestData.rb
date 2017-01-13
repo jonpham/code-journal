@@ -44,7 +44,7 @@ run_def_method = Testing::MethodCode.new({
 
 run_def_test = Testing::TestCode.new({
   assertion_type: 'eq', 
-  expected_return: 0,
+  expected_return: JSON.dump(0),
   expected_test_data: JSON.dump(nil),
   test_description: 'should consolidate the SampleLessons for "Hello World"'
 })
@@ -79,7 +79,7 @@ say_hello_method.add_user_code(user_code_one)
 
 say_hello_test = Testing::TestCode.new({
   assertion_type: 'eq', 
-  expected_return: 'This is me saying, hello world!',
+  expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(nil),
   test_description: 'should return "This is me saying, hello world!"'
 })
@@ -108,7 +108,7 @@ say_words_method.add_user_code(user_code_two)
 
 say_words_test = Testing::TestCode.new({
   assertion_type: 'eq', 
-  expected_return: 'This is me saying, hello world!',
+  expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(test_set2),
   test_description: 'should return "This is me saying, hello world!"'
 })
@@ -135,7 +135,7 @@ user_code_three = Testing::CodeSnippet.new("def say_string_array(input_array)\n 
 say_array_method.add_user_code(user_code_three)
 say_array_test = Testing::TestCode.new({
   assertion_type: 'eq', 
-  expected_return: 'This is me saying, hello world!',
+  expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(test_set2),
   test_description: 'should return "This is me saying, hello world!"'
 })

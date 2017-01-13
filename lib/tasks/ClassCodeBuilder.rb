@@ -131,7 +131,7 @@ class ClassCodeBuilder < CodeBuilder
     return set_block_newlines(module_method_srunner_string.strip)
   end
 
-  def build_class_code
+  def build_class_code(with_runners=false)
     class_string = ""
     accessor_string = ""
 
@@ -162,6 +162,8 @@ class ClassCodeBuilder < CodeBuilder
     # Add Code Snippets
     compile_code_snippets()
     class_string += indent_each_line(self.build_snippet_methods())if !@user_code_snippets.empty?
+    class_string += indent_each_line(self.build_method_runners()) if (!@method_set.empty? && with_runners)
+    class_string += indent_each_line(self.build_solution_runners()) if (!@method_set.empty? && with_runners)
     class_string += "end"
     return class_string.rstrip
   end
@@ -337,6 +339,17 @@ RSpec.describe ClassCodeBuilder do
 
       # Create Expectation for Class Methods
       expect(generated_string).to eq(expected_string) 
+    end
+
+    it 'should build all class methods into a usable class including runners.' do 
+      uut = build_uut_w_methods(lesson_data)
+      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_code_complete.rb')
+      generated_string = uut.build_class_code(true)
+      # DEBUG
+      binding.pry
+      Testing::TestDataHandler.write_string_to_file(uut.build_class_code(true),'./delete_class_code_complete.rb') if DEBUG
+      # TEST
+      expect(generated_string).to eq(expected_string)
     end
   end
 

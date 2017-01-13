@@ -45,7 +45,7 @@
         test_codes:
         - !ruby/object:Testing::TestCode
           assertion_type: eq
-          expected_return: 0
+          expected_return: '0'
           expected_test_data: 'null'
           test_description: should consolidate the SampleLessons for "Hello World"
     :builder: !ruby/object:MethodCodeBuilder
@@ -64,7 +64,7 @@
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
-        expected_return_result: 0
+        expected_return_result: '0'
         test_description: should consolidate the SampleLessons for "Hello World"
         assertion_type: eq
   build_uut:
@@ -105,7 +105,7 @@
         test_codes:
         - !ruby/object:Testing::TestCode
           assertion_type: eq
-          expected_return: This is me saying, hello world!
+          expected_return: '"This is me saying, hello world!"'
           expected_test_data: 'null'
           test_description: should return "This is me saying, hello world!"
         user_code: !ruby/object:Testing::CodeSnippet
@@ -133,7 +133,7 @@
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
-        expected_return_result: This is me saying, hello world!
+        expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
   say_words:
@@ -153,7 +153,7 @@
         test_codes:
         - !ruby/object:Testing::TestCode
           assertion_type: eq
-          expected_return: This is me saying, hello world!
+          expected_return: '"This is me saying, hello world!"'
           expected_test_data: '["hello","world!"]'
           test_description: should return "This is me saying, hello world!"
         user_code: !ruby/object:Testing::CodeSnippet
@@ -181,7 +181,7 @@
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '["hello","world!"]'
-        expected_return_result: This is me saying, hello world!
+        expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
   say_string_array:
@@ -200,7 +200,7 @@
         test_codes:
         - !ruby/object:Testing::TestCode
           assertion_type: eq
-          expected_return: This is me saying, hello world!
+          expected_return: '"This is me saying, hello world!"'
           expected_test_data: '["hello","world!"]'
           test_description: should return "This is me saying, hello world!"
         user_code: !ruby/object:Testing::CodeSnippet
@@ -229,6 +229,6 @@
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '["hello","world!"]'
-        expected_return_result: This is me saying, hello world!
+        expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
