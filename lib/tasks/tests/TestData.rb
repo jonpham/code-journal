@@ -136,7 +136,7 @@ say_array_method.add_user_code(user_code_three)
 say_array_test = Testing::TestCode.new({
   assertion_type: 'eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
-  expected_test_data: JSON.dump(test_set2),
+  expected_test_data: JSON.dump([test_set2]),
   test_description: 'should return "This is me saying, hello world!"'
 })
 

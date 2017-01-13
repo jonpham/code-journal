@@ -1,4 +1,4 @@
-describe '#module00' do
+describe '#method00' do
   it 'should return "This is me saying, hello world!"' do
     uut = build_uut()
     args = JSON.parse("[\"hello\",\"world!\"]")

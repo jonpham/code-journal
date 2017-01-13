@@ -201,7 +201,7 @@
         - !ruby/object:Testing::TestCode
           assertion_type: eq
           expected_return: '"This is me saying, hello world!"'
-          expected_test_data: '["hello","world!"]'
+          expected_test_data: '[["hello","world!"]]'
           test_description: should return "This is me saying, hello world!"
         user_code: !ruby/object:Testing::CodeSnippet
           source_code: |-
@@ -228,7 +228,7 @@
       test_codes:
       - !ruby/object:TestCodeBuilder
         test_code_id: 0
-        expected_test_arguments: '["hello","world!"]'
+        expected_test_arguments: '[["hello","world!"]]'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq

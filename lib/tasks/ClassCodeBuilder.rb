@@ -170,7 +170,7 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_tests
     # Generate Code String for Class & Module Method Tests
-    return "No Tests" if @method_set.empty?
+    return "#No Tests" if @method_set.empty?
     test_method_strings = ""
     # For each Module Method in @method_set
     # Build Solution Method
@@ -184,9 +184,16 @@ class ClassCodeBuilder < CodeBuilder
 
   def build_spec
     # Return Executable RSPEC File as String
+    spec_string="require 'rspec'\nrequire 'JSON'\n\n"
     # CONCATENATE : 
     # build_class_code();
+    spec_string += set_block_newlines(build_class_code(true))
+    spec_string +="def build_uut\n  return #{@class_name}.build_uut()\nend\n\n"
     # build_tests();
+    spec_string += "RSpec.describe #{@class_name} do\n"
+    spec_string += indent_each_line(set_block_newlines(build_tests))
+    spec_string += "end"
+    return spec_string
   end
 
   def build_markup
@@ -346,7 +353,7 @@ RSpec.describe ClassCodeBuilder do
       expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/class_code_complete.rb')
       generated_string = uut.build_class_code(true)
       # DEBUG
-      binding.pry
+      # binding.pry
       Testing::TestDataHandler.write_string_to_file(uut.build_class_code(true),'./delete_class_code_complete.rb') if DEBUG
       # TEST
       expect(generated_string).to eq(expected_string)

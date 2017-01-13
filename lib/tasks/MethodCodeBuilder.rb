@@ -95,10 +95,10 @@ class MethodCodeBuilder < CodeBuilder
     module_num_string = module_id
     module_num_string = sprintf '%02d', module_id if module_id.class == Fixnum
     return "No Tests" if (@test_codes.empty?)
-    use_case_string = "describe '#module#{module_num_string}' do\n" 
+    use_case_string = "describe '#method#{module_num_string}' do\n" 
     test_case_strings = ""
-    @test_codes.each_with_index do |test_code,i|
-      test_case_strings += test_code.build_test(module_id)
+    @test_codes.each do |test_code|
+      test_case_strings += test_code.build_test(module_num_string)
       test_case_strings = set_block_newlines(test_case_strings)
     end
     use_case_string += indent_each_line(test_case_strings).rstrip
