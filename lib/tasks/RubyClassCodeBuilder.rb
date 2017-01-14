@@ -1,8 +1,8 @@
-require_relative './MethodCodeBuilder.rb'
+require_relative './RubyMethodCodeBuilder.rb'
 require_relative './tests/TestClasses.rb'
 require 'rspec'
 
-class ClassCodeBuilder < CodeBuilder
+class RubyClassCodeBuilder < RubyCodeBuilder
   attr_accessor :method_set, :user_code_snippets, :class_tests, :solution_snippets, :class_methods
 
   def initialize(lesson_name,variables)
@@ -202,7 +202,7 @@ class ClassCodeBuilder < CodeBuilder
 end
 
 # Test Code
-# lesson_class_builder = ClassCodeBuilder.new(class_name,variables)
+# lesson_class_builder = RubyClassCodeBuilder.new(class_name,variables)
 # lesson_class_builder.set_run_method(run_code);
 # lesson_class_builder.set_ctor(ctor_code);
 # lesson_class_builder.set_uut(uut_code);
@@ -210,20 +210,21 @@ end
 # class_test = TestCodeBuilder.new(test_args)
 # lesson_class_builder.add_test(class_test)
 
-RSpec.describe ClassCodeBuilder do 
+RSpec.describe RubyClassCodeBuilder do 
   DEBUG = true if DEBUG==nil
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
+  
   # TEST CODE (Lesson)
   # it 'should consolidate "module_codes" passed in to create single class code snippets and executable rspec.' do 
   #   expect(lesson_data["arguments"].class).to eq(Array)
-  #   uut = ClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
+  #   uut = RubyClassCodeBuilder.new(lesson_data["name"],lesson_data["arguments"])
   #   expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_1.rb'))
   # end
 
   def build_uut_base(data)
-    # Initalize ClassCodeBuilder
+    # Initalize RubyClassCodeBuilder
 
-    uut = ClassCodeBuilder.new(data[:name],data[:variables])
+    uut = RubyClassCodeBuilder.new(data[:name],data[:variables])
 
     # Create MethodCodeBuilder for 'ctor'
     ctor_method_builder = data[:class_methods]["initialize"][:builder]
@@ -255,7 +256,7 @@ RSpec.describe ClassCodeBuilder do
   # TEST CODE
   describe '#build_class_code' do 
     it 'should be able to create a basic class just after initialization' do
-      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      uut = RubyClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       expect(uut.build_class_code).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/class_code_empty.rb'))  
     end
 
@@ -285,9 +286,9 @@ RSpec.describe ClassCodeBuilder do
 
   describe '#build_class_methods' do 
     it 'should be able to provide the "init" class method in its working form.' do 
-      # Initalize ClassCodeBuilder
+      # Initalize RubyClassCodeBuilder
       expect(lesson_data[:class_methods]["initialize"][:builder].arguments.class).to eq(Array)
-      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      uut = RubyClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       # Create MethodCodeBuilder for 'ctor'
       ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]
       # 'add_method(ctor)' 
@@ -298,8 +299,8 @@ RSpec.describe ClassCodeBuilder do
     end
 
     it 'should be able to provide the "run" class method in its working form.' do 
-      # Initalize ClassCodeBuilder
-      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      # Initalize RubyClassCodeBuilder
+      uut = RubyClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       # Create MethodCodeBuilder for 'ctor'
       run_method_builder = lesson_data[:class_methods]["run"][:builder]
       # 'add_method(ctor)' 
@@ -310,8 +311,8 @@ RSpec.describe ClassCodeBuilder do
     end
 
     it 'should be able to provide the "build_uut" class method in its working form.' do 
-      # Initalize ClassCodeBuilder
-      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      # Initalize RubyClassCodeBuilder
+      uut = RubyClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
       # Create MethodCodeBuilder for 'ctor'
       uut_method_builder = lesson_data[:class_methods]["build_uut"][:builder]
       # 'add_method(ctor)' 
@@ -322,8 +323,8 @@ RSpec.describe ClassCodeBuilder do
     end
 
     it 'should identify methods that have been generated specially for Class Execution, and generate code string' do
-      # Initalize ClassCodeBuilder
-      uut = ClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
+      # Initalize RubyClassCodeBuilder
+      uut = RubyClassCodeBuilder.new(lesson_data[:name],lesson_data[:variables])
 
       # Create MethodCodeBuilder for 'ctor'
       ctor_method_builder = lesson_data[:class_methods]["initialize"][:builder]

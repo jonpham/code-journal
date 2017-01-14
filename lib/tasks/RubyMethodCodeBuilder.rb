@@ -1,10 +1,10 @@
-require_relative './TestCodeBuilder.rb'
+require_relative './RspecTestCodeBuilder.rb'
 
 require_relative './tests/TestClasses.rb'
 require 'rspec'
 
 
-class MethodCodeBuilder < CodeBuilder
+class RubyMethodCodeBuilder < RubyCodeBuilder
   attr_reader :method_name, :source_code, :solution_code, :arguments, :user_code
   # include MardownConverter
   # include SourceBuilder
@@ -123,7 +123,7 @@ class MethodCodeBuilder < CodeBuilder
 end
 
 # Test Code
-RSpec.describe MethodCodeBuilder do 
+RSpec.describe RubyMethodCodeBuilder do 
   DEBUG = true
   # EXPECTED DATA
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
@@ -148,8 +148,8 @@ RSpec.describe MethodCodeBuilder do
   }
 
   def build_say_words_uut(data)
-    uut = MethodCodeBuilder.new(data[:module_methods]["say_words"][:initial_hash])
-      # Create MethodCodeBuilder for 'say_words'
+    uut = RubyMethodCodeBuilder.new(data[:module_methods]["say_words"][:initial_hash])
+      # Create RubyMethodCodeBuilder for 'say_words'
 
     solution_two = Testing::CodeSnippet.new('string = "This is me saying, #{word1} #{word2}"\nreturn string')
     uut.set_solution(solution_two.source_code.gsub(/\\n/,"\n"))
@@ -163,7 +163,7 @@ RSpec.describe MethodCodeBuilder do
         description: test_code.test_description,
         assertion_type: test_code.assertion_type
       } 
-      t_test_code_builder = TestCodeBuilder.new(t_test_hash)
+      t_test_code_builder = RspecTestCodeBuilder.new(t_test_hash)
       uut.add_test(t_test_code_builder)
     end
     return uut
@@ -172,7 +172,7 @@ RSpec.describe MethodCodeBuilder do
   # TEST CODE (Lesson)
   it 'should consolidate "module_arguemnts" passed in to create single module code snippet & file @ /tmp/module_name_time.rb.' do 
     # Setup Expected Data
-    uut = MethodCodeBuilder.new(data_method_no_args_multiline)
+    uut = RubyMethodCodeBuilder.new(data_method_no_args_multiline)
     expect(uut.run).to eq(0)
   end
 
@@ -186,14 +186,14 @@ RSpec.describe MethodCodeBuilder do
           puts text
         end
       code
-      uut = MethodCodeBuilder.new(data_method_no_args_multiline)
+      uut = RubyMethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_code).to eq(exp_method_no_args_multiline.rstrip)
     end
 
     it 'should be able to provide the "run" class method in its working form.' do 
       # Initalize ClassCodeBuilder
-      uut = MethodCodeBuilder.new(lesson_data[:class_methods]["run"][:initial_hash])
-      # Create MethodCodeBuilder for 'ctor'
+      uut = RubyMethodCodeBuilder.new(lesson_data[:class_methods]["run"][:initial_hash])
+      # Create RubyMethodCodeBuilder for 'ctor'
       expect(uut.build_code('run')).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/method_code_run.rb'));
     end
   end
@@ -202,7 +202,7 @@ RSpec.describe MethodCodeBuilder do
     it 'should be able to provide the "say_words" class method in its solution form.' do 
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
-      # Create MethodCodeBuilder for 'say_words'
+      # Create RubyMethodCodeBuilder for 'say_words'
       expect(uut.build_solution()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_say_words_s.rb'));
     end
   end
@@ -211,7 +211,7 @@ RSpec.describe MethodCodeBuilder do
     it 'should be able to provide the "say_words" class method in its solution form.' do 
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
-      # Create MethodCodeBuilder for 'ctor'
+      # Create RubyMethodCodeBuilder for 'ctor'
       expect(uut.build_method_runner()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_runner_say_words.rb'));
     end
   end
@@ -220,7 +220,7 @@ RSpec.describe MethodCodeBuilder do
     it 'should be able to provide the "say_words" class method in its solution form.' do 
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
-      # Create MethodCodeBuilder for 'ctor'
+      # Create RubyMethodCodeBuilder for 'ctor'
       expect(uut.build_solution_runner(2)).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_srunner_say_words.rb'));
     end
   end
@@ -238,7 +238,7 @@ RSpec.describe MethodCodeBuilder do
         ```
       code
 
-      uut = MethodCodeBuilder.new(data_method_no_args_multiline)
+      uut = RubyMethodCodeBuilder.new(data_method_no_args_multiline)
       expect(uut.build_markup).to eq(exp_md_no_args_multiline.rstrip)
     end
   end

@@ -16,15 +16,15 @@
         source_code: "@test = Array.new"
         module_ordinal: 1
         test_codes: []
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: initialize
       arguments: []
       return_type: void
       source_code: "@test = Array.new"
       code_id: 
       solution_code: ''
-      user_code: ''
       test_codes: []
+      user_code: ''
   run:
     :initial_hash:
       :method_name: run
@@ -48,7 +48,7 @@
           expected_return: '0'
           expected_test_data: 'null'
           test_description: should consolidate the SampleLessons for "Hello World"
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: run
       arguments: []
       return_type: int
@@ -59,14 +59,14 @@
         return 0
       code_id: 
       solution_code: ''
-      user_code: ''
       test_codes:
-      - !ruby/object:TestCodeBuilder
+      - !ruby/object:RspecTestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
         expected_return_result: '0'
         test_description: should consolidate the SampleLessons for "Hello World"
         assertion_type: eq
+      user_code: ''
   build_uut:
     :initial_hash:
       :method_name: build_uut
@@ -80,15 +80,15 @@
         source_code: return SampleLesson.new
         module_ordinal: 2
         test_codes: []
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: build_uut
       arguments: []
       return_type: object
       source_code: return SampleLesson.new
       code_id: 
       solution_code: ''
-      user_code: ''
       test_codes: []
+      user_code: ''
 :module_methods:
   say_hello:
     :initial_hash:
@@ -108,14 +108,14 @@
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: 'null'
           test_description: should return "This is me saying, hello world!"
+        solution_code: string = "This is me saying, hello world!"\nreturn string
         user_code: !ruby/object:Testing::CodeSnippet
           source_code: |-
             def say_hello
               string = "This is me saying, hello world!"
               return string
             end
-        solution_code: string = "This is me saying, hello world!"\nreturn string
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: say_hello
       arguments: []
       return_type: string
@@ -124,18 +124,18 @@
       solution_code: |-
         string = "This is me saying, hello world!"
         return string
-      user_code: |-
-        def say_hello
-          string = "This is me saying, hello world!"
-          return string
-        end
       test_codes:
-      - !ruby/object:TestCodeBuilder
+      - !ruby/object:RspecTestCodeBuilder
         test_code_id: 0
         expected_test_arguments: 'null'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
+      user_code: |-
+        def say_hello
+          string = "This is me saying, hello world!"
+          return string
+        end
   say_words:
     :initial_hash:
       :method_name: say_words
@@ -156,14 +156,14 @@
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: '["hello","world!"]'
           test_description: should return "This is me saying, hello world!"
+        solution_code: 'string = "This is me saying, #{word1} #{word2}"\nreturn string'
         user_code: !ruby/object:Testing::CodeSnippet
           source_code: |-
             def say_words(word1, word2)
               string = "This is me saying, #{word1} #{word2}"
               return string
             end
-        solution_code: 'string = "This is me saying, #{word1} #{word2}"\nreturn string'
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: say_words
       arguments: *1
       return_type: string
@@ -172,18 +172,18 @@
       solution_code: |-
         string = "This is me saying, #{word1} #{word2}"
         return string
-      user_code: |-
-        def say_words(word1, word2)
-          string = "This is me saying, #{word1} #{word2}"
-          return string
-        end
       test_codes:
-      - !ruby/object:TestCodeBuilder
+      - !ruby/object:RspecTestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '["hello","world!"]'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
+      user_code: |-
+        def say_words(word1, word2)
+          string = "This is me saying, #{word1} #{word2}"
+          return string
+        end
   say_string_array:
     :initial_hash:
       :method_name: say_string_array
@@ -203,15 +203,15 @@
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: '[["hello","world!"]]'
           test_description: should return "This is me saying, hello world!"
+        solution_code: 'string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn
+          string'
         user_code: !ruby/object:Testing::CodeSnippet
           source_code: |-
             def say_string_array(input_array)
               string = "This is me saying, #{input_array[0]} #{input_array[1]}"
               return string
             end
-        solution_code: 'string = "This is me saying, #{input_array[0]} #{input_array[1]}"\nreturn
-          string'
-    :builder: !ruby/object:MethodCodeBuilder
+    :builder: !ruby/object:RubyMethodCodeBuilder
       method_name: say_string_array
       arguments: *2
       return_type: string
@@ -220,15 +220,15 @@
       solution_code: |-
         string = "This is me saying, #{input_array[0]} #{input_array[1]}"
         return string
-      user_code: |-
-        def say_string_array(input_array)
-          string = "This is me saying, #{input_array[0]} #{input_array[1]}"
-          return string
-        end
       test_codes:
-      - !ruby/object:TestCodeBuilder
+      - !ruby/object:RspecTestCodeBuilder
         test_code_id: 0
         expected_test_arguments: '[["hello","world!"]]'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
         assertion_type: eq
+      user_code: |-
+        def say_string_array(input_array)
+          string = "This is me saying, #{input_array[0]} #{input_array[1]}"
+          return string
+        end

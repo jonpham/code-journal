@@ -1,8 +1,8 @@
-require_relative './CodeBuilder.rb'
+require_relative './RubyCodeBuilder.rb'
 require 'rspec'
 require 'JSON'
 
-class TestCodeBuilder < CodeBuilder
+class RspecTestCodeBuilder < RubyCodeBuilder
   def initialize(test_code_input)
     @test_code_id = test_code_input[:id]
     @expected_test_arguments = test_code_input[:input]

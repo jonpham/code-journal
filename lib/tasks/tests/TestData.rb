@@ -1,6 +1,6 @@
 require 'JSON'
 require_relative 'TestClasses.rb'
-require_relative '../ClassCodeBuilder.rb'
+require_relative '../RubyClassCodeBuilder.rb'
 
 ##### CREATE TEST DATA! #####
 #Create Lesson
@@ -157,7 +157,7 @@ def extract_method_to_code_builder(module_code)
     source_code: module_code.source_code.gsub(/\\n/,"\n"),
     code_id: module_code
   }
-  t_method_code_builder = MethodCodeBuilder.new(t_method_hash)
+  t_method_code_builder = RubyMethodCodeBuilder.new(t_method_hash)
   t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
   t_method_code_builder.set_user_code(module_code.user_code.source_code.gsub(/\\n/,"\n")) unless (module_code.user_code == nil || module_code.user_code.source_code.empty?)
   # Add Tests. 
@@ -169,7 +169,7 @@ def extract_method_to_code_builder(module_code)
       description: test_code.test_description,
       assertion_type: test_code.assertion_type
     } 
-    t_test_code_builder = TestCodeBuilder.new(t_test_hash)
+    t_test_code_builder = RspecTestCodeBuilder.new(t_test_hash)
     t_method_code_builder.add_test(t_test_code_builder)
   end
 
@@ -180,7 +180,7 @@ end
 
 lesson_data = Hash.new
 
-# Push methods for each MethodCodeBuilders Required # (6x)
+# Push methods for each RubyMethodCodeBuilders Required # (6x)
 # initialize # run # build_uut
 class_module = test_lesson.get_module_by_ordinal(0)
 
@@ -192,7 +192,7 @@ lesson_data[:variables] = class_description.arguments
 lesson_data[:class_methods] = Hash.new
 
 class_module.module_codes.each do |module_code|
-  # create MethodCodeBuilder
+  # create RubyMethodCodeBuilder
   if (module_code.module_ordinal != 0)
     lesson_data[:class_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
   end
@@ -207,7 +207,7 @@ lesson_data[:module_methods] = Hash.new
 
 class_method_modules.each do |methods_module|
   methods_module.module_codes.each do |module_code|
-    # create MethodCodeBuilder
+    # create RubyMethodCodeBuilder
     lesson_data[:module_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
   end
 end

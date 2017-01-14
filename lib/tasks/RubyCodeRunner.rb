@@ -1,6 +1,7 @@
 # require 'os'
 
 class RubyCodeRunner 
+# Description ; RubyCodeRunner Class
 
   def get_tmp_dir
     # Detect OS Type. Select OS-Specific Temp Director. Check Write Permissions. Write New Temporary directory.

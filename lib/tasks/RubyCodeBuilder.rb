@@ -1,6 +1,6 @@
 require 'active_support'
 
-class CodeBuilder
+class RubyCodeBuilder
   def indent_each_line(text_block, num_indents=1)
     # For Each Line
     # Add \t*num_indents to front.
