@@ -21,15 +21,15 @@ class RspecCodeRunner
     return Dir.tmpdir + CODERUNNER_TMP
   end
 
-  def build_filename
+  def build_filename(ext="rb")
     # Build a temp_file_name from Class or Method Name (argument) and date and time. Assumption is that all files are ruby files.
-    file_name = "#{@session_id}_rspec_build_#{@creation_time}.rb"
+    file_name = "#{@session_id}_rspec_build_#{@creation_time}.#{ext}"
     @session_filename = file_name
     return file_name
   end
 
-  def build_test_file_path
-    @session_file_path = get_tmp_dir + build_filename
+  def build_test_file_path(ext="rb")
+    @session_file_path = get_tmp_dir + build_filename(ext)
     return @session_file_path
   end
 
@@ -80,6 +80,10 @@ class RspecCodeRunner
     return execute_rspec_to_string_from_file(new_file_path)
   end
 
+  def write_results_to_json_file
+    write_to_json(@results,build_test_file_path('json'))
+  end
+
 private
   def read_file_to_s(file_path)
     return File.read(file_path) if (File::readable?(file_path) && File::file?(file_path))
@@ -95,7 +99,7 @@ private
   end
 
   def write_to_json(data_object,file_path)
-    self.ensure_path_exists(file_path)
+    ensure_path_exists(file_path)
     File.open(file_path, "w") do |file|
       file.puts JSON.pretty_generate(data_object)
     end
@@ -118,7 +122,7 @@ private
   end
 
   def write_to_yaml(data_object,file_path)
-    self.ensure_path_exists(file_path)
+    ensure_path_exists(file_path)
     File.open(file_path, "w") do |file|
       file.puts YAML.dump(data_object)
     end
@@ -130,14 +134,14 @@ private
   end
 
   def write_string_to_file(string,file_path)
-    self.ensure_path_exists(file_path)
+    ensure_path_exists(file_path)
     File.open(file_path, "w") do |file|
       file.puts string
     end
   end
 
   def delete_tmp_files
-    app_tmp = self.get_tmp_dir()
+    app_tmp = get_tmp_dir()
     FileUtils.rm_rf(Dir.glob("#{app_tmp}*"))
   end
 end
