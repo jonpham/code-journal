@@ -19,7 +19,7 @@ Lesson.destroy_all
 LessonCategory.destroy_all
 #################
 DEFAULT_PASSWORD='asdf1234'
-User.create!({:email => "me@cj.com", :password => "qwer123", :password_confirmation => "qwer123" })
+User.create!({:email => "me@cj.com", :password => "qwer123", :password_confirmation => "qwer123", :admin => true })
 
 # Read Text from File / JSON ?
 LessonCategory.create({name:'Development', 
