@@ -4,7 +4,6 @@
   <div class="col-md-8">
     <%= form_tag "/lessons/#{@lesson.id}", method: :patch do %>
     <h1><%= text_field_tag :input_name, @lesson.name %> </h1>
-    All sections should be converted to Markdown -> HTML Blocks
     <div class="lesson_nav">
       <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">Lesson</a></li>
