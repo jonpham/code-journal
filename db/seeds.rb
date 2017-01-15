@@ -52,17 +52,6 @@ sample_lesson = Lesson.new(
   }
 )
 
-# Add LessonCreater Sessions
-creator_lesson = LessonSession.create({
-  lesson_id: sample_lesson.id ,
-  user_id:    admin_user.id  
-})
-
-user_lesson = LessonSession.create({
-  lesson_id: sample_lesson.id ,
-  user_id:    test_user.id  
-})
-
 # Represents the Main Class Module (Module 0)
 if sample_lesson.save
   sample_module = LessonModule.create(
@@ -73,6 +62,17 @@ if sample_lesson.save
     }
   )
 end
+
+# Add LessonCreater Sessions
+creator_lesson = LessonSession.create({
+  lesson_id: sample_lesson.id ,
+  user_id:    admin_user.id  
+})
+
+user_lesson = LessonSession.create({
+  lesson_id: sample_lesson.id ,
+  user_id:    test_user.id  
+})
 
 # Lesson Class Code (ModuleCode)
 class_method_hash = ModuleCode.create({
@@ -116,7 +116,7 @@ run_def_test = TestCode.create({
   assertion_type: 'to eq', 
   expected_return: JSON.dump(0),
   expected_test_data: JSON.dump(nil),
-  test_description: 'should consolidate the SampleLessons for "Hello World"'
+  description: 'should consolidate the SampleLessons for "Hello World"'
 })
 
 ## Say Hello Module 1
@@ -163,7 +163,7 @@ say_hello_test = TestCode.create({
   assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(nil),
-  test_description: 'should return "This is me saying, hello world!"'
+  description: 'should return "This is me saying, hello world!"'
 })
 
 ## Module 2 : Say Words 
@@ -210,7 +210,7 @@ say_words_test = TestCode.create({
   assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(["hello","world!"]),
-  test_description: 'should return "This is me saying, hello world!"'
+  description: 'should return "This is me saying, hello world!"'
 })
 
 ## Module 3 : Say String Array
@@ -256,7 +256,7 @@ say_array_test = TestCode.create({
   assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump([["hello","world!"]]),
-  test_description: 'should return "This is me saying, hello world!"'
+  description: 'should return "This is me saying, hello world!"'
 })
 
 
