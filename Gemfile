@@ -43,7 +43,8 @@ gem 'simplemde'
 # Ace
 gem 'ace-rails-ap'
 
-gem 'os'
+# Rspec for RspecCodeRunner
+gem 'rspec-rails', '~> 3.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -57,6 +58,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem "awesome_print", require:"ap"
   gem 'annotate'
+  gem 'rspec-rails', '~> 3.0.0'
 end
 
 group :development do
