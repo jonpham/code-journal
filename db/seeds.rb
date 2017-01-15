@@ -22,6 +22,8 @@ DEFAULT_PASSWORD='asdf1234'
 User.create!({:email => "me@cj.com", :password => "qwer123", :password_confirmation => "qwer123", :admin => true })
 User.create!({:email => "user@cj.com", :password => DEFAULT_PASSWORD, :password_confirmation => DEFAULT_PASSWORD, :admin => false })
 
+admin_user = User.find_by(email: "me@cj.com")
+
 # Read Text from File / JSON ?
 LessonCategory.create({name:'Development', 
   description:'Lessons that help to make this App.'})
@@ -44,23 +46,42 @@ sample_lesson = Lesson.new(
     purpose:'Purpose: Hello World!',
     description: 'Description',
     example: 'Example',
-    lesson_category_id: LessonCategory.find_by(name:'Development').id
+    lesson_category_id: LessonCategory.find_by(name:'Development').id,
+    created_by: admin_user.id
   }
 )
 
-# Add Module 0 For Lesson.
+# Represents the Main Class Module (Module 0)
 if sample_lesson.save
   sample_module = LessonModule.create(
     {
       lesson_id: sample_lesson.id,
       lesson_ordinal: 0,
-      description: "Lesson #{sample_lesson.name}: Module 0"
+      description: "Lesson #{sample_lesson.name}: Module 0 represents the Main Lesson Page"
     }
   )
 end
 
-# Lesson Code 
-
+# Lesson Class Code (ModuleCode)
+#  id               :integer          not null, primary key
+#  lesson_module_id :integer
+#  method_name      :string
+#  arg_number       :integer
+#  return_type      :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  source_code      :text
+#  module_ordinal   :integer
+# 
+class_method_hash = {
+  lesson_module_id: sample_module.id,
+  method_name: "SampleLesson",
+  arguments: ['test'],
+  return_type: 'void',
+  source_code: 'attr_accessor :test',
+  module_ordinal: 0
+}
+ModuleCode.create(class_method_hash)
 # Test Code
 
 

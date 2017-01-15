@@ -14,6 +14,7 @@
 #
 
 class ModuleCode < ApplicationRecord
+  serialize :arguments, Array
   belongs_to :lesson_module
   has_many :test_codes
 end

@@ -44,7 +44,7 @@ gem 'simplemde'
 gem 'ace-rails-ap'
 
 # Rspec for RspecCodeRunner
-gem 'rspec-rails', '~> 3.0.0'
+gem 'rspec-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
