@@ -58,7 +58,8 @@ group :development, :test do
   gem 'binding_of_caller'
   gem "awesome_print", require:"ap"
   gem 'annotate'
-  gem 'rspec-rails', '~> 3.0.0'
+  # gem 'rspec-rails', '~> 3.0.0'
+  gem 'pry-byebug'
 end
 
 group :development do
