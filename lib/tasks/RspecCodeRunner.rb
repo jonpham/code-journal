@@ -1,5 +1,6 @@
 require_relative './tests/TestClasses.rb'
 
+require 'tmpdir'
 require 'rspec'
 require 'open3'
 require 'fileutils'
