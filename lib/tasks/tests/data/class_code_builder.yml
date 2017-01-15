@@ -44,7 +44,7 @@
         module_ordinal: 2
         test_codes:
         - !ruby/object:Testing::TestCode
-          assertion_type: eq
+          assertion_type: to eq
           expected_return: '0'
           expected_test_data: 'null'
           test_description: should consolidate the SampleLessons for "Hello World"
@@ -65,7 +65,7 @@
         expected_test_arguments: 'null'
         expected_return_result: '0'
         test_description: should consolidate the SampleLessons for "Hello World"
-        assertion_type: eq
+        assertion_type: to eq
       user_code: ''
   build_uut:
     :initial_hash:
@@ -104,7 +104,7 @@
         module_ordinal: 0
         test_codes:
         - !ruby/object:Testing::TestCode
-          assertion_type: eq
+          assertion_type: to eq
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: 'null'
           test_description: should return "This is me saying, hello world!"
@@ -130,7 +130,7 @@
         expected_test_arguments: 'null'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
-        assertion_type: eq
+        assertion_type: to eq
       user_code: |-
         def say_hello
           string = "This is me saying, hello world!"
@@ -152,7 +152,7 @@
         module_ordinal: 0
         test_codes:
         - !ruby/object:Testing::TestCode
-          assertion_type: eq
+          assertion_type: to eq
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: '["hello","world!"]'
           test_description: should return "This is me saying, hello world!"
@@ -178,7 +178,7 @@
         expected_test_arguments: '["hello","world!"]'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
-        assertion_type: eq
+        assertion_type: to eq
       user_code: |-
         def say_words(word1, word2)
           string = "This is me saying, #{word1} #{word2}"
@@ -199,7 +199,7 @@
         module_ordinal: 0
         test_codes:
         - !ruby/object:Testing::TestCode
-          assertion_type: eq
+          assertion_type: to eq
           expected_return: '"This is me saying, hello world!"'
           expected_test_data: '[["hello","world!"]]'
           test_description: should return "This is me saying, hello world!"
@@ -226,7 +226,7 @@
         expected_test_arguments: '[["hello","world!"]]'
         expected_return_result: '"This is me saying, hello world!"'
         test_description: should return "This is me saying, hello world!"
-        assertion_type: eq
+        assertion_type: to eq
       user_code: |-
         def say_string_array(input_array)
           string = "This is me saying, #{input_array[0]} #{input_array[1]}"

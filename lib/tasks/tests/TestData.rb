@@ -43,7 +43,7 @@ run_def_method = Testing::MethodCode.new({
 })
 
 run_def_test = Testing::TestCode.new({
-  assertion_type: 'eq', 
+  assertion_type: 'to eq', 
   expected_return: JSON.dump(0),
   expected_test_data: JSON.dump(nil),
   test_description: 'should consolidate the SampleLessons for "Hello World"'
@@ -78,7 +78,7 @@ user_code_one = Testing::CodeSnippet.new("def say_hello\n  string = \"This is me
 say_hello_method.add_user_code(user_code_one)
 
 say_hello_test = Testing::TestCode.new({
-  assertion_type: 'eq', 
+  assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(nil),
   test_description: 'should return "This is me saying, hello world!"'
@@ -107,7 +107,7 @@ user_code_two = Testing::CodeSnippet.new("def say_words(word1, word2)\n  string 
 say_words_method.add_user_code(user_code_two)
 
 say_words_test = Testing::TestCode.new({
-  assertion_type: 'eq', 
+  assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump(test_set2),
   test_description: 'should return "This is me saying, hello world!"'
@@ -134,7 +134,7 @@ say_array_method.add_solution(solution_three.source_code)
 user_code_three = Testing::CodeSnippet.new("def say_string_array(input_array)\n  string = \"This is me saying, \#{input_array[0]} \#{input_array[1]}\"\n  return string\nend")
 say_array_method.add_user_code(user_code_three)
 say_array_test = Testing::TestCode.new({
-  assertion_type: 'eq', 
+  assertion_type: 'to eq', 
   expected_return: JSON.dump('This is me saying, hello world!'),
   expected_test_data: JSON.dump([test_set2]),
   test_description: 'should return "This is me saying, hello world!"'
