@@ -124,7 +124,7 @@ end
 
 # Test Code
 RSpec.describe RubyMethodCodeBuilder do 
-  DEBUG = true
+  DEBUG = false
   # EXPECTED DATA
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
 

@@ -1,5 +1,4 @@
 require 'JSON'
-require 'YAML'
 
 module Testing
 
@@ -140,9 +139,7 @@ module Testing
 
     def self.delete_tmp_files(directory)
       Dir.foreach(directory) do |file|
-        # binding.pry
-        # puts file.class if (file.match?(/delete.+\.rb$/))
-        # File.delete(file)
+        File.delete(file) if (file.match(/delete.+\.rb$/)!=nil)
       end
     end
   end

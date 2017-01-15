@@ -28,16 +28,3 @@ class RspecTestCodeBuilder < RubyCodeBuilder
   end
 end
 
-# MethodName
-# Test_Set for ARGS
-# Test_Exectation with ARGS
-# TestDescription
-# Method Expectation
-
-### SHOULD CREATE ###
-#   it 'should return "This is me saying, hello world!"' do
-#     uut = SampleLesson.new 
-#     test_set1=[]
-#     expect(uut.module1(test_set1)).to eq('This is me saying, hello world!')
-#   end
-#####################

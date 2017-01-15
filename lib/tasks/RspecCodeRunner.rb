@@ -1,8 +1,5 @@
 require_relative './tests/TestClasses.rb'
 
-# require 'tmpdir'
-require 'JSON'
-require 'YAML'
 require 'rspec'
 require 'open3'
 require 'fileutils'

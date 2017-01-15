@@ -211,7 +211,7 @@ end
 # lesson_class_builder.add_test(class_test)
 
 RSpec.describe RubyClassCodeBuilder do 
-  DEBUG = true if DEBUG==nil
+  DEBUG = false if DEBUG==nil
   lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
   
   # TEST CODE (Lesson)
@@ -455,4 +455,5 @@ RSpec.describe RubyClassCodeBuilder do
 
   describe '#build_markup' do 
   end
+
 end
