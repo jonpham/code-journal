@@ -92,9 +92,8 @@ class LessonData
     t_method_code_builder = RubyMethodCodeBuilder.new(t_method_hash)
     t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
     user_code = module_code.user_code(@user_id)
-    t_method_code_builder.set_user_code(user_code.source_code.gsub(/\\n/,"\n")) unless (user_code == nil || user_code.source_code.empty?)
+    t_method_code_builder.set_user_code(user_code.gsub(/\\n/,"\n")) unless (user_code == nil || user_code.empty?)
     # Add Tests. 
-    puts "Extracted Solution and source_code for #{module_code.method_name}."
     # byebug
     module_code.test_codes.each do |test_code|
       t_test_hash = {
@@ -107,7 +106,6 @@ class LessonData
       t_test_code_builder = RspecTestCodeBuilder.new(t_test_hash)
       t_method_code_builder.add_test(t_test_code_builder)
     end 
-    puts "#{module_code.method_name}: Breakpoint 105."
     return {initial_hash: t_method_hash, builder: t_method_code_builder}
   end
 end
