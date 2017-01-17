@@ -1,6 +1,6 @@
-require_relative './RspecTestCodeBuilder.rb'
+# require_relative './RspecTestCodeBuilder.rb'
 
-require_relative './tests/TestClasses.rb'
+# require_relative './tests/TestClasses.rb'
 require 'rspec'
 
 

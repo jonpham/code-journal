@@ -1,5 +1,5 @@
-require_relative './RubyMethodCodeBuilder.rb'
-require_relative './tests/TestClasses.rb'
+# require_relative './RubyMethodCodeBuilder.rb'
+# require_relative './tests/TestClasses.rb'
 require 'rspec'
 
 class RubyClassCodeBuilder < RubyCodeBuilder

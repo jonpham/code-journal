@@ -1,4 +1,4 @@
-require_relative './tests/TestClasses.rb'
+# require_relative './tests/TestClasses.rb'
 
 require 'tmpdir'
 require 'rspec'

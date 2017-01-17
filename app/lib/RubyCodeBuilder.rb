@@ -1,5 +1,3 @@
-require 'active_support'
-
 class RubyCodeBuilder
   def indent_each_line(text_block, num_indents=1)
     # For Each Line

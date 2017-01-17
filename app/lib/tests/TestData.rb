@@ -1,6 +1,6 @@
 require 'JSON'
-require_relative 'TestClasses.rb'
-require_relative '../RubyClassCodeBuilder.rb'
+# require_relative 'TestClasses.rb'
+# require_relative '../RubyClassCodeBuilder.rb'
 
 ##### CREATE TEST DATA! #####
 #Create Lesson

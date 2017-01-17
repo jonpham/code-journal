@@ -1,4 +1,4 @@
-require_relative './RubyCodeBuilder.rb'
+# require_relative './RubyCodeBuilder.rb'
 require 'rspec'
 require 'JSON'
 

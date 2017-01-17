@@ -3,6 +3,7 @@
 
 class LessonData 
   attr_accessor :data
+
   def initialize(lesson_id, user_id)
     @lesson = Lesson.find_by(id: lesson_id)
     @user_id = user_id
@@ -18,14 +19,16 @@ class LessonData
     # Get Module Codes from LessonModule
     class_description_code = get_module_code_by_ordinal(class_module.module_codes,0)
     # Extract Data from ClassModuleCode
-    puts "I got to data escratpion"
+  
     @data[:name] = class_description_code.method_name
     @data[:variables] = class_description_code.arguments
 
     # For Remaining Class Module Codes  
     class_module.module_codes.each do |module_code|
       # create RubyMethodCodeBuilder
+      puts "I got to data line 29"
       if (module_code.module_ordinal != 0)
+
         @data[:class_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
       end
     end
