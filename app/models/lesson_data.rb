@@ -26,9 +26,8 @@ class LessonData
     # For Remaining Class Module Codes  
     class_module.module_codes.each do |module_code|
       # create RubyMethodCodeBuilder
-      puts "I got to data line 29"
+      puts "I got to data line 29 : #{module_code}"
       if (module_code.module_ordinal != 0)
-
         @data[:class_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
       end
     end
@@ -37,13 +36,13 @@ class LessonData
     class_method_modules = get_method_modules(@lesson)
     @data[:module_methods] = Hash.new
 
-    # class_method_modules.each do |methods_module|
-    #   methods_module.module_codes.each do |module_code|
-    #     # create RubyMethodCodeBuilder
-    #     binding.pry
-    #     @data[:module_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
-    #   end
-    # end
+    class_method_modules.each do |methods_module|
+      methods_module.module_codes.each do |module_code|
+        # create RubyMethodCodeBuilder
+        binding.pry
+        @data[:module_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
+      end
+    end
 
   end
 
@@ -104,5 +103,4 @@ class LessonData
 
     return {initial_hash: t_method_hash, builder: t_method_code_builder}
   end
-
 end
