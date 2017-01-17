@@ -39,7 +39,7 @@
           <li><%= link_to "Sign Up to Start Lesson.", "/users/sign_up"%></li>
         <% end %>
         <li role="separator" class="divider"></li>
-        <% if !current_user #EDIT THIS OUT %>
+        <% if current_user && current_user.admin #EDIT THIS OUT %>
           <li><strong>Administration</strong></li>
           <li><%= link_to "Create New Module", "/lesson_modules/new?lesson_id=#{@lesson.id}" %> </li>
           <li><%= link_to "Edit Lesson", "/lessons/#{@lesson.id}/edit" %> </li>
