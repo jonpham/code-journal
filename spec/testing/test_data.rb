@@ -1,6 +1,14 @@
 require 'JSON'
-# require_relative 'TestClasses.rb'
-# require_relative '../RubyClassCodeBuilder.rb'
+require_relative 'code_snippet.rb'
+require_relative 'lesson.rb'
+require_relative 'lesson_module.rb'
+require_relative 'method_code.rb'
+require_relative 'test_code.rb'
+require_relative 'test_data_handler.rb'
+require_relative '../../app/lib/ruby_code_builder.rb'
+require_relative '../../app/lib/ruby_class_code_builder.rb'
+require_relative '../../app/lib/ruby_method_code_builder.rb'
+require_relative '../../app/lib/rspec_test_code_builder.rb'
 
 ##### CREATE TEST DATA! #####
 #Create Lesson
