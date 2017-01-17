@@ -22,13 +22,16 @@ class LessonData
   
     @data[:name] = class_description_code.method_name
     @data[:variables] = class_description_code.arguments
+    @data[:class_methods] = Hash.new
 
     # For Remaining Class Module Codes  
     class_module.module_codes.each do |module_code|
       # create RubyMethodCodeBuilder
-      puts "I got to data line 29 : #{module_code}"
+      puts "I got to data line 29 : #{module_code.method_name}"
       if (module_code.module_ordinal != 0)
-        @data[:class_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
+        new_class_hash = extract_method_to_code_builder(module_code)
+        @data[:class_methods][module_code.method_name] = new_class_hash
+        puts "#{module_code.method_name}: Breakpoint 33."
       end
     end
 
@@ -39,8 +42,9 @@ class LessonData
     class_method_modules.each do |methods_module|
       methods_module.module_codes.each do |module_code|
         # create RubyMethodCodeBuilder
-        binding.pry
-        @data[:module_methods][module_code.method_name] = extract_method_to_code_builder(module_code)
+        new_hash = extract_method_to_code_builder(module_code)
+        puts "#{module_code.method_name}: Breakpoint 44."
+        @data[:module_methods][module_code.method_name] = new_hash
       end
     end
 
@@ -87,20 +91,23 @@ class LessonData
     }
     t_method_code_builder = RubyMethodCodeBuilder.new(t_method_hash)
     t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
-    t_method_code_builder.set_user_code(module_code.user_code.source_code.gsub(/\\n/,"\n")) unless (module_code.user_code == nil || module_code.user_code.source_code.empty?)
+    user_code = module_code.user_code(@user_id)
+    t_method_code_builder.set_user_code(user_code.source_code.gsub(/\\n/,"\n")) unless (user_code == nil || user_code.source_code.empty?)
     # Add Tests. 
+    puts "Extracted Solution and source_code for #{module_code.method_name}."
+    # byebug
     module_code.test_codes.each do |test_code|
       t_test_hash = {
         id: 0,
         input: test_code.expected_test_data,
         output: test_code.expected_return,
-        description: test_code.test_description,
+        description: test_code.description,
         assertion_type: test_code.assertion_type
       } 
       t_test_code_builder = RspecTestCodeBuilder.new(t_test_hash)
       t_method_code_builder.add_test(t_test_code_builder)
-    end
-
+    end 
+    puts "#{module_code.method_name}: Breakpoint 105."
     return {initial_hash: t_method_hash, builder: t_method_code_builder}
   end
 end

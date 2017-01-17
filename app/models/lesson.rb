@@ -27,4 +27,22 @@ class Lesson < ApplicationRecord
     # Alternative
     return self.lesson_modules.max_by(&:lesson_ordinal).lesson_ordinal + 1
   end
+
+  def user_lesson_session(user_id)
+    return LessonSession.where("lesson_id = ? AND user_id = ?", self.id, user_id)[0]
+  end
+
+  def user_module_session(user_id,lesson_module_id)
+    return user_lesson_session(user_id).get_module_session(lesson_module_id)
+  end
+
+  def creator_lesson_session
+    return user_lesson_session(self.created_by)
+  end
+
+  def creator_module_session(lesson_module_id)
+    return creator_lesson_session.get_module_session(lesson_module_id)
+  end
+
+
 end

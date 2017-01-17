@@ -12,4 +12,8 @@
 class ModuleSession < ApplicationRecord
   belongs_to :lesson_module
   has_many :code_snippets
+
+  def get_latest_code_snippet
+    return code_snippets[0]
+  end
 end

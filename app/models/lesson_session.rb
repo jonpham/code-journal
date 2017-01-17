@@ -13,4 +13,8 @@ class LessonSession < ApplicationRecord
   belongs_to :user
   belongs_to :lesson
   has_many :module_sessions
+
+  def get_module_session(lesson_module_id)
+    return ModuleSession.where("lesson_session_id = ? AND lesson_module_id = ?",self.id,lesson_module_id).limit(1)[0]
+  end
 end

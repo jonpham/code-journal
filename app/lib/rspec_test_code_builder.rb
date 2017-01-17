@@ -1,5 +1,4 @@
 # require_relative './RubyCodeBuilder.rb'
-require 'rspec'
 require 'JSON'
 
 class RspecTestCodeBuilder < RubyCodeBuilder
