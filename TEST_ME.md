@@ -87,3 +87,12 @@ $ bin/rails console
 > json_result = rspec_runner.execute_rspec_to_json_from_string(test_spec)
 ```
 
+
+require 'awesome_print'
+test_data = LessonData.new(1,1)
+test_data_session_id = test_data.session_data[:user_session].id
+rspec_runner = RspecCodeRunner.new(test_data_session_id)
+class_builder = test_data.build_lesson
+test_spec = class_builder.build_spec
+string_result = rspec_runner.execute_rspec_to_string_from_string(test_spec)
+json_result = rspec_runner.execute_rspec_to_json_from_string(test_spec)
