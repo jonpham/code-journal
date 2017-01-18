@@ -32,7 +32,7 @@ class RspecCodeRunner
   end
 
   def execute_rspec_to_json_from_file(file_path)
-    return 1 unless valid_rb_file(file_path)
+    return "Invalid RSPEC File @ #{file_path}" unless valid_rb_file(file_path)
     json_test_args = '-fj'
     # RSpec::Core::Runner.run(file_path)
     stdout, stderr, status = Open3.capture3("rspec", json_test_args, file_path)
@@ -41,8 +41,7 @@ class RspecCodeRunner
     # Format Results
     first_index = full_json_string.index('{')
     last_index = full_json_string.rindex('}')
-    return 2 unless (first_index && last_index)
-
+    return "Unexpected RSPEC JSON Output : RspecCodeRunner::execute_rspec_to_json_from_file 44" unless (first_index && last_index)
     string_range = last_index-first_index
     json_string = full_json_string.slice(first_index,string_range+1)
 
@@ -53,7 +52,7 @@ class RspecCodeRunner
   end
 
   def execute_rspec_to_string_from_file(file_path)
-    return 1 unless valid_rb_file(file_path)
+    return "Invalid RSPEC File @ #{file_path}" unless valid_rb_file(file_path)
     # Setup Args
     doc_test_args = '-fd'
     # Run with Document Formatter
