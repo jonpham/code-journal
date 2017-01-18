@@ -1,4 +1,5 @@
 require 'JSON'
+require 'YAML'
 
 module Testing
   class TestDataHandler
