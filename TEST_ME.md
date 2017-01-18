@@ -7,6 +7,7 @@
 $ git clone github.com/URL
 $ cd code-journal
 $ bin/rails db:setup
+$ bin/bundle install
 ```
 
 # Test CodeBuilder/Runners

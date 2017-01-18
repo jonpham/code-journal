@@ -130,12 +130,12 @@ m1_say_hello = LessonModule.create({
 # Sessions
 creator_module1 = ModuleSession.create({
   lesson_module_id: m1_say_hello.id,
-  lession_session_id: creator_lesson.id  
+  lesson_session_id: creator_lesson.id  
 })
 
 user_module1 = ModuleSession.create({
   lesson_module_id: m1_say_hello.id,
-  lession_session_id: user_lesson.id
+  lesson_session_id: user_lesson.id
 })
 
 # Module Data
@@ -177,12 +177,12 @@ m2_say_words = LessonModule.create({
 # Sessions
 creator_module2 = ModuleSession.create({
   lesson_module_id: m2_say_words.id,
-  lession_session_id: creator_lesson.id  
+  lesson_session_id: creator_lesson.id  
 })
 
 user_module2 = ModuleSession.create({
   lesson_module_id: m2_say_words.id,
-  lession_session_id: user_lesson.id
+  lesson_session_id: user_lesson.id
 })
 
 # Module Data
@@ -223,12 +223,12 @@ m3_say_array = LessonModule.create({
 # Sessions
 creator_module3 = ModuleSession.create({
   lesson_module_id: m3_say_array.id,
-  lession_session_id: creator_lesson.id  
+  lesson_session_id: creator_lesson.id  
 })
 
 user_module3 = ModuleSession.create({
   lesson_module_id: m3_say_array.id,
-  lession_session_id: user_lesson.id
+  lesson_session_id: user_lesson.id
 })
 
 # Module Data
