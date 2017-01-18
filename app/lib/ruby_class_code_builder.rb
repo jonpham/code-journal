@@ -1,6 +1,8 @@
 class RubyClassCodeBuilder < RubyCodeBuilder
   attr_accessor :method_set, :user_code_snippets, :class_tests, :solution_snippets, :class_methods
 
+  IN_RAILS_APP = false
+
   def initialize(lesson_name,variables)
     @class_name = lesson_name
     @class_variables = variables if variables.class == Array # Assumes Array
@@ -180,10 +182,15 @@ class RubyClassCodeBuilder < RubyCodeBuilder
 
   def build_spec
     # Return Executable RSPEC File as String
-    spec_string="require 'rspec'\nrequire 'JSON'\n\n"
+    if IN_RAILS_APP 
+      spec_heading = "#require 'rspec'\n#require 'JSON'\n\n"
+    else
+      spec_heading = "require 'rspec'\nrequire 'JSON'\n\n"
+    end
     # CONCATENATE : 
     # build_class_code();
-    spec_string += set_block_newlines(build_class_code(true))
+    spec_string = spec_heading
+    spec_string.concat(set_block_newlines(build_class_code(true)))
     spec_string +="def build_uut\n  return #{@class_name}.build_uut()\nend\n\n"
     # build_tests();
     spec_string += "RSpec.describe #{@class_name} do\n"

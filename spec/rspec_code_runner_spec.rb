@@ -56,14 +56,17 @@ RSpec.describe RspecCodeRunner do
   end
 
   describe '#execute_rspec_to_json_from_string' do
-    it 'should do something' do
-      # expect(uut.execute_rspec_to_json_from_file()).to eq('')
+    it 'should do execute a rspec as a string, and return a JSON Object with Results' do
+      uut = RspecCodeRunner.new(10)
+      test_spec_string = Testing::TestDataHandler.read_file_to_s(test_file_path)
+      json_result = uut.execute_rspec_to_json_from_string(test_spec_string)[:json_result]
+      expect(json_result["summary_line"]).to eq(test_json_data["summary_line"])
     end
   end
 
   describe '#execute_rspec_to_string_from_string' do
     it 'should do something' do
-      # expect(uut.execute_rspec_to_json_from_file()).to eq('')
+      # expect(uut.execute_rspec_to_string_from_string()).to eq('')
     end
   end
 end

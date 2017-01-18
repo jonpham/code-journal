@@ -2,7 +2,7 @@
 # RubyCodeBuilders / Runners
 
 class LessonData 
-  attr_accessor :data
+  attr_accessor :name, :variables, :class_methods, :module_methods, :builder
 
   def initialize(lesson_id, user_id)
     @lesson = Lesson.find_by(id: lesson_id)
@@ -11,49 +11,66 @@ class LessonData
     @user_session = LessonSession.where("lesson_id = ? AND user_id = ?",lesson_id,@user_id).limit(1).first
     # Get Lesson Session for User if != Creator
     @creator_session = LessonSession.where("lesson_id = ? AND user_id = ?",lesson_id,@lesson.created_by).limit(1).first
-    # Load Base Lesson & Module Data
-    @data = Hash.new
 
+    # Load Base Lesson & Module Data
     # Get LessonModule for Class Data
     class_module = get_lesson_module_by_ordinal(@lesson.lesson_modules,0)
     # Get Module Codes from LessonModule
     class_description_code = get_module_code_by_ordinal(class_module.module_codes,0)
     # Extract Data from ClassModuleCode
   
-    @data[:name] = class_description_code.method_name
-    @data[:variables] = class_description_code.arguments
-    @data[:class_methods] = Hash.new
+    @name = class_description_code.method_name
+    @variables = class_description_code.arguments
+    @class_methods = Hash.new
+    @module_methods = Hash.new
 
     # For Remaining Class Module Codes  
     class_module.module_codes.each do |module_code|
       # create RubyMethodCodeBuilder
-      puts "I got to data line 29 : #{module_code.method_name}"
       if (module_code.module_ordinal != 0)
         new_class_hash = extract_method_to_code_builder(module_code)
-        @data[:class_methods][module_code.method_name] = new_class_hash
-        puts "#{module_code.method_name}: Breakpoint 33."
+        @class_methods[module_code.method_name] = new_class_hash
       end
     end
 
     # For Remaining Non-Class Lesson Modules
     class_method_modules = get_method_modules(@lesson)
-    @data[:module_methods] = Hash.new
-
     class_method_modules.each do |methods_module|
       methods_module.module_codes.each do |module_code|
         # create RubyMethodCodeBuilder
         new_hash = extract_method_to_code_builder(module_code)
-        puts "#{module_code.method_name}: Breakpoint 44."
-        @data[:module_methods][module_code.method_name] = new_hash
+        @module_methods[module_code.method_name] = new_hash
       end
     end
-
   end
 
-  # def build_data
-  #   get_class_descriptors
-  # end
+  def session_data
+    session_data = {
+      lesson_id: @lesson.id,
+      user_session: @user_session,
+      creator_session: @creator_session
+    }
+    return session_data
+  end
 
+  def build_lesson
+    @builder = RubyClassCodeBuilder.new(@name,@variables)
+    
+    ## CLASS METHODS
+    # Add method (ctor)
+    @builder.add_method(@class_methods["initialize"][:builder])
+    # Add MethodCodeBuilder for 'run'
+    @builder.add_method(@class_methods["run"][:builder])  
+    # Add MethodCodeBuilder for 'build_uut'
+    @builder.add_method(@class_methods["build_uut"][:builder])
+
+    @module_methods.each_value do |module_method| 
+      @builder.add_method(module_method[:builder])
+    end
+    return @builder
+  end
+
+private
   def get_lesson_module_by_ordinal(lesson_modules,desired_ordinal)
     lesson_modules.each do | lesson_module |
       return lesson_module if (lesson_module.lesson_ordinal == desired_ordinal)
@@ -68,8 +85,6 @@ class LessonData
     return nil
   end
 
-  # def get_class_descriptors
-  # end
 
   def get_method_modules(lesson)
     # Get non Class Lesson Modules
@@ -91,7 +106,7 @@ class LessonData
     }
     t_method_code_builder = RubyMethodCodeBuilder.new(t_method_hash)
     t_method_code_builder.set_solution(module_code.solution_code.gsub(/\\n/,"\n")) if module_code.solution_code != nil
-    user_code = module_code.user_code(@user_id)
+    user_code = get_user_code(module_code,t_method_code_builder)
     t_method_code_builder.set_user_code(user_code.gsub(/\\n/,"\n")) unless (user_code == nil || user_code.empty?)
     # Add Tests. 
     # byebug
@@ -108,4 +123,14 @@ class LessonData
     end 
     return {initial_hash: t_method_hash, builder: t_method_code_builder}
   end
+
+  def get_user_code(module_code,builder)
+    # if User_ID == Creator_ID
+    if (@user_id == @lesson.created_by)
+      return builder.build_solution(module_code.method_name)
+    else
+      return module_code.user_code(@user_id)
+    end
+  end
+
 end

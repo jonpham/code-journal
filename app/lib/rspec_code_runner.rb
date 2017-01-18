@@ -1,5 +1,4 @@
 require 'tmpdir'
-require 'rspec'
 require 'open3'
 require 'fileutils'
 
@@ -38,10 +37,12 @@ class RspecCodeRunner
     # RSpec::Core::Runner.run(file_path)
     stdout, stderr, status = Open3.capture3("rspec", json_test_args, file_path)
     full_json_string = stdout
-
+    
     # Format Results
     first_index = full_json_string.index('{')
     last_index = full_json_string.rindex('}')
+    return 2 unless (first_index && last_index)
+
     string_range = last_index-first_index
     json_string = full_json_string.slice(first_index,string_range+1)
 
@@ -51,12 +52,12 @@ class RspecCodeRunner
     return json_result_hash
   end
 
-  def execute_rspec_to_string_from_file(file_name)
+  def execute_rspec_to_string_from_file(file_path)
     return 1 unless valid_rb_file(file_path)
     # Setup Args
     doc_test_args = '-fd'
     # Run with Document Formatter
-    stdout, stderr, status = Open3.capture3("rspec", doc_test_args, file_name)
+    stdout, stderr, status = Open3.capture3("rspec", doc_test_args, file_path)
     # Format Results
     text_results_hash = {test_output: stdout, test_errors: stderr, status: status.success?, status_code: status.exitstatus}
     @results.store(:document,text_results_hash)
@@ -68,7 +69,8 @@ class RspecCodeRunner
     new_file_path = self.build_test_file_path()
     # Write To File
     write_string_to_file(rspec_string,new_file_path)
-    return execute_rspec_to_json_from_file(new_file_path)
+    json_result = execute_rspec_to_json_from_file(new_file_path)
+    return json_result
   end
 
   def execute_rspec_to_string_from_string(rspec_string)
@@ -94,7 +96,7 @@ private
   end
 
   def valid_rb_file(file_path)
-    return ((File.file?(file_path)) && (File.extname(file_path)=='.rb') && (compare_to_file('rspec',file_path))) 
+    return ((File.file?(file_path)) && (File.extname(file_path)=='.rb') && (compare_to_file('RSpec',file_path))) 
   end
 
   def write_to_json(data_object,file_path)

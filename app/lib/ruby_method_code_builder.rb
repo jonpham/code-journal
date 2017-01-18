@@ -2,6 +2,8 @@ class RubyMethodCodeBuilder < RubyCodeBuilder
   attr_reader :method_name, :source_code, :solution_code, :arguments, :user_code
   # include MardownConverter
   # include SourceBuilder
+
+  IN_RAILS_APP = false
   
   def initialize(input_args)
     @method_name = input_args[:method_name]
@@ -92,7 +94,7 @@ class RubyMethodCodeBuilder < RubyCodeBuilder
     use_case_string = "describe '#method#{module_num_string}' do\n" 
     test_case_strings = ""
     @test_codes.each do |test_code|
-      test_case_strings += test_code.build_test(module_num_string)
+      test_case_strings.concat(test_code.build_test(module_num_string))
       test_case_strings = set_block_newlines(test_case_strings)
     end
     use_case_string += indent_each_line(test_case_strings).rstrip
@@ -101,8 +103,14 @@ class RubyMethodCodeBuilder < RubyCodeBuilder
   end
 
   def build_spec
-    spec_string="require 'rspec'\nrequire 'JSON'\n\nclass TestMethod\n\n"
-    spec_string+=set_block_newlines(indent_each_line(@user_code))
+    if IN_RAILS_APP 
+      spec_heading = "#require 'rspec'\n#require 'JSON'\n\n"
+    else
+      spec_heading = "require 'rspec'\nrequire 'JSON'\n\n"
+    end
+    spec_string="class TestMethod\n\n"
+    spec_string.prepend(spec_heading) unless IN_RAILS_APP 
+    spec_string.concat(set_block_newlines(indent_each_line(@user_code)))
     spec_string+=set_block_newlines(indent_each_line(self.build_method_runner()))
     spec_string+="end\n\ndef build_uut\n  return TestMethod.new()\nend\n\nRSpec.describe TestMethod do\n"
     spec_string+=indent_each_line(self.build_tests(),1)
