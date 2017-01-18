@@ -13,7 +13,7 @@ require_relative './testing/test_data_handler.rb'
 RSpec.describe RubyMethodCodeBuilder do 
   DEBUG = false
   # EXPECTED DATA
-  lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/tests/data/class_code_builder.yml');
+  lesson_data = Testing::TestDataHandler.read_yaml_file(File.dirname(__FILE__)+'/testing/data/class_code_builder.yml');
 
   data_method_no_args = {
     method_name: "hellow",
@@ -81,7 +81,7 @@ RSpec.describe RubyMethodCodeBuilder do
       # Initalize ClassCodeBuilder
       uut = RubyMethodCodeBuilder.new(lesson_data[:class_methods]["run"][:initial_hash])
       # Create RubyMethodCodeBuilder for 'ctor'
-      expect(uut.build_code('run')).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/method_code_run.rb'));
+      expect(uut.build_code('run')).to eq(Testing::TestDataHandler.read_file_to_s('testing/data/method_code_run.rb'));
     end
   end
 
@@ -90,7 +90,7 @@ RSpec.describe RubyMethodCodeBuilder do
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
       # Create RubyMethodCodeBuilder for 'say_words'
-      expect(uut.build_solution()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_say_words_s.rb'));
+      expect(uut.build_solution()).to eq(Testing::TestDataHandler.read_file_to_s('testing/data/module_method_say_words_s.rb'));
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe RubyMethodCodeBuilder do
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
       # Create RubyMethodCodeBuilder for 'ctor'
-      expect(uut.build_method_runner()).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_runner_say_words.rb'));
+      expect(uut.build_method_runner()).to eq(Testing::TestDataHandler.read_file_to_s('testing/data/module_method_runner_say_words.rb'));
     end
   end
 
@@ -108,7 +108,7 @@ RSpec.describe RubyMethodCodeBuilder do
       # Initalize ClassCodeBuilder
       uut = build_say_words_uut(lesson_data)
       # Create RubyMethodCodeBuilder for 'ctor'
-      expect(uut.build_solution_runner(2)).to eq(Testing::TestDataHandler.read_file_to_s('tests/data/module_method_srunner_say_words.rb'));
+      expect(uut.build_solution_runner(2)).to eq(Testing::TestDataHandler.read_file_to_s('testing/data/module_method_srunner_say_words.rb'));
     end
   end
 
@@ -133,7 +133,7 @@ RSpec.describe RubyMethodCodeBuilder do
   describe '#build_tests' do
     it 'should go through its @test_code Array variable and generate appropriate test code.' do
       uut = build_say_words_uut(lesson_data)
-      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_method_t_say_words.rb')
+      expected_string = Testing::TestDataHandler.read_file_to_s('testing/data/module_method_t_say_words.rb')
       generated_string = uut.build_tests
       # DEBUG
       Testing::TestDataHandler.write_string_to_file(uut.build_tests,'./delete_test_method_t_say_words.rb') if DEBUG
@@ -145,7 +145,7 @@ RSpec.describe RubyMethodCodeBuilder do
   describe '#build_spec' do 
     it 'should be able to ' do 
       uut = build_say_words_uut(lesson_data)
-      expected_string = Testing::TestDataHandler.read_file_to_s('tests/data/module_spec_t_say_words.rb')
+      expected_string = Testing::TestDataHandler.read_file_to_s('testing/data/module_spec_t_say_words.rb')
       generated_string = uut.build_spec
       # DEBUG
       Testing::TestDataHandler.write_string_to_file(uut.build_spec,'./delete_module_spec_t_say_words.rb') if DEBUG
