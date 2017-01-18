@@ -45,6 +45,8 @@ gem 'ace-rails-ap'
 
 # Rspec for RspecCodeRunner
 gem 'rspec-rails'
+gem 'rspec'
+gem 'json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
