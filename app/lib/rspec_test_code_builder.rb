@@ -1,5 +1,4 @@
 # require_relative './RubyCodeBuilder.rb'
-require 'JSON'
 
 class RspecTestCodeBuilder < RubyCodeBuilder
   def initialize(test_code_input)
