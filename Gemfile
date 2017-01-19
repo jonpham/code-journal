@@ -47,6 +47,7 @@ gem 'ace-rails-ap'
 gem 'rspec-rails'
 gem 'rspec'
 gem 'json'
+gem 'dotenv'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
