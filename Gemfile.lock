@@ -233,7 +233,7 @@ DEPENDENCIES
   faker (~> 1.6.6)
   jbuilder (~> 2.5)
   jquery-rails
-  json
+  json (~> 2.0, >= 2.0.2)
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry-byebug
@@ -241,8 +241,8 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   redcarpet
   rouge
-  rspec
-  rspec-rails
+  rspec (~> 3.5, >= 3.5.0)
+  rspec-rails (~> 3.5, >= 3.5.2)
   sass-rails (~> 5.0)
   simplemde
   spring

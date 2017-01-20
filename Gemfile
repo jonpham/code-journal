@@ -44,9 +44,9 @@ gem 'simplemde'
 gem 'ace-rails-ap'
 
 # Rspec for RspecCodeRunner
-gem 'rspec-rails'
-gem 'rspec'
-gem 'json'
+gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+gem 'rspec','~> 3.5', '>= 3.5.0'
+gem 'json', '~> 2.0', '>= 2.0.2'
 gem 'dotenv'
 
 # Use Capistrano for deployment
