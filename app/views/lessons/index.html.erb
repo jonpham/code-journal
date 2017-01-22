@@ -8,4 +8,24 @@
 <div>
   <h2>Current Learning</h2>
   <p> Loop through and List Current User's Lesson Sessions.</p>
+
+  <table>
+    <tr>
+      <th>Lesson_Session ID</th>
+      <th>Lesson</th>
+      <th>Go To Link</th>
+      <th>Data Started</th>
+      <th>Progress</th>
+    </tr>
+    <% current_user.get_lesson_sessions.each do |session| %>
+      <tr>
+        <td><%= session.id %></td>
+        <td><%= session.lesson.name %></td>
+        <td><%= session.created_at %></td>
+        <td><%= session.get_progress %></td>
+        <td> <%= session.id %></td>
+        <td> <%= session.id %></td>
+      </tr>
+    <% end %>
+  <table>
 </div>

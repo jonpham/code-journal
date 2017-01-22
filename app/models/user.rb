@@ -29,4 +29,8 @@ class User < ApplicationRecord
   has_many :module_sessions, through: :lesson_sessions
   has_many :code_snippets, through: :module_sessions
 
+  def get_lesson_sessions
+    LessonSession.joins(:lesson).where("user_id = ?",self.id)
+  end
+
 end
