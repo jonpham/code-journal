@@ -199,7 +199,31 @@ class RubyClassCodeBuilder < RubyCodeBuilder
     return spec_string
   end
 
-  def build_markup
+  def build_class_sample
     # Return Class as Markdown
+    class_string = ""
+    accessor_string = ""
+
+    # Build Class Accessor List
+    if ((@class_variables !=nil ) && (!@class_variables.empty?))
+      accessor_string += "attr_accessor"
+      (1..@class_variables.length).each do |i|
+        accessor_string += " :#{@class_variables[i-1]}"
+        accessor_string += ', ' unless (i == @class_variables.length)
+      end
+      accessor_string += "\n\n"
+    end
+
+    # Build Class
+    class_string = "class #{@class_name}\n"
+    class_string += indent_each_line(accessor_string) if !accessor_string.empty?
+
+    # Build Module Methods
+    if !@method_set.empty?
+      class_string += indent_each_line(self.build_module_methods())
+    end
+
+    class_string += "end"
+    return class_string.rstrip
   end
 end

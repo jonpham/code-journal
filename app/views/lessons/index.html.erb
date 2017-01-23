@@ -19,7 +19,7 @@
     </tr>
     <% current_user.get_lesson_sessions.each do |session| %>
       <tr>
-        <td><%= session.id %></td>
+        <td><%= link_to session.id, lesson_path(session.lesson.id)+"?session=#{session.id}" %></td>
         <td><%= session.lesson.name %></td>
         <td><%= session.created_at %></td>
         <td><%= session.get_progress %></td>

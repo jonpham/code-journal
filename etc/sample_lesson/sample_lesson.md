@@ -1,31 +1,40 @@
-#This page shall Serve as the Example Lesson Description Content.
+#**Sample Lesson**
 
-##**Sample Lesson**
+##**Concept Description**
+A sample lesson used to determine the capabilities of the RubyCodeRunner, RubyMethodCodeBuilder, etc to run and create classes, methods, and associated specs from LessonSessions and combine them with the the solution/base lesson data. 
 
-###**Concept Description**
+##**Relevancy / Why It's Important**
+Methods in the Sample Lesson, are not particularly important, butresults from the SampleLesson shall validate personal cod to develop and create runnable user code. 
 
-###**Relevancy / Why It's Important**
+##**Class Structure**
+^^^CLASS_CODE_SAMPLE^^^
 
-###**Example Exercise**
-###**Problem Context**
-###**CodeExecution**
-###**AcceptanceCriteria**
+##**Problem Context**
+Problem has ZERO need for comcenpt, asn no depnencies outiside fo Ruby/Rails v5 is required 
 
-####**Module1**
+##**CodeExecution**
+Ass students are expected to 
+
+##**AcceptanceCriteria**
+
+- - -
+
+###**Section 1**
 ```
 def say_hello
     # Return Appropriate String
 end
 ```
 
-####**Module2**
+####**Section 2**
 ```
 def say_words(word1, word2)
     # Return Appropriate String
 end
 ```
 
-####**Module3**
+####**Section 3**
+
 ```
 def say_words(input_array=[])
     # Return Appropriate String
